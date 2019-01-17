@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <errno.h>
 
 char g_bit = 0;
 
-void g_debug()
+/*void g_debug()
 {
+	printf("----OPTION-----\n");
 	if (g_bit & 1)
 		ft_putendl("a");
 	if (g_bit & 2)
@@ -29,56 +29,56 @@ void g_debug()
 		printf("t\n");
 	if (g_bit & 32)
 		printf("--\n");
+}*/
+
+void 	ft_error2(char *s)
+{
+	int i;
+
+	i = 0;
+	ft_putstr_fd("ls: ", 2);
+	while(s[i])
+	{
+		ft_putchar_fd(s[i], 2);
+		i++;
+	}
+	ft_putendl_fd(": No such file or directory", 2);
 }
 
-int		ft_error(char c, int i)
+void	ft_error(char c, int i)
 {
 	if (i == 0)
-	{
-		ft_putendl("ls: -: No such file or directory");
-	}
+		ft_putendl_fd("ls: -: No such file or directory", 2);
+	else if (i == 1)
+		ft_putendl_fd("ls: fts_open: No such file or directory", 2);
 	else
 	{
-		ft_putstr("ls : illegal option -- ");
-		ft_putchar(c);
-		ft_putendl("");
-		ft_putstr("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]");
+		ft_putstr_fd("ls: illegal option -- ", 2);
+		ft_putchar_fd(c, 2);
+		ft_putendl_fd("", 2);
+		ft_putstr_fd("usage: ls [-alrRt] [file ...]", 2);
 	}
-	return (0);
+	exit(EXIT_FAILURE);
 }
 
-void	put_in_tab()
+int dirtrue(char *s1)
 {
-	printf("AUCUN DES DEUX\n");
-}
-
-void	dirtrue(char *s1)
-{
-	printf("SALUT\n");
-	printf("%s\n", s1);
-	DIR *dir;
-
-	dir = opendir(s1);
-	if (dir != NULL)
-	{
-		closedir(dir);
-		printf("Directory\n");
-	}
-	else if (errno == ENOTDIR)
-	{
-		printf("FILE\n");
-	}
+	//the file or directory exits ?
+	//yes = 1;
+	//no = 0;
+	
+	struct stat file;
+	if (stat(s1, &file) == 0)
+		return (1);
 	else
-		put_in_tab();
+		return (0);
 }
 
 void	option(char *s1)
 {
-	int blocker;
 	int i;
 
 	i = 1;
-	blocker = 0;
 	if (s1[i] == '\0')
 		ft_error(*s1, 0);
 	s1++;
@@ -107,33 +107,80 @@ void	option(char *s1)
 	}
 }
 
-int main (int argc, char **argv)
+void sort_argv(int i, int argc, char **tab)
+{
+	char *temp;
+	int j;
+
+	j = i;
+	while (i < argc && tab[i + 1] != '\0')
+	{
+		if (ft_strcmp(tab[i], tab[i + 1]) > 0)
+		{
+			temp = tab[i];
+			tab[i] = tab[i + 1];
+			tab[i + 1] = temp;
+			i = j;
+		}
+		else
+			i++;
+	}
+}
+
+void	check_directory(int i, int argc, char **argv)
+{
+	while (i < argc)
+	{
+		if(!(dirtrue(argv[i])))
+			ft_error2(argv[i]);
+		i++;
+	}
+}
+
+int		check_option(char **s1, int argc)
 {
 	int i;
 
 	i = 1;
-	/*This while it's only for option*/
 	while (i < argc)
 	{
 			if (g_bit & 32)
 				break ;
-			if (argv[i][0] == '-')
+			if (s1[i][0] == '-')
 			{
 				g_bit |= 64;
-				option(argv[i]);
+				option(s1[i]);
 			}
 			else
 				break ;
 		i++;
 	}
-	/*if (g_bit & 64)
-		i++;*/
-	/*This while it's for directory or file*/
+	return (i);
+}
+
+void	check_arguments_b0(char **s1, int argc)
+{
+	int i;
+
+	i = 1;
 	while (i < argc)
 	{
-		dirtrue(argv[i]);
+		if (s1[i][0] == '-' && s1[i][1] == '\0')
+			ft_error(s1[i][0], 0);
+		if (s1[i][0] == '\0')
+			ft_error(s1[i][0], 1);
 		i++;
 	}
-	g_debug();
+}
+
+int main (int argc, char **argv)
+{
+	int i;
+
+	i = 1;
+	check_arguments_b0(argv, argc);
+	i = check_option(argv, argc);
+	sort_argv(i, argc, argv);
+	check_directory(i, argc, argv);
 	return (0);
 }
