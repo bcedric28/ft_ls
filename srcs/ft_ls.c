@@ -31,80 +31,17 @@ char g_bit = 0;
 		printf("--\n");
 }*/
 
-void 	ft_error2(char *s)
+int number_of_digit(int i)
 {
-	int i;
+	int digit;
 
-	i = 0;
-	ft_putstr_fd("ls: ", 2);
-	while(s[i])
+	digit = 0;
+	while (i != 0)
 	{
-		ft_putchar_fd(s[i], 2);
-		i++;
+		i /= 10;
+		++digit;
 	}
-	ft_putendl_fd(": No such file or directory", 2);
-}
-
-void	ft_error(char c, int i)
-{
-	if (i == 0)
-		ft_putendl_fd("ls: -: No such file or directory", 2);
-	else if (i == 1)
-		ft_putendl_fd("ls: fts_open: No such file or directory", 2);
-	else
-	{
-		ft_putstr_fd("ls: illegal option -- ", 2);
-		ft_putchar_fd(c, 2);
-		ft_putendl_fd("", 2);
-		ft_putstr_fd("usage: ls [-alrRt] [file ...]", 2);
-	}
-	exit(EXIT_FAILURE);
-}
-
-int dirtrue(char *s1)
-{
-	//the file or directory exits ?
-	//yes = 1;
-	//no = 0;
-	
-	struct stat file;
-	if (stat(s1, &file) == 0)
-		return (1);
-	else
-		return (0);
-}
-
-void	option(char *s1)
-{
-	int i;
-
-	i = 1;
-	if (s1[i] == '\0')
-		ft_error(*s1, 0);
-	s1++;
-	while(*s1)
-	{
-		if (g_bit & 32)
-			break ;
-		if (*s1 == 'a')
-			g_bit |= 1;
-		else if (*s1 == 'l')
-			g_bit |= 2;
-		else if (*s1 == 'r')
-			g_bit |= 4;
-		else if (*s1 == 'R')
-			g_bit |= 8;
-		else if(*s1 == 't')
-			g_bit |= 16;
-		else if (*s1 == '-')
-			g_bit |= 32;
-		else
-		{
-			ft_error(*s1, 1);
-			break ;
-		}
-		s1++;
-	}
+	return (digit);
 }
 
 void sort_argv(int i, int argc, char **tab)
@@ -127,60 +64,40 @@ void sort_argv(int i, int argc, char **tab)
 	}
 }
 
-void	check_directory(int i, int argc, char **argv)
-{
-	while (i < argc)
-	{
-		if(!(dirtrue(argv[i])))
-			ft_error2(argv[i]);
-		i++;
-	}
-}
 
-int		check_option(char **s1, int argc)
-{
-	int i;
-
-	i = 1;
-	while (i < argc)
-	{
-			if (g_bit & 32)
-				break ;
-			if (s1[i][0] == '-')
-			{
-				g_bit |= 64;
-				option(s1[i]);
-			}
-			else
-				break ;
-		i++;
-	}
-	return (i);
-}
-
-void	check_arguments_b0(char **s1, int argc)
-{
-	int i;
-
-	i = 1;
-	while (i < argc)
-	{
-		if (s1[i][0] == '-' && s1[i][1] == '\0')
-			ft_error(s1[i][0], 0);
-		if (s1[i][0] == '\0')
-			ft_error(s1[i][0], 1);
-		i++;
-	}
-}
 
 int main (int argc, char **argv)
 {
 	int i;
+	char *c;
+	int j = 0;
+	List mylist = new_list();
+
+	i = 1;
+	while (i < argc)
+	{
+		mylist = push_back(mylist, argv[i]);
+		i++;
+	}
+	j = list_size(mylist);
+	i = 0;
+	c = ft_itoa(j);
+	while (c[i] != '\0')
+	{
+		ft_putchar(c[i]);
+		i++;
+	}
+	printf("I: %d\n", i);
+	print_list(mylist);
+	printf("\n-----------------\n");
+	swap_list(mylist, 3, 5);
+	print_list(mylist);
 
 	i = 1;
 	check_arguments_b0(argv, argc);
 	i = check_option(argv, argc);
 	sort_argv(i, argc, argv);
 	check_directory(i, argc, argv);
+//	g_debug();
 	return (0);
 }

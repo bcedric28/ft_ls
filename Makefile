@@ -14,7 +14,7 @@ NAME = ft_ls
 
 FLAG = -Wall -Wextra -Werror
 
-SOURCE = ft_ls.c
+SOURCE = ft_ls.c error.c checker.c list.c
 
 LIBFT_DIR = Libft/
 
