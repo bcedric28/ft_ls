@@ -12,15 +12,18 @@
 
 #include "ft_ls.h"
 
-int dirtrue(char *s1)
+int dirtrue(char *s1, struct stat *file)
 {
 	//the file or directory exits ?
 	//yes = 1;
 	//no = 0;
 	
-	struct stat file;
-	if (stat(s1, &file) == 0)
+	//struct stat file;
+	if (stat(s1, file) == 0)
+	{
+		//printf("File Link:    %d\n", file->st_nlink);
 		return (1);
+	}
 	else
 		return (0);
 }
@@ -28,10 +31,18 @@ int dirtrue(char *s1)
 void	option(char *s1)
 {
 	s1++;
+	if (*s1 == '-')
+	{
+		g_bit |= 32;
+		return ;
+	}
+	if (*s1 == '\0')
+	{
+		g_bit |= 64;
+		return ;
+	}
 	while(*s1)
 	{
-		if (g_bit & 32)
-			break ;
 		if (*s1 == 'a')
 			g_bit |= 1;
 		else if (*s1 == 'l')
@@ -42,8 +53,6 @@ void	option(char *s1)
 			g_bit |= 8;
 		else if(*s1 == 't')
 			g_bit |= 16;
-		else if (*s1 == '-')
-			g_bit |= 32;
 		else
 		{
 			ft_error(*s1, 3);
@@ -53,14 +62,26 @@ void	option(char *s1)
 	}
 }
 
-void	check_directory(int i, int argc, char **argv)
+List  put_in_list(char *str, List li,  struct stat file)
 {
+	li = push_back(li, str, file);
+
+	return (li);
+}
+
+List	check_directory(int i, int argc, char **argv, List li)
+{
+	struct stat file;
+
 	while (i < argc)
 	{
-		if(!(dirtrue(argv[i])))
-			ft_error2(argv[i]);
+		if (!(dirtrue(argv[i], &file)))
+		 ft_error2(argv[i]);
+		else
+			li = put_in_list(argv[i], li, file);
 		i++;
 	}
+	return (li);
 }
 
 int		check_option(char **s1, int argc)
@@ -68,17 +89,18 @@ int		check_option(char **s1, int argc)
 	int i;
 
 	i = 1;
-	while (i < argc)
+	while (i < argc && !(g_bit & 32) && !(g_bit & 64))
 	{
-			if (g_bit & 32)
-				break ;
 			if (s1[i][0] == '-')
 				option(s1[i]);
 			else
 				break ;
 		i++;
 	}
-	return (i);
+	if (g_bit & 64)
+		return (i - 1);
+	else
+		return (i);
 }
 
 void	check_arguments_b0(char **s1, int argc)
@@ -88,11 +110,6 @@ void	check_arguments_b0(char **s1, int argc)
 	i = 1;
 	while (i < argc)
 	{
-		if (s1[i][0] == '-' && s1[i][1] == '\0')
-		{
-			g_bit |= 32;
-			break ;
-		}
 		if (s1[i][0] == '\0')
 			ft_error(s1[i][0], 1);
 		i++;

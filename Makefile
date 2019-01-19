@@ -12,7 +12,7 @@
 
 NAME = ft_ls
 
-FLAG = -Wall -Wextra -Werror
+FLAG = -Wall -Wextra
 
 SOURCE = ft_ls.c error.c checker.c list.c
 

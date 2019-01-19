@@ -58,9 +58,9 @@ void print_list(List li)
 	while (li != NULL)
 	{
 		i = 0;
-		while(li->c[i] != '\0')
+		while(li->name[i] != '\0')
 		{
-			ft_putchar(li->c[i]);
+			ft_putchar(li->name[i]);
 			i++;
 		}
 		li = li->next;
@@ -71,7 +71,7 @@ void print_list(List li)
 
 /* ------------------------------------- */
 
-List push_back(List li, char *s)
+List push_back(List li, char *s, struct stat file)
 {
 	ListElement *element;
 	ListElement	*temp;
@@ -80,7 +80,9 @@ List push_back(List li, char *s)
 	{
 		exit(EXIT_FAILURE);
 	}
-	element->c = s;
+	element->name = s;
+	element->fileinfo = file;
+
 	element->next = NULL;
 	if(!(is_empty(li)))
 		return (element);
@@ -101,7 +103,7 @@ List push_front(List li, char *s)
 	{
 		exit(EXIT_FAILURE);
 	}
-	element->c = s;
+	element->name = s;
 
 	if(!(is_empty(li)))
 		element->next = NULL;
@@ -157,75 +159,50 @@ List back_front(List li)
 	return (element);
 }
 
+/* ------------------------------------- */
 
-void swap_list(List li, int q, int n) /*3(temp), 5(after)*/
+int swap_list(List li, int i, int j)
 {
-	int i;
-	int j;
 	ListElement *temp;
-	ListElement *after;
-	ListElement *before;
-	ListElement *beforeaft;
-	ListElement *aftertmp;
-	ListElement *aftere;
-	ListElement *sauv;
+	ListElement *temp2;
+	char *temp3;
+	int a;
+	int b;
 
-	before = li;
+	a = 0;
+	b = 0;
 	temp = li;
-
-	sauv = li;
-	after = li;
-	beforeaft = li;
-	i = 0;
-	while (i < q - 1)
+	temp2 = li;
+	if (i > list_size(li) || j > list_size(li) || i < 0 ||
+		j < 0 || i == j)
+		return (0);
+	while (a < i - 1)
 	{
-		i++;
-		before = temp;
+		if (temp->next == NULL)
+			break ;
 		temp = temp->next;
+		a++;
 	}
-	printf("TEMP %s\n", temp->c);
-	printf("Before temp %s\n", before->c);
-	aftertmp = temp->next;
-	printf("After %s\n", aftertmp->c);
-	j = 0;
-	while (j < n - 1)
+	while (b < j - 1)
 	{
-		j++;
-		beforeaft = after;
-		after = after->next;
+		if (temp->next == NULL)
+			break ;
+		temp2 = temp2->next;
+		b++;
 	}
-	aftere = after->next;
-	printf("BONJOUR %s\n", aftere->c);
-	printf("BEFORE %s\n", beforeaft->c);
-	int k = 1;
-	while (k < q - 1)
+	temp3 = temp->name;
+	temp->name = temp2->name;
+	temp2->name = temp3;
+	return (1);
+	/*if (i == 0)
 	{
-		li = li->next;
-		k++;
-	}
-	printf("Coucou %s\n", li->c);
-	li->next = beforeaft->next;
-	sauv = aftertmp->next;
-	k = 1;
-	while (k < q)
-	{
-		printf("salut %s\n", li->c);
-		li = li->next;
-		k++;
-	}
-	printf("salut %s\n", li->c);
-	aftertmp->next = temp->next;
-	temp->next = aftere->next;
-	printf("DEBEUG %s\n", li->c);
-	printf("DEBEUG 1 %s\n", sauv->c);
-	sleep(10);
-	li->next = sauv->next;
-	printf("cara %p\n", aftertmp->next);
-	printf("CARA %p\n", temp->next);
-	//aftertmp->next = before->next;
-	printf("Coucou2 %s\n", aftertmp->c);
-	//li->next = aftertmp->next;
-
+		li = temp2;
+		li->next = temp;
+		printf("ccc%s\n", li->name);
+		li->next = temp->next;
+		printf("ddd%s\n", li->next->name);
+		li->next->next = NULL;
+	}*/
 }
 
 

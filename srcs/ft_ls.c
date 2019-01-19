@@ -31,19 +31,6 @@ char g_bit = 0;
 		printf("--\n");
 }*/
 
-int number_of_digit(int i)
-{
-	int digit;
-
-	digit = 0;
-	while (i != 0)
-	{
-		i /= 10;
-		++digit;
-	}
-	return (digit);
-}
-
 void sort_argv(int i, int argc, char **tab)
 {
 	char *temp;
@@ -52,7 +39,9 @@ void sort_argv(int i, int argc, char **tab)
 	j = i;
 	while (i < argc && tab[i + 1] != '\0')
 	{
-		if (ft_strcmp(tab[i], tab[i + 1]) > 0)
+		if (((g_bit & 4) && !(g_bit & 16)) ? 
+		ft_strcmp(tab[i], tab[i + 1]) < 0 :
+		ft_strcmp(tab[i], tab[i + 1]) > 0)
 		{
 			temp = tab[i];
 			tab[i] = tab[i + 1];
@@ -64,40 +53,29 @@ void sort_argv(int i, int argc, char **tab)
 	}
 }
 
-
-
 int main (int argc, char **argv)
 {
 	int i;
-	char *c;
-	int j = 0;
 	List mylist = new_list();
-
-	i = 1;
-	while (i < argc)
-	{
-		mylist = push_back(mylist, argv[i]);
-		i++;
-	}
-	j = list_size(mylist);
-	i = 0;
-	c = ft_itoa(j);
-	while (c[i] != '\0')
-	{
-		ft_putchar(c[i]);
-		i++;
-	}
-	printf("I: %d\n", i);
-	print_list(mylist);
-	printf("\n-----------------\n");
-	swap_list(mylist, 3, 5);
-	print_list(mylist);
 
 	i = 1;
 	check_arguments_b0(argv, argc);
 	i = check_option(argv, argc);
 	sort_argv(i, argc, argv);
-	check_directory(i, argc, argv);
-//	g_debug();
+	mylist = check_directory(i, argc, argv, mylist);
+	print_list(mylist);
+	printf("%s\n", ctime(&mylist->fileinfo.st_mtime));
+	printf("%ld\n", mylist->fileinfo.st_mtime);
+	printf("%s\n", ctime(&mylist->next->fileinfo.st_mtime));
+
+	if (mylist->fileinfo.st_mtime < mylist->next->fileinfo.st_mtime)
+		printf("coin\n");
+	while (mylist != NULL)
+	{
+		back_front(mylist);
+		mylist = mylist->next;
+	}
+	print_list(mylist);
+	//g_debug();
 	return (0);
 }

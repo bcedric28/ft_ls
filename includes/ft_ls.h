@@ -26,23 +26,25 @@
 
 extern char g_bit;
 
-/* Fonction de checker de error et de tri de argv */
-
-void	ft_error(char c, int i);
-void 	ft_error2(char *s);
-int  	dirtrue(char *s1);
-void	option(char *s1);
-void	check_directory(int i, int argc, char **argv);
-int		check_option(char **s1, int argc);
-void	check_arguments_b0(char **s1, int argc);
 
 /* Definition de la liste chainee */
 
 typedef struct ListElement
 {
-	char *c;
+	char *name;
+	struct stat fileinfo;
 	struct ListElement *next;
 }ListElement, *List;
+
+/* Fonction de checker de error et de tri de argv */
+
+void	ft_error(char c, int i);
+void 	ft_error2(char *s);
+//int		dirtrue(char *s1);
+void	option(char *s1);
+List	check_directory(int i, int argc, char **argv, List li);
+int		check_option(char **s1, int argc);
+void	check_arguments_b0(char **s1, int argc);
 
 /* Prototype de liste */
 
@@ -50,9 +52,9 @@ List new_list(void);
 int is_empty(List li);
 int list_size(List li);
 void print_list(List li);
-List push_back(List li, char *s);
+List push_back(List li, char *s, struct stat file);
 List push_front(List li, char *s);
 List back_up(List li);
 List back_front(List li);
-void swap_list(List li, int q, int n);
+int	 swap_list(List li, int i, int j);
 #endif
