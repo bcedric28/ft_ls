@@ -72,7 +72,15 @@ List  put_in_list(char *str, List li,  struct stat file)
 List	check_directory(int i, int argc, char **argv, List li)
 {
 	struct stat file;
-
+	ListElement *child;
+	if (i == argc)
+	{
+		dirtrue("./", &file);
+		li = put_in_list("./", li, file);
+		child = create_child_list(li, "");
+		free(li);
+		return (child);
+	}
 	while (i < argc)
 	{
 		if (!(dirtrue(argv[i], &file)))

@@ -90,6 +90,85 @@ List check_sort_list(List li)
 	return (li);
 }
 
+List create_child_list(List li)
+{
+	struct dirent *dent;
+	struct stat fileinfo;
+	List child = new_list();
+	DIR *dir;
+
+	//printf("path = %s%s\n", parent, li->name);
+	//printf("join = %s\n", ft_strjoin(parent, li->name));
+
+	dir = opendir(li->name);	
+	//if (dir == NULL)
+	//	return(child);
+	while((dent = readdir(dir)) != NULL)
+	{
+		stat(dent->d_name, &fileinfo);
+		child = push_back(child, dent->d_name, fileinfo);
+	}
+	// free(dent);
+	//free(fileinfo);
+	return(child);
+}
+
+void parent_to_childe(List parent)
+{
+	DIR *dir;
+	List child = new_list();
+
+	print_list(parent);
+	while(parent->next != NULL)
+	{
+		if ((ft_strcmp(parent->name, ".") != 0) && (ft_strcmp(parent->name, "..") != 0))
+		{
+
+			dir = opendir(parent->name);
+			printf("DIR :%s\n", parent->name);
+			if (dir == NULL)
+			{
+				printf("Saliu\n");
+				parent = parent->next;
+			}
+			else
+			{
+				printf("COUCOU\n");
+				child = create_child_list(parent);
+				print_list(child);
+				parent_to_childe(child);
+			}
+		}
+		parent = parent->next;
+	}
+}
+
+/*void parent_to_child(List parent, char *old_parent)
+{
+	List child = new_list();
+	char *temp;
+	while(parent->next != NULL)
+	{
+		temp = parent->name;
+		if ((ft_strcmp(parent->name,".") != 0) && (ft_strcmp(parent->name,"..") != 0))
+		{
+			child = create_child_list(parent, old_parent);
+			// print_list(child);
+			if (g_bit & 8 && child)
+			{
+				parent->name = ft_strjoin(parent->name, "/");
+				old_parent = ft_strjoin(old_parent, parent->name);
+				//printf("path = %s%s\n", old_parent, child->name);
+
+				parent_to_child(child, old_parent);
+			}
+		}
+		free(child);
+		printf("1) %s\n", parent->next->name);
+		parent = parent->next;
+	}
+}*/
+
 int main (int argc, char **argv)
 {
 	int i;
@@ -100,19 +179,18 @@ int main (int argc, char **argv)
 	i = check_option(argv, argc);
 	sort_argv(i, argc, argv);
 	mylist = check_directory(i, argc, argv, mylist);
-	print_list(mylist);
 	mylist = check_sort_list(mylist);
-	print_list(mylist);
-	/*if (mylist->fileinfo.st_mtime < mylist->next->fileinfo.st_mtime)
-		printf("coin\n");*/
-	printf("Time :%s\n", ctime(&mylist->fileinfo.st_mtime));
-	printf("Time 2 :%s\n", ctime(&mylist->next->fileinfo.st_mtime));
+	print_list(mylist);	
+	parent_to_childe(mylist);
+	if (!(g_bit & 128))
+	{
+
+	}
 	while (mylist != NULL)
 	{
 		back_front(mylist);
 		mylist = mylist->next;
 	}
-	print_list(mylist);
 	//g_debug();
 	return (0);
 }
