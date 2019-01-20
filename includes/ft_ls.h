@@ -57,6 +57,6 @@ List push_front(List li, char *s, struct stat file);
 List back_up(List li);
 List back_front(List li);
 int	 swap_list(List li, int i, int j);
-List create_child_list(List li);
+List create_child_list(char *path);
 
 #endif

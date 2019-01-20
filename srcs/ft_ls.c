@@ -81,7 +81,7 @@ List check_sort_list(List li)
 	{
 		List new_ord = new_list();
 		while(li != NULL)
-		{	
+		{
 			new_ord = push_front(new_ord, li->name, li->fileinfo);
 			li = back_front(li);
 		}
@@ -90,19 +90,17 @@ List check_sort_list(List li)
 	return (li);
 }
 
-List create_child_list(List li)
+List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 {
 	struct dirent *dent;
 	struct stat fileinfo;
 	List child = new_list();
 	DIR *dir;
 
-	//printf("path = %s%s\n", parent, li->name);
-	//printf("join = %s\n", ft_strjoin(parent, li->name));
+	printf("%s :\n", path);
 
-	dir = opendir(li->name);	
-	//if (dir == NULL)
-	//	return(child);
+	dir = opendir(path); //On ouvre le path et non le name
+
 	while((dent = readdir(dir)) != NULL)
 	{
 		stat(dent->d_name, &fileinfo);
@@ -110,34 +108,48 @@ List create_child_list(List li)
 	}
 	// free(dent);
 	//free(fileinfo);
+
 	return(child);
 }
 
-void parent_to_childe(List parent)
+void parent_to_childe(List parent, char *path) //ajout du path pour la recursive
 {
 	DIR *dir;
 	List child = new_list();
+	char *path_backup; //correspond au path avant d'avoir ajouté le num du dossier qu'on ouvre (il doit y avoir moyen de faire autrement mais bon...)
+	parent = check_sort_list(parent);
 
+	path_backup = ft_strdup(path); //On sauve le path dedans
 	print_list(parent);
-	while(parent->next != NULL)
+
+	while(parent != NULL)   //Si on laisse le next on perd le dernier element
 	{
 		if ((ft_strcmp(parent->name, ".") != 0) && (ft_strcmp(parent->name, "..") != 0))
 		{
+			//On config le path avant de faire quoi que ce soit
+			path = ft_strjoin(path, "/"); //On ajoute un / car c'est un dossier
+			path = ft_strjoin(path, parent->name); //puis le nom du fichier
 
-			dir = opendir(parent->name);
-			printf("DIR :%s\n", parent->name);
+			dir = opendir(path); //vérifier qu'il faut pas mettre le path
+
 			if (dir == NULL)
 			{
-				printf("Saliu\n");
-				parent = parent->next;
+				// printf("fichier : %s\n", path);
+				//parent = parent->next; //on passait 2x au suivant ici
 			}
 			else
 			{
-				printf("COUCOU\n");
-				child = create_child_list(parent);
-				print_list(child);
-				parent_to_childe(child);
+
+				// printf("dossier : %s\n", path);
+
+				//leak
+				child = create_child_list(path); //On cree la structure avec tous les enfants du path
+				parent_to_childe(child, path); //On recusive sur les enfants et on garde le path complet
+									//leak
+				printf("\n");
 			}
+			path = path_backup; //On remet le path sans le nom du dossier
+
 		}
 		parent = parent->next;
 	}
@@ -180,8 +192,8 @@ int main (int argc, char **argv)
 	sort_argv(i, argc, argv);
 	mylist = check_directory(i, argc, argv, mylist);
 	mylist = check_sort_list(mylist);
-	print_list(mylist);	
-	parent_to_childe(mylist);
+	//print_list(mylist);
+	parent_to_childe(mylist, "."); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
 	if (!(g_bit & 128))
 	{
 

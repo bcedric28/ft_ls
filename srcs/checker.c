@@ -17,7 +17,7 @@ int dirtrue(char *s1, struct stat *file)
 	//the file or directory exits ?
 	//yes = 1;
 	//no = 0;
-	
+
 	//struct stat file;
 	if (stat(s1, file) == 0)
 	{
@@ -77,7 +77,7 @@ List	check_directory(int i, int argc, char **argv, List li)
 	{
 		dirtrue("./", &file);
 		li = put_in_list("./", li, file);
-		child = create_child_list(li, "");
+		child = create_child_list(li->name); //On passe le num du dossier qu'on veut ouvrir
 		free(li);
 		return (child);
 	}
