@@ -95,7 +95,7 @@ List push_back(List li, char *s, struct stat file)
 
 /* ------------------------------------- */
 
-List push_front(List li, char *s)
+List push_front(List li, char *s, struct stat file)
 {
 	ListElement *element;
 
@@ -104,6 +104,7 @@ List push_front(List li, char *s)
 		exit(EXIT_FAILURE);
 	}
 	element->name = s;
+	element->fileinfo = file;
 
 	if(!(is_empty(li)))
 		element->next = NULL;
@@ -149,11 +150,10 @@ List back_front(List li)
 	if (!(is_empty(li)))
 		return (li);
 
-	if (!(element = malloc(sizeof(*element))))
-	{
-		exit(EXIT_FAILURE);
-	}
 	element = li->next;
+	free(li->name);
+	free(li->fileinfo.st_nlink);
+	free(li->next);
 	free(li);
 	li = NULL;
 	return (element);

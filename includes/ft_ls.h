@@ -53,7 +53,7 @@ int is_empty(List li);
 int list_size(List li);
 void print_list(List li);
 List push_back(List li, char *s, struct stat file);
-List push_front(List li, char *s);
+List push_front(List li, char *s, struct stat file);
 List back_up(List li);
 List back_front(List li);
 int	 swap_list(List li, int i, int j);
