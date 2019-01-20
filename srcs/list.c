@@ -151,9 +151,6 @@ List back_front(List li)
 		return (li);
 
 	element = li->next;
-	free(li->name);
-	free(li->fileinfo.st_nlink);
-	free(li->next);
 	free(li);
 	li = NULL;
 	return (element);

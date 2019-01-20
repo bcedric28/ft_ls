@@ -56,10 +56,8 @@ List check_sort_list(List li)
 	char *temp;
 	struct stat file;
 	ListElement *j;
-	ListElement *before;
 
 	j = li;
-	before = li;
 	if(g_bit & 16)
 	{
 		while (li->next != NULL)
@@ -79,7 +77,6 @@ List check_sort_list(List li)
 		}
 	}
 	li = j;
-	print_list(li);
 	if (g_bit & 4)
 	{
 		List new_ord = new_list();
@@ -88,8 +85,6 @@ List check_sort_list(List li)
 			new_ord = push_front(new_ord, li->name, li->fileinfo);
 			li = back_front(li);
 		}
-		printf("coucou\n");
-		print_list(before);
 		return(new_ord);
 	}
 	return (li);
@@ -107,6 +102,7 @@ int main (int argc, char **argv)
 	mylist = check_directory(i, argc, argv, mylist);
 	print_list(mylist);
 	mylist = check_sort_list(mylist);
+	print_list(mylist);
 	/*if (mylist->fileinfo.st_mtime < mylist->next->fileinfo.st_mtime)
 		printf("coin\n");*/
 	printf("Time :%s\n", ctime(&mylist->fileinfo.st_mtime));
