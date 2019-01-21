@@ -58,6 +58,21 @@ List check_sort_list(List li)
 	ListElement *j;
 
 	j = li;
+	while (li->next != NULL)
+	{
+		if (ft_strcmp(li->name, li->next->name) > 0)
+		{
+			temp = li->name;
+			file = li->fileinfo;
+			li->name = li->next->name;
+			li->fileinfo = li->next->fileinfo;
+			li->next->name = temp;
+			li->next->fileinfo = file;
+			li = j;
+		}
+		else
+			li = li->next;
+	}
 	if(g_bit & 16)
 	{
 		while (li->next != NULL)
@@ -96,31 +111,166 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 	struct stat fileinfo;
 	List child = new_list();
 	DIR *dir;
+	static int j = 0;
+	int i;
 
-	printf("%s :\n", path);
-
+	i = 2;
+	if(j != 0)
+	{
+		while (path[i])
+		{
+			ft_putchar(path[i]);
+			i++;
+		}
+		ft_putchar(':');
+		ft_putendl("");
+	}
 	dir = opendir(path); //On ouvre le path et non le name
-
 	while((dent = readdir(dir)) != NULL)
 	{
 		stat(dent->d_name, &fileinfo);
 		child = push_back(child, dent->d_name, fileinfo);
 	}
+	j = 1;
 	// free(dent);
 	//free(fileinfo);
 
 	return(child);
 }
 
-void parent_to_childe(List parent, char *path) //ajout du path pour la recursive
+char	file_perm2(int i, List li)
+{
+	if (i == 0)
+		return ((li->fileinfo.st_mode & S_IRUSR) ? 'r' : '-');
+	if (i == 1)
+		return ((li->fileinfo.st_mode & S_IWUSR) ? 'w' : '-');
+	if (i == 2)
+	{
+		if (li->fileinfo.st_mode & S_ISUID)
+			return ((li->fileinfo.st_mode & S_IXUSR) ? 's' : 'S');
+		else
+			return ((li->fileinfo.st_mode & S_IXUSR) ? 'x' : '-');
+	}
+	if (i == 3)
+		return ((li->fileinfo.st_mode & S_IRGRP) ? 'r' : '-');
+	if (i == 4)
+		return ((li->fileinfo.st_mode & S_IWGRP) ? 'w' : '-');
+	if (i == 5)
+	{
+		if (li->fileinfo.st_mode & S_ISGID)
+			return ((li->fileinfo.st_mode & S_IXGRP) ? 's' : 'S');
+		else
+			return ((li->fileinfo.st_mode & S_IXGRP) ? 'x' : '-');
+	}
+	if (i == 6)
+		 return ((li->fileinfo.st_mode & S_IROTH) ? 'r' : '-');
+	if (i == 7)
+		 return ((li->fileinfo.st_mode & S_IWOTH) ? 'w' : '-');
+	if (i == 8)
+	{
+		if (li->fileinfo.st_mode & S_ISVTX)
+			return ((li->fileinfo.st_mode & S_IXUSR) ? 't' : 'T');
+		else
+			return ((li->fileinfo.st_mode & S_IXOTH) ? 'x' : '-');
+	}
+	return (0);
+}
+
+void affichage_type_of_f(List li)
+{
+	if (S_ISREG(li->fileinfo.st_mode))
+		ft_putchar('-');
+	else if (S_ISDIR(li->fileinfo.st_mode))
+		ft_putchar('d');
+	else if (S_ISCHR(li->fileinfo.st_mode))
+		ft_putchar('c');
+	else if (S_ISBLK(li->fileinfo.st_mode))
+		ft_putchar('b');
+	else if (S_ISFIFO(li->fileinfo.st_mode))
+		ft_putchar('p');
+	else if (S_ISLNK(li->fileinfo.st_mode))
+		ft_putchar('l');
+	else if(S_ISSOCK(li->fileinfo.st_mode))
+		ft_putchar('s');
+}
+
+void	affichage_file_perm(List li)
+{
+	char *str;
+	int i;
+
+	i = 0;
+	str = ft_strnew(3);
+	affichage_type_of_f(li);
+	while (i <= 8)
+	{
+		str[i] = file_perm2(i, li);
+		i++;
+	}
+	str[9] = '\0';
+	i = 0;
+	while(str[i])
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+}
+
+/*void	affichage_file_link(List li)
+{
+	//
+}*/
+
+void	affichage_file_l(List li)
+{
+	affichage_file_perm(li);
+	//affichage_file_link(li);
+}
+
+void affichage_file(List li)
+{
+	DIR *dir;
+	ListElement *temp;
+
+	while (li != NULL)
+	{
+		temp = li;
+		dir = opendir(li->name);
+		if (dir == NULL)
+		{
+			if (g_bit & 2)
+				affichage_file_l(temp);
+			ft_putstr(li->name);
+			ft_putendl("");	
+		}
+		else 
+			closedir(dir);
+		li = li->next;
+	}
+	ft_putendl("");
+
+}
+
+void parent_to_childe(List parent, char *path, int j) //ajout du path pour la recursive
 {
 	DIR *dir;
 	List child = new_list();
+	static int i = 0;
 	char *path_backup; //correspond au path avant d'avoir ajouté le num du dossier qu'on ouvre (il doit y avoir moyen de faire autrement mais bon...)
 	parent = check_sort_list(parent);
 
 	path_backup = ft_strdup(path); //On sauve le path dedans
-	print_list(parent);
+
+	if (j > 0 && i == 0)
+		affichage_file(parent);
+	if (j >= 2 && i == 0)
+	{
+		ft_putstr(parent->name);
+		ft_putendl(":");
+	}
+	if (i != 0)
+		print_list(parent);
+	i = 1;
 
 	while(parent != NULL)   //Si on laisse le next on perd le dernier element
 	{
@@ -144,9 +294,8 @@ void parent_to_childe(List parent, char *path) //ajout du path pour la recursive
 
 				//leak
 				child = create_child_list(path); //On cree la structure avec tous les enfants du path
-				parent_to_childe(child, path); //On recusive sur les enfants et on garde le path complet
+				parent_to_childe(child, path, j); //On recusive sur les enfants et on garde le path complet
 									//leak
-				printf("\n");
 			}
 			path = path_backup; //On remet le path sans le nom du dossier
 
@@ -155,49 +304,21 @@ void parent_to_childe(List parent, char *path) //ajout du path pour la recursive
 	}
 }
 
-/*void parent_to_child(List parent, char *old_parent)
-{
-	List child = new_list();
-	char *temp;
-	while(parent->next != NULL)
-	{
-		temp = parent->name;
-		if ((ft_strcmp(parent->name,".") != 0) && (ft_strcmp(parent->name,"..") != 0))
-		{
-			child = create_child_list(parent, old_parent);
-			// print_list(child);
-			if (g_bit & 8 && child)
-			{
-				parent->name = ft_strjoin(parent->name, "/");
-				old_parent = ft_strjoin(old_parent, parent->name);
-				//printf("path = %s%s\n", old_parent, child->name);
-
-				parent_to_child(child, old_parent);
-			}
-		}
-		free(child);
-		printf("1) %s\n", parent->next->name);
-		parent = parent->next;
-	}
-}*/
-
 int main (int argc, char **argv)
 {
 	int i;
-	List mylist = new_list();
+	int j;
 
+	j = 0;
+	List mylist = new_list();
 	i = 1;
 	check_arguments_b0(argv, argc);
 	i = check_option(argv, argc);
 	sort_argv(i, argc, argv);
 	mylist = check_directory(i, argc, argv, mylist);
 	mylist = check_sort_list(mylist);
-	//print_list(mylist);
-	parent_to_childe(mylist, "."); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
-	if (!(g_bit & 128))
-	{
-
-	}
+	j = list_size(mylist);
+	parent_to_childe(mylist, ".", j); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
 	while (mylist != NULL)
 	{
 		back_front(mylist);
