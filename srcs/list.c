@@ -191,15 +191,42 @@ int swap_list(List li, int i, int j)
 	temp->name = temp2->name;
 	temp2->name = temp3;
 	return (1);
-	/*if (i == 0)
+}
+
+/* --------------------------------------- */
+	
+List 	add_list(List li, List begin, char *s)
+{
+	ListElement *element;
+	ListElement *temp;
+
+	temp = li;
+	if (!(element = malloc(sizeof(*element))))
 	{
-		li = temp2;
-		li->next = temp;
-		printf("ccc%s\n", li->name);
-		li->next = temp->next;
-		printf("ddd%s\n", li->next->name);
-		li->next->next = NULL;
-	}*/
+		exit(EXIT_FAILURE);
+	}
+	element->name = s;
+//	element->fileinfo = file;
+	element->next = li->next;
+	li->next = element;
+	return (begin);
+}
+
+List back_list(List li, List begin)
+{
+	ListElement *temp;
+	ListElement *membef;
+	ListElement *memaft;
+
+	temp = begin;
+	while(begin->next->name != li->name)
+		begin = begin->next;
+	membef = begin;
+	memaft = li->next;
+	free(li);
+	li = NULL;
+	membef->next = memaft;
+	return (temp);
 }
 
 

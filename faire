@@ -11,3 +11,8 @@ if (((g_bit & 4) && !(g_bit & 16)) ?
 		ft_strcmp(tab[i], tab[i + 1]) < 0 :
 
 */
+
+sort_list
+fprime
+ft_split
+sort_int_tab

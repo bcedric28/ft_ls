@@ -58,5 +58,7 @@ List back_up(List li);
 List back_front(List li);
 int	 swap_list(List li, int i, int j);
 List create_child_list(char *path);
+List 	add_list(List li, List begin, char *s);
+List back_list(List li, List begin);
 
 #endif
