@@ -17,17 +17,17 @@ char g_bit = 0;
 /*void g_debug()
 {
 	printf("----OPTION-----\n");
-	if (g_bit & 1)
+	if (g_bit & OPTION_a)
 		ft_putendl("a");
-	if (g_bit & 2)
+	if (g_bit & OPTION_l)
 		printf("l\n");
-	if (g_bit & 4)
+	if (g_bit & OPTION_r)
 		printf("r\n");
-	if (g_bit & 8)
+	if (g_bit & OPTION_R)
 		printf("R\n");
-	if (g_bit & 16)
+	if (g_bit & OPTION_t)
 		printf("t\n");
-	if (g_bit & 32)
+	if (g_bit & OPTION_STOP)
 		printf("--\n");
 }*/
 
@@ -73,7 +73,7 @@ List check_sort_list(List li)
 		else
 			li = li->next;
 	}
-	if(g_bit & 16)
+	if(g_bit & OPTION_t)
 	{
 		while (li->next != NULL)
 		{
@@ -92,7 +92,7 @@ List check_sort_list(List li)
 		}
 	}
 	li = j;
-	if (g_bit & 4)
+	if (g_bit & OPTION_r)
 	{
 		List new_ord = new_list();
 		while(li != NULL)
@@ -238,12 +238,12 @@ void affichage_file(List li)
 		dir = opendir(li->name);
 		if (dir == NULL)
 		{
-			if (g_bit & 2)
+			if (g_bit & OPTION_l)
 				affichage_file_l(temp);
 			ft_putstr(li->name);
-			ft_putendl("");	
+			ft_putendl("");
 		}
-		else 
+		else
 			closedir(dir);
 		li = li->next;
 	}
@@ -267,7 +267,7 @@ List 	affichage_a(List li)
 	ListElement *temp;
 
 	temp = li;
-	if (g_bit & 4)
+	if (g_bit & OPTION_r)
 	{
 		while (li != NULL)
 		{
@@ -317,7 +317,7 @@ void parent_to_childe(List parent, char *path, int j) //ajout du path pour la re
 	/*if (i == 0 && j == 0)
 		print_list(parent);
 	if (i != 0)*/
-	if (!(g_bit & 1))
+	if (!(g_bit & OPTION_a))
 		parent = affichage_a(parent);
 	/*if (j > 1 && i == 0)
 	{
@@ -348,7 +348,7 @@ void parent_to_childe(List parent, char *path, int j) //ajout du path pour la re
 				// printf("dossier : %s\n", path);
 
 				//leak
-				if (g_bit & 8)
+				if (g_bit & OPTION_R)
 				{
 					child = create_child_list(path); //On cree la structure avec tous les enfants du path
 					parent_to_childe(child, path, j); //On recusive sur les enfants et on garde le path complet
@@ -357,7 +357,7 @@ void parent_to_childe(List parent, char *path, int j) //ajout du path pour la re
 				{
 					child = create_child_list(path);
 					child = check_sort_list(child);
-						if (!(g_bit & 1))
+						if (!(g_bit & OPTION_a))
 							child = affichage_a(child);
 					print_list(child);
 				}

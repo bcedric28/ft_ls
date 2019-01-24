@@ -13,6 +13,14 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
+# define  OPTION_a 1
+# define  OPTION_l 2
+# define  OPTION_r 4
+# define  OPTION_R 8
+# define  OPTION_t 16
+# define  OPTION_STOP 32
+# define  OPTION_END 64
+
 #include "../Libft/includes/libft.h"
 #include <stdio.h>
 #include <dirent.h>
@@ -25,7 +33,6 @@
 #include <grp.h>
 
 extern char g_bit;
-
 
 /* Definition de la liste chainee */
 

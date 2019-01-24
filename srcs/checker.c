@@ -33,26 +33,26 @@ void	option(char *s1)
 	s1++;
 	if (*s1 == '-')
 	{
-		g_bit |= 32;
+		g_bit |= OPTION_STOP;
 		return ;
 	}
 	if (*s1 == '\0')
 	{
-		g_bit |= 64;
+		g_bit |= OPTION_END;
 		return ;
 	}
 	while(*s1)
 	{
 		if (*s1 == 'a')
-			g_bit |= 1;
+			g_bit |= OPTION_a;
 		else if (*s1 == 'l')
-			g_bit |= 2;
+			g_bit |= OPTION_l;
 		else if (*s1 == 'r')
-			g_bit |= 4;
+			g_bit |= OPTION_r;
 		else if (*s1 == 'R')
-			g_bit |= 8;
+			g_bit |= OPTION_R;
 		else if(*s1 == 't')
-			g_bit |= 16;
+			g_bit |= OPTION_t;
 		else
 		{
 			ft_error(*s1, 3);
@@ -97,7 +97,7 @@ int		check_option(char **s1, int argc)
 	int i;
 
 	i = 1;
-	while (i < argc && !(g_bit & 32) && !(g_bit & 64))
+	while (i < argc && !(g_bit & OPTION_STOP) && !(g_bit & OPTION_END))
 	{
 			if (s1[i][0] == '-')
 				option(s1[i]);
@@ -105,7 +105,7 @@ int		check_option(char **s1, int argc)
 				break ;
 		i++;
 	}
-	if (g_bit & 64)
+	if (g_bit & OPTION_END)
 		return (i - 1);
 	else
 		return (i);
