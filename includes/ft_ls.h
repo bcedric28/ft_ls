@@ -41,6 +41,9 @@ typedef struct ListElement
 	char *name;
 	struct stat fileinfo;
 	struct ListElement *next;
+	char *login;
+	char *group;
+	char *date;
 }ListElement, *List;
 
 /* Fonction de checker de error et de tri de argv */
@@ -51,7 +54,10 @@ void 	ft_error2(char *s);
 void	option(char *s1);
 List	check_directory(int i, int argc, char **argv, List li);
 int		check_option(char **s1, int argc);
+void	option(char *s1);
 void	check_arguments_b0(char **s1, int argc);
+List 	check_option_a(List li);
+List 	option_a(List li);
 
 /* Prototype de liste */
 
@@ -67,5 +73,14 @@ int	 swap_list(List li, int i, int j);
 List create_child_list(char *path);
 List 	add_list(List li, List begin, char *s);
 List back_list(List li, List begin);
+List check_sort_list_ascci(List li);
+List check_sort_list_reverse(List li);
+List check_sort_list_ascci(List li);
+void	affichage_file_perm(List li);
+void 	count_file_link(List li, List begin);
+void	login_name(List li, List begin);
+void	group_name(List li, List begin);
+void file_size(List li, List begin);
+void file_date(List li);
 
 #endif

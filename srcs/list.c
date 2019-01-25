@@ -66,7 +66,6 @@ void print_list(List li)
 		li = li->next;
 		ft_putendl("");
 	}
-	ft_putendl("");
 }
 
 /* ------------------------------------- */
@@ -219,6 +218,10 @@ List back_list(List li, List begin)
 	ListElement *memaft;
 
 	temp = begin;
+	if (begin->name == li->name)
+	{
+		return (back_front(li));
+	}
 	while(begin->next->name != li->name)
 		begin = begin->next;
 	membef = begin;

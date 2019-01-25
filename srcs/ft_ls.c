@@ -51,59 +51,6 @@ void sort_argv(int i, int argc, char **tab)
 	}
 }
 
-List check_sort_list(List li)
-{
-	char *temp;
-	struct stat file;
-	ListElement *j;
-
-	j = li;
-	while (li->next != NULL)
-	{
-		if (ft_strcmp(li->name, li->next->name) > 0)
-		{
-			temp = li->name;
-			file = li->fileinfo;
-			li->name = li->next->name;
-			li->fileinfo = li->next->fileinfo;
-			li->next->name = temp;
-			li->next->fileinfo = file;
-			li = j;
-		}
-		else
-			li = li->next;
-	}
-	if(g_bit & OPTION_t)
-	{
-		while (li->next != NULL)
-		{
-			if (li->fileinfo.st_mtime < li->next->fileinfo.st_mtime)
-			{
-				temp = li->name;
-				file = li->fileinfo;
-				li->name = li->next->name;
-				li->fileinfo = li->next->fileinfo;
-				li->next->name = temp;
-				li->next->fileinfo = file;
-				li = j;
-			}
-			else
-				li = li->next;
-		}
-	}
-	li = j;
-	if (g_bit & OPTION_r)
-	{
-		List new_ord = new_list();
-		while(li != NULL)
-		{
-			new_ord = push_front(new_ord, li->name, li->fileinfo);
-			li = back_front(li);
-		}
-		return(new_ord);
-	}
-	return (li);
-}
 
 List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 {
@@ -111,123 +58,23 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 	struct stat fileinfo;
 	List child = new_list();
 	DIR *dir;
-	static int j = 0;
-	int i;
 
-	i = 2;
-	if(j != 0)
-	{
-		while (path[i])
-		{
-			ft_putchar(path[i]);
-			i++;
-		}
-		ft_putchar(':');
-		ft_putendl("");
-	}
 	dir = opendir(path); //On ouvre le path et non le name
 	while((dent = readdir(dir)) != NULL)
 	{
 		stat(dent->d_name, &fileinfo);
 		child = push_back(child, dent->d_name, fileinfo);
 	}
-	j = 1;
-	// free(dent);
-	//free(fileinfo);
-
 	return(child);
 }
 
-char	file_perm2(int i, List li)
-{
-	if (i == 0)
-		return ((li->fileinfo.st_mode & S_IRUSR) ? 'r' : '-');
-	if (i == 1)
-		return ((li->fileinfo.st_mode & S_IWUSR) ? 'w' : '-');
-	if (i == 2)
-	{
-		if (li->fileinfo.st_mode & S_ISUID)
-			return ((li->fileinfo.st_mode & S_IXUSR) ? 's' : 'S');
-		else
-			return ((li->fileinfo.st_mode & S_IXUSR) ? 'x' : '-');
-	}
-	if (i == 3)
-		return ((li->fileinfo.st_mode & S_IRGRP) ? 'r' : '-');
-	if (i == 4)
-		return ((li->fileinfo.st_mode & S_IWGRP) ? 'w' : '-');
-	if (i == 5)
-	{
-		if (li->fileinfo.st_mode & S_ISGID)
-			return ((li->fileinfo.st_mode & S_IXGRP) ? 's' : 'S');
-		else
-			return ((li->fileinfo.st_mode & S_IXGRP) ? 'x' : '-');
-	}
-	if (i == 6)
-		 return ((li->fileinfo.st_mode & S_IROTH) ? 'r' : '-');
-	if (i == 7)
-		 return ((li->fileinfo.st_mode & S_IWOTH) ? 'w' : '-');
-	if (i == 8)
-	{
-		if (li->fileinfo.st_mode & S_ISVTX)
-			return ((li->fileinfo.st_mode & S_IXUSR) ? 't' : 'T');
-		else
-			return ((li->fileinfo.st_mode & S_IXOTH) ? 'x' : '-');
-	}
-	return (0);
-}
-
-void affichage_type_of_f(List li)
-{
-	if (S_ISREG(li->fileinfo.st_mode))
-		ft_putchar('-');
-	else if (S_ISDIR(li->fileinfo.st_mode))
-		ft_putchar('d');
-	else if (S_ISCHR(li->fileinfo.st_mode))
-		ft_putchar('c');
-	else if (S_ISBLK(li->fileinfo.st_mode))
-		ft_putchar('b');
-	else if (S_ISFIFO(li->fileinfo.st_mode))
-		ft_putchar('p');
-	else if (S_ISLNK(li->fileinfo.st_mode))
-		ft_putchar('l');
-	else if(S_ISSOCK(li->fileinfo.st_mode))
-		ft_putchar('s');
-}
-
-void	affichage_file_perm(List li)
-{
-	char *str;
-	int i;
-
-	i = 0;
-	str = ft_strnew(3);
-	affichage_type_of_f(li);
-	while (i <= 8)
-	{
-		str[i] = file_perm2(i, li);
-		i++;
-	}
-	str[9] = '\0';
-	i = 0;
-	while(str[i])
-	{
-		ft_putchar(str[i]);
-		i++;
-	}
-}
-
-/*void	affichage_file_link(List li)
-{
-	//
-}*/
-
-void	affichage_file_l(List li)
+/*void	affichage_file_l(List li)
 {
 	affichage_file_perm(li);
 	//affichage_file_link(li);
-}
+}*/
 
-void affichage_file(List li)
+/*void affichage_file(List li)
 {
 	DIR *dir;
 	ListElement *temp;
@@ -249,52 +96,7 @@ void affichage_file(List li)
 	}
 	ft_putendl("");
 
-}
-
-
-int 	is_hide(List li)
-{
-	if(ft_strncmp(li->name, ".", 1) == 0)
-	{
-		return (1);
-	}
-	return (0);
-}
-
-List 	affichage_a(List li)
-{
-	ListElement *before;
-	ListElement *temp;
-
-	temp = li;
-	if (g_bit & OPTION_r)
-	{
-		while (li != NULL)
-		{
-			before = li;
-			li = li->next;
-		}
-		if (is_hide(before))
-			 li = back_up(temp);
-		else
-			return (li);
-		affichage_a(li);
-	}
-	else
-	{
-		while (li->next != NULL)
-		{
-			if (is_hide(li))
-			{
-				//printf("C'est moi\n");
-				li = back_front(li);
-			}
-			else
-				break ;
-		}
-	}
-	return (li);
-}
+}*/
 
 /*void parent(List parent, char *path)
 {
@@ -303,7 +105,7 @@ List 	affichage_a(List li)
 	//stocker les informations necessaire;
 	//afficher le parent en fonction du -l puis supprimer les fichier de la liste chainer en cour, puis si le R l'enfant et ainsi de suite quand plus d'enfant free;
 }*/
-void parent_to_childe(List parent, char *path, int j) //ajout du path pour la recursive
+/*void parent_to_childe(List parent, char *path, int j) //ajout du path pour la recursive
 {
 	DIR *dir;
 	List child = new_list();
@@ -312,47 +114,46 @@ void parent_to_childe(List parent, char *path, int j) //ajout du path pour la re
 	parent = check_sort_list(parent);
 
 	path_backup = ft_strdup(path); //On sauve le path dedans
-	/*if (j > 0 && i == 0)
-		affichage_file(parent);*/
-	/*if (i == 0 && j == 0)
+	if (j > 0 && i == 0)
+		affichage_file(parent);
+	if (i == 0 && j == 0)
 		print_list(parent);
-	if (i != 0)*/
-	if (!(g_bit & OPTION_a))
-		parent = affichage_a(parent);
-	/*if (j > 1 && i == 0)
+	if (i != 0)
+	//if (!(g_bit & OPTION_a))
+//		parent = affichage_a(parent);
+	if (j > 1 && i == 0)
 	{
 		i = 1;
 		ft_putstr(parent->name);
 		ft_putendl(":");
-	}*/
-		print_list(parent);
-	while(parent != NULL)   //Si on laisse le next on perd le dernier element
-	{
-		if ((ft_strcmp(parent->name, ".") != 0) && (ft_strcmp(parent->name, "..") != 0))
-		{
+	}
+	//	print_list(parent);
+//	while(parent != NULL)   //Si on laisse le next on perd le dernier element
+//	{
+	//	if ((ft_strcmp(parent->name, ".") != 0) && (ft_strcmp(parent->name, "..") != 0))
+	//	{
 			//printf("Salut %s\n", parent->name);
 			//On config le path avant de faire quoi que ce soit
-			path = ft_strjoin(path, "/"); //On ajoute un / car c'est un dossier
-			path = ft_strjoin(path, parent->name); //puis le nom du fichier
+		//	path = ft_strjoin(path, "/"); //On ajoute un / car c'est un dossier
+		//	path = ft_strjoin(path, parent->name); //puis le nom du fichier
 
-			dir = opendir(path); //vérifier qu'il faut pas mettre le path
+		//	dir = opendir(path); //vérifier qu'il faut pas mettre le path
 
-			if (dir == NULL)
-			{
-				// printf("fichier : %s\n", path);
-				//parent = parent->next; //on passait 2x au suivant ici
-			}
-			else
-			{
+		//	if (dir == NULL)
+		//	{
+		//		//parent = parent->next; //on passait 2x au suivant ici
+		//	}
+		//	else
+		//	{
 
 				// printf("dossier : %s\n", path);
 
 				//leak
-				if (g_bit & OPTION_R)
-				{
-					child = create_child_list(path); //On cree la structure avec tous les enfants du path
-					parent_to_childe(child, path, j); //On recusive sur les enfants et on garde le path complet
-				}
+				//if (g_bit & OPTION_R)
+			//	{
+				//	child = create_child_list(path); //On cree la structure avec tous les enfants du path
+				//	parent_to_childe(child, path, j); //On recusive sur les enfants et on garde le path complet
+				//}
 				else
 				{
 					child = create_child_list(path);
@@ -370,12 +171,108 @@ void parent_to_childe(List parent, char *path, int j) //ajout du path pour la re
 	}
 }
 
+void parent_without_r(List li, int j)
+{
+	DIR *dir;
+	ListElement *temp;
+	List child = new_list();
+
+	temp = li;
+	if (j == 0)
+	{
+		if (!(g_bit & OPTION_a))
+			li = affichage_a(li);
+		print_list(li);
+	}
+	else
+	{
+		while (li != NULL)
+		{
+			dir = opendir(li->name);
+			if (dir == NULL)
+			{
+				ft_putstr(li->name);
+			}
+			li = li->next;
+		}
+		ft_putendl("");
+		li = temp;
+		while (li != NULL)
+		{
+			dir = opendir(li->name);
+			if (dir != NULL)
+			{
+				ft_putendl(li->name);
+				child = create_child_list(li->name);
+				check_sort_list(child);
+				if (!(g_bit & OPTION_a))
+					child = affichage_a(child);
+				print_list(child);
+			}
+			li = li->next;
+		}
+	}
+}*/
+
+void	display_l(List li)
+{
+	ListElement *temp;
+
+	temp = li;
+	while (li != NULL)
+	{
+		affichage_file_perm(li);
+		count_file_link(li, temp);
+		login_name(li, temp);
+		group_name(li, temp);
+		file_size(li, temp);
+		file_date(li);
+		li = li->next;
+	}
+
+}
+
+void	display(List li, int i)
+{
+	if (i == 0)
+	{
+		if (g_bit & OPTION_l)
+			display_l(li);
+		else
+			print_list(li);
+	}
+	else if (i == 1)
+	{
+		printf("YOP\n");
+	}
+}
+
+void list_begin(List li, int i, int argc)
+{
+	ListElement *child;
+	int j; 
+
+	j = 0;
+	if (list_size(li) == 1)
+	{
+		if (i == argc || (i - 1) == argc)
+			j = 0;
+		else
+			j = 1;
+		child = create_child_list(li->name);
+		child = option_a(child);
+		child = check_sort_list_ascci(child);
+		display(child, j);
+	}
+
+}
+
 int main (int argc, char **argv)
 {
 	int i;
-	int j;
+	//int j;
 
-	j = 0;
+	//j = 0;
 	//ListElement *temp;
 	List mylist = new_list();
 	i = 1;
@@ -383,8 +280,11 @@ int main (int argc, char **argv)
 	i = check_option(argv, argc);
 	sort_argv(i, argc, argv);
 	mylist = check_directory(i, argc, argv, mylist);
-	mylist = check_sort_list(mylist);
-	j = argc - i;
+	mylist = check_sort_list_ascci(mylist);
+	list_begin(mylist, argc, i);
+	//printf("%d\n", list_size(mylist));
+	//print_list(mylist);
+	//j = argc - i;
 	/*print_list(mylist);
 	temp = mylist;
 	mylist = add_list(mylist, temp, "salut");
@@ -393,7 +293,10 @@ int main (int argc, char **argv)
 	print_list(mylist);
 	mylist = back_list(mylist->next->next, temp);
 	print_list(mylist);*/
-	parent_to_childe(mylist, ".", j); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
+	//if (g_bit & OPTION_R)
+	//	parent_to_childe(mylist, ".", j); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
+	//else
+	//	parent_without_r(mylist, j);
 	/*while (mylist != NULL)
 	{
 		back_front(mylist);

@@ -55,7 +55,6 @@ int main(int argc, char **argv)
 					printf("FILE Size:      %d bytes\n",fileinfo.st_size);
 					printf("FILE Access:      %s\n",ctime(&fileinfo.st_atime));
 					printf("FILE Modify:      %s\n",ctime(&fileinfo.st_mtime));
-					printf("FILE Access:      %s\n",&fileinfo.st_atime);
 
 			}
 		}
