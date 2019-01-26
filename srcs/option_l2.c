@@ -21,13 +21,13 @@
 **Certaines fonction vont remplir ma liste chainer des elements manquant.
 */
 
-void	main_l(List li, List temp)
+void	main_l(List li, List begin)
 {
 		affichage_file_perm(li);
-		count_file_link(li, temp);
-		login_name(li, temp);
-		group_name(li, temp);
-		file_size(li, temp);
+		count_file_link(li, begin);
+		login_name(li, begin);
+		group_name(li, begin);
+		file_size(li, begin);
 		file_date(li);
 		print_name_list(li);
 }
@@ -84,7 +84,7 @@ void	affichage_file_group(int max, List li)
 		ft_putstr(" ");
 		i++;
 	}
-	ft_putstr(li->group);	
+	ft_putstr(li->group);
 }
 
 void	group_name(List li, List begin)
@@ -110,5 +110,5 @@ void	group_name(List li, List begin)
 			max = i;
 		begin = begin->next;
 	}
-	affichage_file_group(max, li);	
+	affichage_file_group(max, li);
 }

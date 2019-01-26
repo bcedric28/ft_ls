@@ -13,7 +13,7 @@
 #include "ft_ls.h"
 
 /*
-**add_list : prend en parametre un pointeur pointant sur un maillon en 
+**add_list : prend en parametre un pointeur pointant sur un maillon en
 **	particulier. Ainsi cette focntion permet de rajouter un maillon juste
 **	apres le maillon passer en arguments. Je procede de la meme facons
 **	que les fonction "back_up et back_front". Ensuite je sauvegarde
@@ -64,4 +64,31 @@ List back_list(List li, List begin)
 	li = NULL;
 	membef->next = memaft;
 	return (temp);
+}
+
+List	print_and_free_only_file(List li)
+{
+	int i;
+	ListElement *li_next;
+	ListElement *begin;
+
+	DIR *dir;
+
+	begin = li;
+	i = 0;
+	while (li != NULL)
+	{
+		li_next = li->next;
+		if((dir = opendir(li->name)) == NULL)
+		{
+			if (g_bit & OPTION_l)
+				main_l(li, begin);
+			else
+				ft_putendl(li->name);
+			begin = back_list(li, begin);
+		}
+		li = li_next;
+		// li = li->next;
+	}
+	return begin;
 }

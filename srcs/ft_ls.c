@@ -45,6 +45,8 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 		stat(dent->d_name, &fileinfo);
 		child = push_back(child, dent->d_name, fileinfo);
 	}
+	// free(dent);
+	//free(fileinfo);
 	return(child);
 }
 
@@ -85,72 +87,41 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 	//stocker les informations necessaire;
 	//afficher le parent en fonction du -l puis supprimer les fichier de la liste chainer en cour, puis si le R l'enfant et ainsi de suite quand plus d'enfant free;
 }*/
-/*void parent_to_childe(List parent, char *path, int j) //ajout du path pour la recursive
+
+void parent_to_childe(List parent, char *path) //ajout du path pour la recursive
 {
 	DIR *dir;
 	List child = new_list();
-//	static int i = 0;
 	char *path_backup; //correspond au path avant d'avoir ajouté le num du dossier qu'on ouvre (il doit y avoir moyen de faire autrement mais bon...)
-	parent = check_sort_list(parent);
+	parent = check_sort_list_ascci(parent);
 
 	path_backup = ft_strdup(path); //On sauve le path dedans
-	if (j > 0 && i == 0)
-		affichage_file(parent);
-	if (i == 0 && j == 0)
-		print_list(parent);
-	if (i != 0)
-	//if (!(g_bit & OPTION_a))
-//		parent = affichage_a(parent);
-	if (j > 1 && i == 0)
+	print_list(parent);
+
+	while(parent != NULL)   //Si on laisse le next on perd le dernier element
 	{
-		i = 1;
-		ft_putstr(parent->name);
-		ft_putendl(":");
-	}
-	//	print_list(parent);
-//	while(parent != NULL)   //Si on laisse le next on perd le dernier element
-//	{
-	//	if ((ft_strcmp(parent->name, ".") != 0) && (ft_strcmp(parent->name, "..") != 0))
-	//	{
-			//printf("Salut %s\n", parent->name);
+		if ((ft_strcmp(parent->name, ".") != 0) && (ft_strcmp(parent->name, "..") != 0))
+		{
 			//On config le path avant de faire quoi que ce soit
-		//	path = ft_strjoin(path, "/"); //On ajoute un / car c'est un dossier
-		//	path = ft_strjoin(path, parent->name); //puis le nom du fichier
+			path = ft_strjoin(path, "/"); //On ajoute un / car c'est un dossier
+			path = ft_strjoin(path, parent->name); //puis le nom du fichier
 
-		//	dir = opendir(path); //vérifier qu'il faut pas mettre le path
+			dir = opendir(path); //vérifier qu'il faut pas mettre le path
 
-		//	if (dir == NULL)
-		//	{
-		//		//parent = parent->next; //on passait 2x au suivant ici
-		//	}
-		//	else
-		//	{
-
-				// printf("dossier : %s\n", path);
-
+			if (dir != NULL)
+			{
 				//leak
-				//if (g_bit & OPTION_R)
-			//	{
-				//	child = create_child_list(path); //On cree la structure avec tous les enfants du path
-				//	parent_to_childe(child, path, j); //On recusive sur les enfants et on garde le path complet
-				//}
-				else
-				{
-					child = create_child_list(path);
-					child = check_sort_list(child);
-						if (!(g_bit & OPTION_a))
-							child = affichage_a(child);
-					print_list(child);
-				}
-				//leak
+				child = create_child_list(path); //On cree la structure avec tous les enfants du path
+				parent_to_childe(child, path); //On recusive sur les enfants et on garde le path complet
+									//leak
+				printf("\n");
 			}
 			path = path_backup; //On remet le path sans le nom du dossier
-
 		}
 		parent = parent->next;
 	}
 }
-
+/*
 void parent_without_r(List li, int j)
 {
 	DIR *dir;
@@ -196,12 +167,12 @@ void parent_without_r(List li, int j)
 
 void	display_l(List li)
 {
-	ListElement *temp;
+	ListElement *begin;
 
-	temp = li;
+	begin = li;
 	while (li != NULL)
 	{
-		main_l(li, temp);
+		main_l(li, begin);
 		li = li->next;
 	}
 
@@ -225,7 +196,7 @@ void	display(List li, int i)
 void list_begin(List li, int i, int argc)
 {
 	ListElement *child;
-	int j; 
+	int j;
 
 	j = 0;
 	if (list_size(li) == 1)
@@ -247,7 +218,6 @@ int main (int argc, char **argv)
 	int i;
 	//int j;
 
-	//j = 0;
 	//ListElement *temp;
 	List mylist = new_list();
 	i = 1;
@@ -256,7 +226,14 @@ int main (int argc, char **argv)
 	sort_argv(i, argc, argv);
 	mylist = check_directory(i, argc, argv, mylist);
 	mylist = check_sort_list_ascci(mylist);
-	list_begin(mylist, argc, i);
+	// print_list(mylist);
+
+	if (i < argc) //Si on a des arguents
+	{
+		mylist = print_and_free_only_file(mylist);
+	}
+	print_list(mylist);
+	//list_begin(mylist, argc, i);
 	//printf("%d\n", list_size(mylist));
 	//print_list(mylist);
 	//j = argc - i;
@@ -268,10 +245,8 @@ int main (int argc, char **argv)
 	print_list(mylist);
 	mylist = back_list(mylist->next->next, temp);
 	print_list(mylist);*/
-	//if (g_bit & OPTION_R)
-	//	parent_to_childe(mylist, ".", j); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
-	//else
-	//	parent_without_r(mylist, j);
+	if (g_bit & OPTION_R)
+		parent_to_childe(mylist, "."); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
 	/*while (mylist != NULL)
 	{
 		back_front(mylist);
