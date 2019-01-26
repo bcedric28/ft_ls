@@ -25,11 +25,20 @@
 **	posterieur a += 6 mois. Car l'affichage differe.
 */
 
+void	file_date_years(List li, int i)
+{
+	printf("I %d\n", i);
+	printf("Date %s\n", li->date);
+	printf("Date[i] %c\n", li->date[i]);
+}
+
 void 	file_date(List li)
 {
-	int i;
+	int 	i;
+	time_t	now;
 
 	i = 0;
+	now = time(&now);
 	li->date = ctime(&li->fileinfo.st_mtime);
 	while (li->date[i])
 	{
@@ -43,6 +52,7 @@ void 	file_date(List li)
 		ft_putchar(li->date[i]);
 		i++;
 	}
+	file_date_years(li, i);
 }
 
 void	affichage_file_size(int max, List li)

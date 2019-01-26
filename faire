@@ -6,6 +6,9 @@ list3.c remplire les maillon
 fonction afficher
 checker si c'est un fichier ou un dossier
 "ft_ls -" => segfault
+si on as pas la permission 
+si getpuid n'accorde pas le droit juste ecrire l'id
+
 
 /*
 
@@ -24,3 +27,7 @@ option a
 option l
 option r
 option t
+
+bonus 
+trie par size
+afficher que les directory
