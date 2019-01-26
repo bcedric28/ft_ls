@@ -38,11 +38,15 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 	struct stat fileinfo;
 	List child = new_list();
 	DIR *dir;
+	char *full_path;
 
 	dir = opendir(path); //On ouvre le path et non le name
 	while((dent = readdir(dir)) != NULL)
 	{
-		stat(dent->d_name, &fileinfo);
+		full_path = ft_strjoin(path, "/");
+		full_path = ft_strjoin(full_path, dent->d_name);
+		//leak
+		stat(full_path, &fileinfo);
 		child = push_back(child, dent->d_name, fileinfo);
 	}
 	// free(dent);
@@ -233,7 +237,7 @@ int main (int argc, char **argv)
 		mylist = print_and_free_only_file(mylist);
 	}
 	print_list(mylist);
-	//list_begin(mylist, argc, i);
+	list_begin(mylist, argc, i);
 	//printf("%d\n", list_size(mylist));
 	//print_list(mylist);
 	//j = argc - i;
