@@ -1,7 +1,10 @@
 voir le temps avec plus de six mois et moins que si mois
 recuperer le chemin de le debut.
 fonction pour free + Fonction strjoinfree
+list2.c fonction back (free chaque element avant de free le maillon)
+list3.c remplire les maillon
 fonction afficher
+checker si c'est un fichier ou un dossier
 "ft_ls -" => segfault
 
 /*
@@ -10,3 +13,14 @@ if (((g_bit & 4) && !(g_bit & 16)) ?
 		ft_strcmp(tab[i], tab[i + 1]) < 0 :
 
 */
+
+
+Ce qui est fait
+
+
+le checker d'arguments
+le trie de argv et la liste
+option a
+option l
+option r
+option t

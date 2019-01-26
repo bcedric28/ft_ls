@@ -110,6 +110,7 @@ List 	new_list(void);
 int 	is_empty(List li);
 int 	list_size(List li);
 void 	print_list(List li);
+void	print_name_list(List li);
 
 	/*---------------------list2.c-------------------------*/
 

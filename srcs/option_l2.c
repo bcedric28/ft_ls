@@ -12,6 +12,19 @@
 
 #include "ft_ls.h"
 
+/*
+**(Seulement si le -l est actif)
+**Ce fichier contient plusieur fonctions qui me permets toutes d'afficher
+**comme -l. Je procede generalement par sauvegarder la chaine la plus
+**longue qui me permettra, quand je ferais appel au fonction affichage
+**en questions, de bien tout mettre en colonnes.
+**Certaines fonction vont remplir ma liste chainer des elements manquant.
+**
+**File_date : fonction qui permet de recuperer la date de modifiction et de
+**	l'afficher. Mais avant on verifie bien que la date n'est pas anterieur ou
+**	posterieur a += 6 mois. Car l'affichage differe.
+*/
+
 void 	file_date(List li)
 {
 	int i;
@@ -30,7 +43,6 @@ void 	file_date(List li)
 		ft_putchar(li->date[i]);
 		i++;
 	}
-	ft_putendl("");
 }
 
 void	affichage_file_size(int max, List li)

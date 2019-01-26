@@ -12,6 +12,20 @@
 
 #include "ft_ls.h"
 
+/*
+**add_list : prend en parametre un pointeur pointant sur un maillon en 
+**	particulier. Ainsi cette focntion permet de rajouter un maillon juste
+**	apres le maillon passer en arguments. Je procede de la meme facons
+**	que les fonction "back_up et back_front". Ensuite je sauvegarde
+**	le next et je fait pointer mon nouveau maillon sur le maillon suivant
+**	Je retourne un poiteur sur le debut de la liste.
+**
+**back_list: enleve un maillon apres un maillon particulier. De cette facons
+**	je peux enlever un maillon n'importe ou dans dans ma liste.
+**	je sauvegarde le next, je free, et refait pointer le maillon d'avant sur
+**	le prochain. Je retourne un pointeur sur le debut de ma liste.
+*/
+
 List 	add_list(List li, List begin, char *s)
 {
 	ListElement *element;

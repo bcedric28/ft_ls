@@ -207,6 +207,7 @@ void	display_l(List li)
 		group_name(li, temp);
 		file_size(li, temp);
 		file_date(li);
+		print_name_list(li);
 		li = li->next;
 	}
 

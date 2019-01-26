@@ -12,6 +12,16 @@
 
 #include "ft_ls.h"
 
+/*
+**Check_option: permet de boucler sur les arguments rentree en paramettre
+**	par l'utilisateur. Si le paramettre commence par un "-" je verifie si c'est
+**	une option valide. Si c'est le cas j'allume le bit correspondant grace a la
+**	fonction "option" si ce n'est pas un arguments valide je retourne une
+**	erreur.
+**	Dans le cas ou un argument ne commence pas par "-" je le considere comme
+**	un dossier j'appelle donc checker.
+*/
+
 void	option(char *s1)
 {
 	s1++;

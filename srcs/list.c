@@ -12,12 +12,22 @@
 
 #include "ft_ls.h"
 
+/*
+**new_list: Fonction qui permet de cree une nouvelle liste.
+**
+**is_empty: Fonction qui permet de savoir si la liste est vide.
+**
+**list_size: Fonction qui permet de connaitre la taille de la liste
+**
+**print_list: print toutes la liste(seulement le nom compris dans le maillon)
+**
+**print_name_list: print le nom du maillon qu'il recoit
+*/
+
 List new_list(void)
 {
 	return (NULL);
 }
-
-/* ------------------------------------- */
 
 int is_empty(List li)
 {
@@ -25,8 +35,6 @@ int is_empty(List li)
 		return (0);
 	return (1);
 }
-
-/* ------------------------------------- */
 
 int list_size(List li)
 {
@@ -43,8 +51,6 @@ int list_size(List li)
 	}
 	return (size);
 }
-
-/* ------------------------------------- */
 
 void print_list(List li)
 {
@@ -66,4 +72,17 @@ void print_list(List li)
 		li = li->next;
 		ft_putendl("");
 	}
+}
+
+void	print_name_list(List li)
+{
+	int i;
+
+	i = 0;
+	while(li->name[i])
+	{
+		ft_putchar(li->name[i]);
+		i++;
+	}
+	ft_putendl("");
 }

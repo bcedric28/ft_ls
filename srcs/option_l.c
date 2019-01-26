@@ -12,6 +12,14 @@
 
 #include "ft_ls.h"
 
+/*
+**(Seulement si le -l est actif)
+**Ce fichier contient plusieur fonctions qui me permets toutes d'afficher
+**comme -l. Je procede generalement par sauvegarder la chaine la plus
+**longue qui me permettra, quand je ferais appel au fonction affichage
+**en questions, de bien tout mettre en colonnes.
+**Certaines fonction vont remplir ma liste chainer des elements manquant.
+*/
 
 int	number_of_digit(int max)
 {

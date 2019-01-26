@@ -12,6 +12,19 @@
 
 #include "ft_ls.h"
 
+/*
+**push_front : Permet de rajouter un maillon tout devant la liste.
+**	je cree d'abord un maillon en lui allouant le taille necessaire
+**	puis je le remplis et l'incorpore dans ma liste.
+**
+**push_back : Pareil que push_front sauf que je le mets le maillon a 
+**	l'arriere de ma liste.
+**
+**back_up : Permet de supprimer un maillon en fin de la liste
+**
+**back_front : Permet de supprimer un maillon en tete de la liste
+*/
+
 List push_back(List li, char *s, struct stat file)
 {
 	ListElement *element;

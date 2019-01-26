@@ -12,6 +12,15 @@
 
 #include "ft_ls.h"
 
+/*
+** (Seulement si le -l est actif)
+**affichage_file_perm: je cree une string qui contiendra
+**	les differente information a propos de type de fichier
+**	ou dossier auquel on est confronte ainsi que toute les
+**	permission (user, group) grace a cette fonction j'appelle
+**	"affichage_type" et "file_perm1". Puis j'affiche ma string
+*/
+
 char	file_perm2(int i, List li)
 {
 	if (i == 0)
@@ -74,7 +83,7 @@ void	affichage_file_perm(List li)
 	int i;
 
 	i = 0;
-	str = ft_strnew(3);
+	str = ft_strnew(8);
 	affichage_type_of_f(li);
 	while (i <= 8)
 	{

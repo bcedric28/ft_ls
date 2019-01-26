@@ -12,6 +12,16 @@
 
 #include "ft_ls.h"
 
+/*
+**Check_arguments : fs_open (Fonction de checker)
+**
+**Check_directory : Fonction qui permet de verifier en appelant dirtrue si 
+**	l'arugements rentree existe (dossier ou fichier) (stat == 0 --> existe)
+**	(stat == -1 --> n'existe pas). Si dirtrue renvoie "1" allors on fais
+**	appelle a la fonction put_in_list qui s'occupe de remplire la liste
+**	chainer.
+*/
+
 int dirtrue(char *s1, struct stat *file)
 {
 	if (stat(s1, file) == 0)

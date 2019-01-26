@@ -12,6 +12,15 @@
 
 #include "ft_ls.h"
 
+/*
+**ft_error: Fonction qui prend en paramettre un char c et un int
+**	qui selon les situation dans mon code me permet de savoir
+**	quel erreur je dois afficher.
+**
+**ft_error2: Fonction qui permet d'afficher une erreur quand le dossier
+**	ou fichier n'existe pas.
+*/
+
 void 	ft_error2(char *s)
 {
 	int i;
