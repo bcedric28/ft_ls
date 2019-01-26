@@ -201,13 +201,7 @@ void	display_l(List li)
 	temp = li;
 	while (li != NULL)
 	{
-		affichage_file_perm(li);
-		count_file_link(li, temp);
-		login_name(li, temp);
-		group_name(li, temp);
-		file_size(li, temp);
-		file_date(li);
-		print_name_list(li);
+		main_l(li, temp);
 		li = li->next;
 	}
 

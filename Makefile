@@ -16,7 +16,7 @@ FLAG = -Wall -Wextra
 
 SOURCE = ft_ls.c error.c checker.c list.c list2.c list3.c sort_list.c \
 		checker_option.c option_a.c option_l.c option_l2.c file_perm.c \
-
+		option_l3.c
 LIBFT_DIR = Libft/
 
 COMP_OBJ = ./obj/*.o

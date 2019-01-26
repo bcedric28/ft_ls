@@ -19,40 +19,17 @@
 **longue qui me permettra, quand je ferais appel au fonction affichage
 **en questions, de bien tout mettre en colonnes.
 **Certaines fonction vont remplir ma liste chainer des elements manquant.
-**
-**File_date : fonction qui permet de recuperer la date de modifiction et de
-**	l'afficher. Mais avant on verifie bien que la date n'est pas anterieur ou
-**	posterieur a += 6 mois. Car l'affichage differe.
 */
 
-void	file_date_years(List li, int i)
+void	main_l(List li, List temp)
 {
-	printf("I %d\n", i);
-	printf("Date %s\n", li->date);
-	printf("Date[i] %c\n", li->date[i]);
-}
-
-void 	file_date(List li)
-{
-	int 	i;
-	time_t	now;
-
-	i = 0;
-	now = time(&now);
-	li->date = ctime(&li->fileinfo.st_mtime);
-	while (li->date[i])
-	{
-		if (li->date[i] != '\t' && li->date[i] != ' ')
-			i++;
-		else
-			break;
-	}
-	while (li->date[i] && i <= 10)
-	{
-		ft_putchar(li->date[i]);
-		i++;
-	}
-	file_date_years(li, i);
+		affichage_file_perm(li);
+		count_file_link(li, temp);
+		login_name(li, temp);
+		group_name(li, temp);
+		file_size(li, temp);
+		file_date(li);
+		print_name_list(li);
 }
 
 void	affichage_file_size(int max, List li)

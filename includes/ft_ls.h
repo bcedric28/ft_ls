@@ -57,7 +57,7 @@ List 	check_option_a(List li);
 int 	is_hide(List li);
 
 /*
-**Fonction pour le -l dans le fichier option_l(2).c et file_perm.c
+**Fonction pour le -l dans le fichier option_l(2 & 3).c et file_perm.c
 */
  
 	/*
@@ -86,7 +86,16 @@ void	group_name(List li, List begin);
 void	affichage_file_group(int max, List li);
 void 	file_size(List li, List begin);
 void	affichage_file_size(int max, List li);
+void	main_l(List li, List temp);
+
+	/*
+	**---------------------option3_l-------------------------
+	*/
+
 void 	file_date(List li);
+int		file_date_years(List li, time_t now);
+void	affichage_file_date(List li, int i);
+void	affichage_file_years(List li, int i);
 
 /*
 **Fonction de gestion d'erreur dans le fichier error.c
