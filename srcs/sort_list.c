@@ -12,6 +12,26 @@
 
 #include "ft_ls.h"
 
+void sort_argv(int i, int argc, char **tab)
+{
+	char *temp;
+	int j;
+
+	j = i;
+	while (i < argc && tab[i + 1] != '\0')
+	{
+		if (ft_strcmp(tab[i], tab[i + 1]) > 0)
+		{
+			temp = tab[i];
+			tab[i] = tab[i + 1];
+			tab[i + 1] = temp;
+			i = j;
+		}
+		else
+			i++;
+	}
+}
+
 List check_sort_list_time(List li)
 {
 	char *temp;
@@ -48,6 +68,7 @@ List check_sort_list_reverse(List li)
 		}
 		return(new_ord);
 }
+
 List check_sort_list_ascci(List li)
 {
 	char *temp;

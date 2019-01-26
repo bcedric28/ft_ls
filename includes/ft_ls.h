@@ -46,41 +46,82 @@ typedef struct ListElement
 	char *date;
 }ListElement, *List;
 
-/* Fonction de checker de error et de tri de argv */
+/*Fonction pour le -a dans le fichier option_a.c */
+
+List 	option_a(List li);
+List 	check_option_a(List li);
+int 	is_hide(List li);
+
+/*Fonction pour le -l dans le fichier option_l(2).c et file_perm.c*/
+ 
+	/*--------------------file_perm.c-----------------------*/
+
+void	affichage_file_perm(List li);
+void 	affichage_type_of_f(List li);
+char	file_perm2(int i, List li);
+
+	/*---------------------option_l-------------------------*/
+
+int		number_of_digit(int max);
+void 	count_file_link(List li, List begin);
+void	affichage_file_link(int max, List li);
+void	login_name(List li, List begin);
+void	affichage_file_login(int max, List li);
+
+	/*---------------------option2_l-------------------------*/
+
+void	group_name(List li, List begin);
+void	affichage_file_group(int max, List li);
+void 	file_size(List li, List begin);
+void	affichage_file_size(int max, List li);
+void 	file_date(List li);
+
+/*Fonction de gestion d'erreur dans le fichier error.c*/
 
 void	ft_error(char c, int i);
 void 	ft_error2(char *s);
-//int		dirtrue(char *s1);
-void	option(char *s1);
+
+/*Fonction de check d'arguments dans checker.c et dans checker_option.c*/
+
+	/*---------------------checker.c--------------------------------*/
+
+void	check_arguments_b0(char **s1, int argc);
 List	check_directory(int i, int argc, char **argv, List li);
+List  	put_in_list(char *str, List li,  struct stat file);
+int 	dirtrue(char *s1, struct stat *file);
+
+	/*---------------------checker_option.c-------------------------*/
+
 int		check_option(char **s1, int argc);
 void	option(char *s1);
-void	check_arguments_b0(char **s1, int argc);
-List 	check_option_a(List li);
-List 	option_a(List li);
 
-/* Prototype de liste */
+/*Fonction de trie de argv et la liste selon les option demander dans le fichier sort_list.c*/
 
-List new_list(void);
-int is_empty(List li);
-int list_size(List li);
-void print_list(List li);
-List push_back(List li, char *s, struct stat file);
-List push_front(List li, char *s, struct stat file);
-List back_up(List li);
-List back_front(List li);
-int	 swap_list(List li, int i, int j);
-List create_child_list(char *path);
+List 	check_sort_list_ascci(List li);
+List 	check_sort_list_reverse(List li);
+List 	check_sort_list_time(List li);
+void 	sort_argv(int i, int argc, char **tab);
+
+/*Fonction de liste de base dans les fichiers list.c list2.c list3.c*/
+
+	/*---------------------list.c-------------------------*/
+
+List 	new_list(void);
+int 	is_empty(List li);
+int 	list_size(List li);
+void 	print_list(List li);
+
+	/*---------------------list2.c-------------------------*/
+
+List 	push_back(List li, char *s, struct stat file);
+List 	push_front(List li, char *s, struct stat file);
+List 	back_up(List li);
+List 	back_front(List li);
+
+	/*---------------------list3.c-------------------------*/
+
+List 	back_list(List li, List begin);
 List 	add_list(List li, List begin, char *s);
-List back_list(List li, List begin);
-List check_sort_list_ascci(List li);
-List check_sort_list_reverse(List li);
-List check_sort_list_ascci(List li);
-void	affichage_file_perm(List li);
-void 	count_file_link(List li, List begin);
-void	login_name(List li, List begin);
-void	group_name(List li, List begin);
-void file_size(List li, List begin);
-void file_date(List li);
+
 
 #endif

@@ -1,6 +1,5 @@
-Fonction pour trier par date // voir le temps avec plus de six mois et moins que si mois OK
-Fonction pour swap a ameliorer OK
-Fonction pour parcourir la sous liste chainer et ouvrir les documents pour cree nouvelle liste EN cour
+voir le temps avec plus de six mois et moins que si mois
+recuperer le chemin de le debut.
 fonction pour free + Fonction strjoinfree
 fonction afficher
 "ft_ls -" => segfault
@@ -11,8 +10,3 @@ if (((g_bit & 4) && !(g_bit & 16)) ?
 		ft_strcmp(tab[i], tab[i + 1]) < 0 :
 
 */
-
-sort_list
-fprime
-ft_split
-sort_int_tab

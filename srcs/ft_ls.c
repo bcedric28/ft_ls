@@ -31,26 +31,6 @@ char g_bit = 0;
 		printf("--\n");
 }*/
 
-void sort_argv(int i, int argc, char **tab)
-{
-	char *temp;
-	int j;
-
-	j = i;
-	while (i < argc && tab[i + 1] != '\0')
-	{
-		if (ft_strcmp(tab[i], tab[i + 1]) > 0)
-		{
-			temp = tab[i];
-			tab[i] = tab[i + 1];
-			tab[i + 1] = temp;
-			i = j;
-		}
-		else
-			i++;
-	}
-}
-
 
 List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 {
