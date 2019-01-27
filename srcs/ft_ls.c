@@ -77,63 +77,61 @@ void parent_to_childe(List parent, char *path) //ajout du path pour la recursive
 	}
 }
 
-/*
-void	display_l(List li)
-{
-	ListElement *begin;
 
-	begin = li;
-	while (li != NULL)
-	{
-		main_l(li, begin);
-		li = li->next;
-	}
+// void	display_l(List li)
+// {
+// 	ListElement *begin;
+//
+// 	begin = li;
+// 	while (li != NULL)
+// 	{
+// 		main_l(li, begin);
+// 		li = li->next;
+// 	}
+//
+// }
+//
+// void	display(List li, int i)
+// {
+// 	if (i == 0)
+// 	{
+// 		if (g_bit & OPTION_l)
+// 			display_l(li);
+// 		else
+// 			print_list(li);
+// 	}
+// 	else if (i == 1)
+// 	{
+// 		printf("YOP\n"); //si il y a des dossiers en argument
+// 	}
+// }
 
-}
+// void list_begin(List li, int i, int argc)
+// {
+// 	ListElement *child;
+// 	int j;
+//
+// 	j = 0;
+// 	if (list_size(li) == 1) //si 1 element dans ta chaine
+// 	{
+// 		if (i == argc || (i - 1) == argc) //si il a pas d'arguments
+// 			j = 0;
+// 		else
+// 			j = 1;
+// 		child = create_child_list(li->name);
+// 		child = option_a(child);
+// 		child = check_sort_list_ascci(child);
+// 		//print_list(child);
+// 		//sleep(30);
+// 		display(child, j);
+// 	}
+//
+// }
 
-void	display(List li, int i)
-{
-	if (i == 0)
-	{
-		if (g_bit & OPTION_l)
-			display_l(li);
-		else
-			print_list(li);
-	}
-	else if (i == 1)
-	{
-		printf("YOP\n");
-	}
-}
-
-void list_begin(List li, int i, int argc)
-{
-	ListElement *child;
-	int j;
-
-	j = 0;
-	if (list_size(li) == 1)
-	{
-		if (i == argc || (i - 1) == argc)
-			j = 0;
-		else
-			j = 1;
-		child = create_child_list(li->name);
-		child = option_a(child);
-		child = check_sort_list_ascci(child);
-		//print_list(child);
-		//sleep(30);
-		display(child, j);
-	}
-
-}
-*/
 int main (int argc, char **argv)
 {
 	int i;
-	//int j;
 
-	//ListElement *temp;
 	List mylist = new_list();
 	i = 1;
 	check_arguments_b0(argv, argc);
@@ -143,30 +141,13 @@ int main (int argc, char **argv)
 	if (is_empty(mylist))
 		mylist = check_sort_list_ascci(mylist);
 	mylist = check_sort_list_ascci(mylist);
-	// print_list(mylist);
 	if (i < argc) //Si on a des arguents
 	{
-		mylist = print_and_free_only_file(mylist);
+		mylist = print_and_free_only_file(mylist); //on affiche les fichiers et free les fichiers
 	}
-	//print_list(mylist);
-	//list_begin(mylist, argc, i);
-	//printf("%d\n", list_size(mylist));
-	//print_list(mylist);
-	//j = argc - i;
-	/*print_list(mylist);
-	temp = mylist;
-	mylist = add_list(mylist, temp, "salut");
-	print_list(mylist);
-	mylist = add_list(mylist, temp, "Bonjour");
-	print_list(mylist);
-	mylist = back_list(mylist->next->next, temp);
-	print_list(mylist);*/
-	if (g_bit & OPTION_R)
-		parent_to_childe(mylist, "."); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
-	/*while (mylist != NULL)
-	{
-		back_front(mylist);
-		mylist = mylist->next;
-	}*/
+
+	parent_to_childe(mylist, "."); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
+
+
 	return (0);
 }
