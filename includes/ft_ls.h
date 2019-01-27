@@ -35,7 +35,7 @@
 extern char g_bit;
 
 /*
-** Definition de la liste chainee 
+** Definition de la liste chainee
 */
 
 typedef struct ListElement
@@ -52,7 +52,7 @@ typedef struct ListElement
 }ListElement, *List;
 
 /*
-**Fonction pour le -a dans le fichier option_a.c 
+**Fonction pour le -a dans le fichier option_a.c
 */
 
 List 	option_a(List li);
@@ -62,7 +62,7 @@ int 	is_hide(List li);
 /*
 **Fonction pour le -l dans le fichier option_l(2 & 3).c et file_perm.c
 */
- 
+
 	/*
 	**--------------------file_perm.c-----------------------
 	*/
@@ -89,8 +89,8 @@ void	group_name(List li, List begin);
 void	affichage_file_group(int max, List li);
 void 	file_size(List li, List begin);
 void	affichage_file_size(int max, List li);
-void	main_l(List li, List temp);
-void file_minor_and_major(List li, List begin);
+void 	file_minor_and_major(List li, List begin);
+void	main_l(List li, List begin);
 
 	/*
 	**---------------------option3_l-------------------------
@@ -166,6 +166,5 @@ List 	back_front(List li);
 List 	back_list(List li, List begin);
 List 	add_list(List li, List begin, char *s);
 List	print_and_free_only_file(List li);
-
 
 #endif

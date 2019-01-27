@@ -4,10 +4,23 @@ list2.c fonction back (free chaque element avant de free le maillon)
 list3.c remplire les maillon
 checker si c'est un fichier ou un dossier
 "ft_ls -" => segfault
+<<<<<<< HEAD
 si on as pas la permission 
 //si getpuid n'accorde pas le droit juste ecrire l'id
 les liens
 le total
+=======
+si on as pas la permission
+si getpuid n'accorde pas le droit juste ecrire l'id
+Gérer les cas spéciaux (/dev/,...)
+
+/*
+
+if (((g_bit & 4) && !(g_bit & 16)) ?
+		ft_strcmp(tab[i], tab[i + 1]) < 0 :
+
+*/
+>>>>>>> 5a0821ac3461b31567db3a3022cd9edca73b72da
 
 
 Ce qui est fait
@@ -20,9 +33,10 @@ option l {sauf lien et le total}
 option r
 option t
 
-bonus 
+bonus
 trie par size
 afficher que les directory
+<<<<<<< HEAD
 
 
 
@@ -42,3 +56,5 @@ afficher que les directory
 	if (g_bit & OPTION_STOP)
 		printf("--\n");
 }*/
+=======
+>>>>>>> 5a0821ac3461b31567db3a3022cd9edca73b72da
