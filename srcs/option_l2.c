@@ -24,21 +24,14 @@
 void	main_l(List li, List begin)
 {
 		affichage_file_perm(li);
-<<<<<<< HEAD
-		count_file_link(li, temp);
-		login_name(li, temp);
-		group_name(li, temp);
-		if (!(S_ISBLK(li->fileinfo.st_mode)) && 
-			(!(S_ISCHR(li->fileinfo.st_mode))))
-			file_size(li, temp);
-		else
-			file_minor_and_major(li, temp);	
-=======
 		count_file_link(li, begin);
 		login_name(li, begin);
 		group_name(li, begin);
-		file_size(li, begin);
->>>>>>> 5a0821ac3461b31567db3a3022cd9edca73b72da
+		if (!(S_ISBLK(li->fileinfo.st_mode)) &&
+			(!(S_ISCHR(li->fileinfo.st_mode))))
+			file_size(li, begin);
+		else
+			file_minor_and_major(li, begin);
 		file_date(li);
 		print_name_list(li);
 }
@@ -135,7 +128,7 @@ void 	file_size(List li, List begin)
 void	affichage_file_group(int max, List li)
 {
 	int i;
-	
+
 	i = ft_strlen(li->group);
 	ft_putstr(li->group);
 	while(i < max)
@@ -143,10 +136,7 @@ void	affichage_file_group(int max, List li)
 		ft_putstr(" ");
 		i++;
 	}
-<<<<<<< HEAD
-=======
 	ft_putstr(li->group);
->>>>>>> 5a0821ac3461b31567db3a3022cd9edca73b72da
 }
 
 void	group_name(List li, List begin)

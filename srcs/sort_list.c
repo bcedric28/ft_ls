@@ -64,7 +64,7 @@ List check_sort_list_time(List li)
 	char *temp[2];
 	struct stat file;
 	ListElement *j;
-	
+
 	j = li;
 	while (li->next != NULL)
 	{

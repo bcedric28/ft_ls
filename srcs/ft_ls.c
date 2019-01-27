@@ -43,10 +43,7 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 	//afficher le parent en fonction du -l puis supprimer les fichier de la liste chainer en cour, puis si le R l'enfant et ainsi de suite quand plus d'enfant free;
 }*/
 
-/*void parent_to_childe(List parent, char *path, int j) //ajout du path pour la recursive
-=======
 void parent_to_childe(List parent, char *path) //ajout du path pour la recursive
->>>>>>> 5a0821ac3461b31567db3a3022cd9edca73b72da
 {
 	DIR *dir;
 	List child = new_list();
@@ -79,8 +76,8 @@ void parent_to_childe(List parent, char *path) //ajout du path pour la recursive
 		parent = parent->next;
 	}
 }
-*/
 
+/*
 void	display_l(List li)
 {
 	ListElement *begin;
@@ -130,7 +127,7 @@ void list_begin(List li, int i, int argc)
 	}
 
 }
-
+*/
 int main (int argc, char **argv)
 {
 	int i;
@@ -152,7 +149,7 @@ int main (int argc, char **argv)
 		mylist = print_and_free_only_file(mylist);
 	}
 	//print_list(mylist);
-	list_begin(mylist, argc, i);
+	//list_begin(mylist, argc, i);
 	//printf("%d\n", list_size(mylist));
 	//print_list(mylist);
 	//j = argc - i;
@@ -164,8 +161,8 @@ int main (int argc, char **argv)
 	print_list(mylist);
 	mylist = back_list(mylist->next->next, temp);
 	print_list(mylist);*/
-	//if (g_bit & OPTION_R)
-	//	parent_to_childe(mylist, "."); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
+	if (g_bit & OPTION_R)
+		parent_to_childe(mylist, "."); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
 	/*while (mylist != NULL)
 	{
 		back_front(mylist);
