@@ -56,9 +56,6 @@ List create_child_list(char *path); //On recoit juste le chemin a ouvrir
 /*
 **Fonction pour le -a dans le fichier option_a.c
 */
-
-List 	option_a(List li);
-List 	check_option_a(List li);
 int 	is_hide(List li);
 
 /*
