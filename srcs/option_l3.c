@@ -41,7 +41,7 @@ void	affichage_file_date(List li, int i)
 	ft_putstr(" ");
 }
 
-int		file_date_years(List li, time_t now)
+int		check_6_months(List li, time_t now)
 {
 	if (now - li->fileinfo.st_mtime >= 15778800)
 		return (1);
@@ -70,7 +70,7 @@ void 	file_date(List li)
 		ft_putchar(li->date[i]);
 		i++;
 	}
-	if (file_date_years(li, now))
+	if (check_6_months(li, now))
 		affichage_file_years(li, i);
 	else
 		affichage_file_date(li, i);

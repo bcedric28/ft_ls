@@ -61,7 +61,7 @@ void sort_argv(int i, int argc, char **tab)
 
 List check_sort_list_time(List li)
 {
-	char *temp;
+	char *temp[2];
 	struct stat file;
 	ListElement *j;
 	
@@ -70,12 +70,15 @@ List check_sort_list_time(List li)
 	{
 		if (li->fileinfo.st_mtime < li->next->fileinfo.st_mtime)
 		{
-			temp = li->name;
+			temp[0] = li->name;
 			file = li->fileinfo;
+			temp[1] = li->full_path;
 			li->name = li->next->name;
 			li->fileinfo = li->next->fileinfo;
-			li->next->name = temp;
+			li->full_path = li->next->full_path;
+			li->next->name = temp[0];
 			li->next->fileinfo = file;
+			li->next->full_path = temp[1];
 			li = j;
 		}
 		else
@@ -90,15 +93,37 @@ List check_sort_list_reverse(List li)
 		List new_ord = new_list();
 		while(li != NULL)
 		{
-			new_ord = push_front(new_ord, li->name, li->fileinfo);
+			new_ord = push_front(new_ord, li->name, li->full_path, li->fileinfo);
 			li = back_front(li);
 		}
 		return(new_ord);
 }
 
+List check_option_sort(List li, List j)
+{
+	int i;
+	int k;
+
+	i = 0;
+	k = 0;
+	if(g_bit & OPTION_t)
+	{
+		k = 1;
+		li = check_sort_list_time(j);
+	}
+	if (g_bit & OPTION_r)
+	{
+		i = 1;
+		li = check_sort_list_reverse(j);
+	}
+	if (k == 0 && i == 0)
+		return (j);
+	return (li);
+}
+
 List check_sort_list_ascci(List li)
 {
-	char *temp;
+	char *temp[2];
 	struct stat file;
 	ListElement *j;
 
@@ -107,21 +132,20 @@ List check_sort_list_ascci(List li)
 	{
 		if (ft_strcmp(li->name, li->next->name) > 0)
 		{
-			temp = li->name;
+			temp[0] = li->name;
 			file = li->fileinfo;
+			temp[1] = li->full_path;
 			li->name = li->next->name;
 			li->fileinfo = li->next->fileinfo;
-			li->next->name = temp;
+			li->full_path = li->next->full_path;
+			li->next->name = temp[0];
 			li->next->fileinfo = file;
+			li->next->full_path = temp[1];
 			li = j;
 		}
 		else
 			li = li->next;
 	}
-	li = j;
-	if(g_bit & OPTION_t)
-		li = check_sort_list_time(li);
-	if (g_bit & OPTION_r)
-		li = check_sort_list_reverse(li);
+	li = check_option_sort(li, j);
 	return (li);
 }

@@ -25,10 +25,12 @@
 **back_front : Permet de supprimer un maillon en tete de la liste
 */
 
-List push_back(List li, char *s, struct stat file)
+List push_back(List li, char *s, char *full_path, struct stat file)
 {
 	ListElement *element;
 	ListElement	*temp;
+	//struct passwd *pw;
+	//struct group *gid;
 
 	if (!(element = malloc(sizeof(*element))))
 	{
@@ -36,7 +38,15 @@ List push_back(List li, char *s, struct stat file)
 	}
 	element->name = s;
 	element->fileinfo = file;
-
+	element->full_path = full_path;
+	/*if((pw = getpwuid(element->fileinfo.st_uid)))
+		element->login = pw->pw_name;
+	else
+		element->login_u = element->fileinfo.st_uid;
+	if ((gid = getgrgid(element->fileinfo.st_gid)))
+		element->group = gid->gr_name;
+	else
+		element->group_u = element->fileinfo.st_gid;*/
 	element->next = NULL;
 	if(!(is_empty(li)))
 		return (element);
@@ -47,9 +57,8 @@ List push_back(List li, char *s, struct stat file)
 	return li;
 }
 
-/* ------------------------------------- */
 
-List push_front(List li, char *s, struct stat file)
+List push_front(List li, char *s, char *full_path, struct stat file)
 {
 	ListElement *element;
 
@@ -59,6 +68,7 @@ List push_front(List li, char *s, struct stat file)
 	}
 	element->name = s;
 	element->fileinfo = file;
+	element->full_path = full_path;
 
 	if(!(is_empty(li)))
 		element->next = NULL;
@@ -67,7 +77,6 @@ List push_front(List li, char *s, struct stat file)
 	return (element);
 }
 
-/* ------------------------------------- */
 
 List back_up(List li)
 {
@@ -95,7 +104,6 @@ List back_up(List li)
 	return li;
 }
 
-/* ------------------------------------- */
 
 List back_front(List li)
 {

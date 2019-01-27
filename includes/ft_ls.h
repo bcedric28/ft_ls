@@ -45,7 +45,10 @@ typedef struct ListElement
 	struct ListElement *next;
 	char *login;
 	char *group;
+	gid_t group_u;
 	char *date;
+	uid_t login_u;
+	char *full_path;
 }ListElement, *List;
 
 /*
@@ -87,13 +90,14 @@ void	affichage_file_group(int max, List li);
 void 	file_size(List li, List begin);
 void	affichage_file_size(int max, List li);
 void	main_l(List li, List temp);
+void file_minor_and_major(List li, List begin);
 
 	/*
 	**---------------------option3_l-------------------------
 	*/
 
 void 	file_date(List li);
-int		file_date_years(List li, time_t now);
+int		check_6_months(List li, time_t now);
 void	affichage_file_date(List li, int i);
 void	affichage_file_years(List li, int i);
 
@@ -150,8 +154,8 @@ void	print_name_list(List li);
 	**---------------------list2.c-------------------------
 	*/
 
-List 	push_back(List li, char *s, struct stat file);
-List 	push_front(List li, char *s, struct stat file);
+List 	push_back(List li, char *full_path, char *s, struct stat file);
+List 	push_front(List li, char *s, char *full_path, struct stat file);
 List 	back_up(List li);
 List 	back_front(List li);
 
@@ -161,6 +165,7 @@ List 	back_front(List li);
 
 List 	back_list(List li, List begin);
 List 	add_list(List li, List begin, char *s);
+List	print_and_free_only_file(List li);
 
 
 #endif

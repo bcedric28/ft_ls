@@ -63,6 +63,8 @@ void affichage_type_of_f(List li)
 {
 	if (S_ISREG(li->fileinfo.st_mode))
 		ft_putchar('-');
+	else if (S_ISLNK(li->fileinfo.st_mode))
+		ft_putchar('l');
 	else if (S_ISDIR(li->fileinfo.st_mode))
 		ft_putchar('d');
 	else if (S_ISCHR(li->fileinfo.st_mode))
@@ -71,8 +73,6 @@ void affichage_type_of_f(List li)
 		ft_putchar('b');
 	else if (S_ISFIFO(li->fileinfo.st_mode))
 		ft_putchar('p');
-	else if (S_ISLNK(li->fileinfo.st_mode))
-		ft_putchar('l');
 	else if(S_ISSOCK(li->fileinfo.st_mode))
 		ft_putchar('s');
 }

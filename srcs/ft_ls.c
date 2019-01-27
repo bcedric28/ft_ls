@@ -14,70 +14,27 @@
 
 char g_bit = 0;
 
-/*void g_debug()
-{
-	printf("----OPTION-----\n");
-	if (g_bit & OPTION_a)
-		ft_putendl("a");
-	if (g_bit & OPTION_l)
-		printf("l\n");
-	if (g_bit & OPTION_r)
-		printf("r\n");
-	if (g_bit & OPTION_R)
-		printf("R\n");
-	if (g_bit & OPTION_t)
-		printf("t\n");
-	if (g_bit & OPTION_STOP)
-		printf("--\n");
-}*/
-
-
 List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 {
 	struct dirent *dent;
 	struct stat fileinfo;
 	List child = new_list();
 	DIR *dir;
+	char *full_path;
 
 	dir = opendir(path); //On ouvre le path et non le name
 	while((dent = readdir(dir)) != NULL)
 	{
-		stat(dent->d_name, &fileinfo);
-		child = push_back(child, dent->d_name, fileinfo);
+		full_path = ft_strjoin(path, "/");
+		full_path = ft_strjoin(full_path, dent->d_name);
+		//leak
+		lstat(full_path, &fileinfo);
+		child = push_back(child, dent->d_name, full_path, fileinfo);
 	}
+	// free(dent);
+	//free(fileinfo);
 	return(child);
 }
-
-/*void	affichage_file_l(List li)
-{
-	affichage_file_perm(li);
-	//affichage_file_link(li);
-}*/
-
-/*void affichage_file(List li)
-{
-	DIR *dir;
-	ListElement *temp;
-
-	while (li != NULL)
-	{
-		temp = li;
-		dir = opendir(li->name);
-		if (dir == NULL)
-		{
-			if (g_bit & OPTION_l)
-				affichage_file_l(temp);
-			ft_putstr(li->name);
-			ft_putendl("");
-		}
-		else
-			closedir(dir);
-		li = li->next;
-	}
-	ft_putendl("");
-
-}*/
-
 /*void parent(List parent, char *path)
 {
 	//verifier l'ordre de la liste;
@@ -85,6 +42,7 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 	//stocker les informations necessaire;
 	//afficher le parent en fonction du -l puis supprimer les fichier de la liste chainer en cour, puis si le R l'enfant et ainsi de suite quand plus d'enfant free;
 }*/
+
 /*void parent_to_childe(List parent, char *path, int j) //ajout du path pour la recursive
 {
 	DIR *dir;
@@ -150,49 +108,7 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 		parent = parent->next;
 	}
 }
-
-void parent_without_r(List li, int j)
-{
-	DIR *dir;
-	ListElement *temp;
-	List child = new_list();
-
-	temp = li;
-	if (j == 0)
-	{
-		if (!(g_bit & OPTION_a))
-			li = affichage_a(li);
-		print_list(li);
-	}
-	else
-	{
-		while (li != NULL)
-		{
-			dir = opendir(li->name);
-			if (dir == NULL)
-			{
-				ft_putstr(li->name);
-			}
-			li = li->next;
-		}
-		ft_putendl("");
-		li = temp;
-		while (li != NULL)
-		{
-			dir = opendir(li->name);
-			if (dir != NULL)
-			{
-				ft_putendl(li->name);
-				child = create_child_list(li->name);
-				check_sort_list(child);
-				if (!(g_bit & OPTION_a))
-					child = affichage_a(child);
-				print_list(child);
-			}
-			li = li->next;
-		}
-	}
-}*/
+*/
 
 void	display_l(List li)
 {
@@ -237,6 +153,8 @@ void list_begin(List li, int i, int argc)
 		child = create_child_list(li->name);
 		child = option_a(child);
 		child = check_sort_list_ascci(child);
+		//print_list(child);
+		//sleep(30);
 		display(child, j);
 	}
 
@@ -255,8 +173,14 @@ int main (int argc, char **argv)
 	i = check_option(argv, argc);
 	sort_argv(i, argc, argv);
 	mylist = check_directory(i, argc, argv, mylist);
-	mylist = check_sort_list_ascci(mylist);
+	if (is_empty(mylist))
+		mylist = check_sort_list_ascci(mylist);
+	if (i < argc) //Si on a des arguents
+	{
+		mylist = print_and_free_only_file(mylist);
+	}
 	list_begin(mylist, argc, i);
+
 	//printf("%d\n", list_size(mylist));
 	//print_list(mylist);
 	//j = argc - i;
@@ -277,6 +201,5 @@ int main (int argc, char **argv)
 		back_front(mylist);
 		mylist = mylist->next;
 	}*/
-	//g_debug();
 	return (0);
 }

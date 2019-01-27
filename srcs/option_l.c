@@ -40,14 +40,20 @@ void	affichage_file_login(int max, List li)
 {
 	int i;
 
-	i = ft_strlen(li->login);
+	i = 0;
 	ft_putstr(" ");
-	while (i < max)
+	if (li->login_u == 0)
+	{
+		i = ft_strlen(li->login);
+		ft_putstr(li->login);	
+	}
+	else
+		ft_putstr(ft_itoa(li->login_u));
+	while (i < max + 2)
 	{
 		ft_putstr(" ");
 		i++;
 	}
-	ft_putstr(li->login);	
 }
 
 void	login_name(List li, List begin)
@@ -59,16 +65,18 @@ void	login_name(List li, List begin)
 
 	max = 0;
 	temp = begin;
-	while (begin != NULL)
+	while (begin != NULL)  // Optimiser
 	{
-		pw = getpwuid(li->fileinfo.st_uid);
-		li->login = pw->pw_name;
+		if((pw = getpwuid(begin->fileinfo.st_uid)))
+			begin->login = pw->pw_name;
+		else
+			begin->login_u = begin->fileinfo.st_uid;
 		begin = begin->next;
 	}
 	begin = temp;
 	while (begin != NULL)
 	{
-		i = ft_strlen(li->login);
+		i = ft_strlen(begin->login);
 		if (i > max)
 			max = i;
 		begin = begin->next;

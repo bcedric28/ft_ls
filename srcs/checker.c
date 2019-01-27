@@ -24,7 +24,7 @@
 
 int dirtrue(char *s1, struct stat *file)
 {
-	if (stat(s1, file) == 0)
+	if (lstat(s1, file) == 0)
 		return (1);
 	else
 		return (0);
@@ -32,7 +32,7 @@ int dirtrue(char *s1, struct stat *file)
 
 List  put_in_list(char *str, List li,  struct stat file)
 {
-	li = push_back(li, str, file);
+	li = push_back(li, str, str, file);
 	return (li);
 }
 

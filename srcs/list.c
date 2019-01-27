@@ -77,12 +77,20 @@ void print_list(List li)
 void	print_name_list(List li)
 {
 	int i;
+	char buf[NAME_MAX + 1];
 
 	i = 0;
 	while(li->name[i])
 	{
 		ft_putchar(li->name[i]);
 		i++;
+	}
+	if (S_ISLNK(li->fileinfo.st_mode))
+	{
+		ft_putstr(" -> ");
+		ft_bzero(buf, NAME_MAX + 1);
+		readlink(li->full_path, buf, NAME_MAX);
+		ft_putstr(buf);
 	}
 	ft_putendl("");
 }
