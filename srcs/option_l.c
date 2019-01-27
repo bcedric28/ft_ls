@@ -45,7 +45,7 @@ void	affichage_file_login(int max, List li)
 	if (li->login_u == 0)
 	{
 		i = ft_strlen(li->login);
-		ft_putstr(li->login);	
+		ft_putstr(li->login);
 	}
 	else
 		ft_putstr(ft_itoa(li->login_u));
@@ -81,7 +81,7 @@ void	login_name(List li, List begin)
 			max = i;
 		begin = begin->next;
 	}
-	affichage_file_login(max, li);	
+	affichage_file_login(max, li);
 }
 
 

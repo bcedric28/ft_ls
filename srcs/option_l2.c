@@ -136,7 +136,7 @@ void	affichage_file_group(int max, List li)
 		ft_putstr(" ");
 		i++;
 	}
-	ft_putstr(li->group);
+	//ft_putstr(li->group); //Double group !
 }
 
 void	group_name(List li, List begin)

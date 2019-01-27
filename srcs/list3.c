@@ -68,14 +68,12 @@ List 	back_list(List li, List begin)
 
 List	print_and_free_only_file(List li)
 {
-	int i;
 	ListElement *li_next;
 	ListElement *begin;
 
 	DIR *dir;
 
 	begin = li;
-	i = 0;
 	while (li != NULL)
 	{
 		li_next = li->next;
@@ -88,7 +86,6 @@ List	print_and_free_only_file(List li)
 			begin = back_list(li, begin);
 		}
 		li = li_next;
-		// li = li->next;
 	}
 	return begin;
 }

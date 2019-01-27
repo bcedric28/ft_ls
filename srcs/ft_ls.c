@@ -35,48 +35,54 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 	//free(fileinfo);
 	return(child);
 }
-/*void parent(List parent, char *path)
+
+void affichage(List li, char *path)
 {
-	//verifier l'ordre de la liste;
-	//verifier si le -a est activer;
-	//stocker les informations necessaire;
-	//afficher le parent en fonction du -l puis supprimer les fichier de la liste chainer en cour, puis si le R l'enfant et ainsi de suite quand plus d'enfant free;
-}*/
+	ListElement *begin;
+	begin = li;
+	if (path != NULL)
+		printf("\n%s:\n", path);
+	printf("total %s\n", "xx");
+	while (li != NULL)
+	{
+		if (g_bit & OPTION_l)
+			main_l(li, begin);
+		else
+			ft_putendl(li->name);
+		li = li->next;
+	}
+}
 
 void parent_to_childe(List parent, char *path) //ajout du path pour la recursive
 {
 	DIR *dir;
 	List child = new_list();
 	char *path_backup; //correspond au path avant d'avoir ajouté le num du dossier qu'on ouvre (il doit y avoir moyen de faire autrement mais bon...)
-	parent = check_sort_list_ascci(parent);
 
 	path_backup = ft_strdup(path); //On sauve le path dedans
-	print_list(parent);
 
-	while(parent != NULL)   //Si on laisse le next on perd le dernier element
+	while(parent != NULL && (g_bit & OPTION_R))
 	{
-		if ((ft_strcmp(parent->name, ".") != 0) && (ft_strcmp(parent->name, "..") != 0))
-		{
 			//On config le path avant de faire quoi que ce soit
-			path = ft_strjoin(path, "/"); //On ajoute un / car c'est un dossier
-			path = ft_strjoin(path, parent->name); //puis le nom du fichier
+		path = ft_strjoin(path, "/"); //On ajoute un / car c'est un dossier
+		path = ft_strjoin(path, parent->name); //puis le nom du fichier
 
-			dir = opendir(path); //vérifier qu'il faut pas mettre le path
+		dir = opendir(path); //vérifier qu'il faut pas mettre le path
 
-			if (dir != NULL)
-			{
-				//leak
-				child = create_child_list(path); //On cree la structure avec tous les enfants du path
-				parent_to_childe(child, path); //On recusive sur les enfants et on garde le path complet
-									//leak
-				printf("\n");
-			}
-			path = path_backup; //On remet le path sans le nom du dossier
+		if (dir != NULL)
+		{
+			child = create_child_list(path); //On cree la structure avec tous les enfants du path
+			child = check_sort_list_ascci(child);
+
+			affichage(child, path);
+			parent_to_childe(child, path); //On recusive sur les enfants et on garde le path complet
+			//printf("\n");
 		}
+		path = path_backup; //On remet le path sans le nom du dossier
+
 		parent = parent->next;
 	}
 }
-
 
 // void	display_l(List li)
 // {
@@ -144,6 +150,7 @@ int main (int argc, char **argv)
 	if (i < argc) //Si on a des arguents
 		mylist = print_and_free_only_file(mylist); //on affiche les fichiers et free les fichiers
 
+	affichage(mylist, NULL);
 	parent_to_childe(mylist, "."); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
 
 
