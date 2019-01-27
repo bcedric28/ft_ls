@@ -38,8 +38,8 @@ all: comp
 	@mkdir -p $(OBJ_DIR)
 	@make $(NAME)
 
-comp: 
-	@make -C $(LIBFT_DIR)
+comp:
+	#@make -C $(LIBFT_DIR)
 
 $(NAME): $(OBJ)
 	@gcc $(FLAG) $(COMP_OBJ) -I $(INCLUDE) -L $(LIBFT_DIR) -lft  -o $(NAME)
@@ -48,17 +48,17 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@echo "[$(GGCOLORGREEN)✔$(GGRESET)] "$(subst .c,,$<)
-	@mkdir -p $(dir $@) && gcc $(FLAG) -I $(INCLUDE) -o $@ -c $< 
+	@mkdir -p $(dir $@) && gcc $(FLAG) -I $(INCLUDE) -o $@ -c $<
 
 clean:
-	@make -C $(LIBFT_DIR) clean
+	#@make -C $(LIBFT_DIR) clean
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@make -C $(LIBFT_DIR) fclean
+	#@make -C $(LIBFT_DIR) fclean
 	@rm -rf $(NAME)
 	@echo "$(GGCOLORRED)Suppresion$(GGRESET) de ft_ls..."
 
 re: fclean all
 
-.PHONY: clean fclean re all 
+.PHONY: clean fclean re all
