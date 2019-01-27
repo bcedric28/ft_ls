@@ -15,7 +15,7 @@
 /*
 **Check_arguments : fs_open (Fonction de checker)
 **
-**Check_directory : Fonction qui permet de verifier en appelant dirtrue si 
+**Check_directory : Fonction qui permet de verifier en appelant dirtrue si
 **	l'arugements rentree existe (dossier ou fichier) (stat == 0 --> existe)
 **	(stat == -1 --> n'existe pas). Si dirtrue renvoie "1" allors on fais
 **	appelle a la fonction put_in_list qui s'occupe de remplire la liste
@@ -39,19 +39,18 @@ List  put_in_list(char *str, List li,  struct stat file)
 List	check_directory(int i, int argc, char **argv, List li)
 {
 	struct stat file;
-	if (i == argc)
+	if (i == argc) //si pas d'arguments
 	{
-		dirtrue("./", &file);
-		li = put_in_list("./", li, file);
+		li = create_child_list("."); //on crée la liste avec les dossiers/fichiers
 		return (li);
 	}
-	while (i < argc)
+	while (i < argc) //Tant qu'il y a des arguments
 	{
-		if (!(dirtrue(argv[i], &file)))
+		if (!(dirtrue(argv[i], &file))) //on recup les infos de chaque argument
 		 ft_error2(argv[i]);
 		else
-			li = put_in_list(argv[i], li, file);
-		i++;
+			li = put_in_list(argv[i], li, file); //On les met dans la liste
+		i++; //argument suivant
 	}
 	return (li);
 }

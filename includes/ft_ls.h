@@ -51,6 +51,8 @@ typedef struct ListElement
 	char *full_path;
 }ListElement, *List;
 
+List create_child_list(char *path); //On recoit juste le chemin a ouvrir
+
 /*
 **Fonction pour le -a dans le fichier option_a.c
 */

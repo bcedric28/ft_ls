@@ -125,27 +125,37 @@ List check_sort_list_ascci(List li)
 {
 	char *temp[2];
 	struct stat file;
-	ListElement *j;
+	ListElement *begin;
+	ListElement *temp_next;
 
-	j = li;
+	begin = li;
 	while (li->next != NULL)
 	{
-		if (ft_strcmp(li->name, li->next->name) > 0)
+		if (is_hide(li) && (!(g_bit & OPTION_a))) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
 		{
-			temp[0] = li->name;
-			file = li->fileinfo;
-			temp[1] = li->full_path;
-			li->name = li->next->name;
-			li->fileinfo = li->next->fileinfo;
-			li->full_path = li->next->full_path;
-			li->next->name = temp[0];
-			li->next->fileinfo = file;
-			li->next->full_path = temp[1];
-			li = j;
+			temp_next = li->next;
+			begin = back_list(li, begin);
+			li = temp_next;
 		}
 		else
-			li = li->next;
+		{
+			if (ft_strcmp(li->name, li->next->name) > 0)
+			{
+				temp[0] = li->name;
+				file = li->fileinfo;
+				temp[1] = li->full_path;
+				li->name = li->next->name;
+				li->fileinfo = li->next->fileinfo;
+				li->full_path = li->next->full_path;
+				li->next->name = temp[0];
+				li->next->fileinfo = file;
+				li->next->full_path = temp[1];
+				li = begin;
+			}
+			else
+				li = li->next;
+		}
 	}
-	li = check_option_sort(li, j);
+	li = check_option_sort(li, begin);
 	return (li);
 }

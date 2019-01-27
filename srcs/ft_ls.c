@@ -137,14 +137,12 @@ int main (int argc, char **argv)
 	check_arguments_b0(argv, argc);
 	i = check_option(argv, argc);
 	sort_argv(i, argc, argv);
-	mylist = check_directory(i, argc, argv, mylist);
-	if (is_empty(mylist))
-		mylist = check_sort_list_ascci(mylist);
-	mylist = check_sort_list_ascci(mylist);
+	mylist = check_directory(i, argc, argv, mylist); //Création de la liste parent avec les arguments (ou non) de la fonction
+	if (!is_empty(mylist))  //si la liste est vide
+		return (0);
+	mylist = check_sort_list_ascci(mylist); //On trie la liste dans l'ordre ASCI
 	if (i < argc) //Si on a des arguents
-	{
 		mylist = print_and_free_only_file(mylist); //on affiche les fichiers et free les fichiers
-	}
 
 	parent_to_childe(mylist, "."); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
 
