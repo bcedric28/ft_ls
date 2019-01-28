@@ -39,7 +39,7 @@ all: comp
 	@make $(NAME)
 
 comp:
-	#@make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 
 $(NAME): $(OBJ)
 	@gcc $(FLAG) $(COMP_OBJ) -I $(INCLUDE) -L $(LIBFT_DIR) -lft  -o $(NAME)
@@ -51,11 +51,11 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@) && gcc $(FLAG) -I $(INCLUDE) -o $@ -c $<
 
 clean:
-	#@make -C $(LIBFT_DIR) clean
+	@make -C $(LIBFT_DIR) clean
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	#@make -C $(LIBFT_DIR) fclean
+	@make -C $(LIBFT_DIR) fclean
 	@rm -rf $(NAME)
 	@echo "$(GGCOLORRED)Suppresion$(GGRESET) de ft_ls..."
 

@@ -45,10 +45,10 @@ typedef struct ListElement
 	struct ListElement *next;
 	char *login;
 	char *group;
-	gid_t group_u;
-	char *date;
-	uid_t login_u;
 	char *full_path;
+	char *date;
+	int max_login;
+	int max_group;
 }ListElement, *List;
 
 List create_child_list(char *path); //On recoit juste le chemin a ouvrir
@@ -77,15 +77,14 @@ char	file_perm2(int i, List li);
 int		number_of_digit(int max);
 void 	count_file_link(List li, List begin);
 void	affichage_file_link(int max, List li);
-void	login_name(List li, List begin);
-void	affichage_file_login(int max, List li);
+List	login_name(List begin);
+void	affichage_file_login(List li);
 
 	/*
 	**---------------------option2_l-------------------------
 	*/
 
-void	group_name(List li, List begin);
-void	affichage_file_group(int max, List li);
+void	affichage_file_group(List li);
 void 	file_size(List li, List begin);
 void	affichage_file_size(int max, List li);
 void 	file_minor_and_major(List li, List begin);
@@ -105,7 +104,7 @@ void	affichage_file_years(List li, int i);
 */
 
 void	ft_error(char c, int i);
-void 	ft_error2(char *s);
+void 	ft_error2(char *s, int j);
 
 /*
 **Fonction de check d'arguments dans checker.c et dans checker_option.c

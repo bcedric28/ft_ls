@@ -76,15 +76,9 @@ void print_list(List li)
 
 void	print_name_list(List li)
 {
-	int i;
 	char buf[NAME_MAX + 1];
 
-	i = 0;
-	while(li->name[i])
-	{
-		ft_putchar(li->name[i]);
-		i++;
-	}
+	ft_putstr(li->name);
 	if (S_ISLNK(li->fileinfo.st_mode))
 	{
 		ft_putstr(" -> ");

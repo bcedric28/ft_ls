@@ -45,6 +45,7 @@ List 	add_list(List li, List begin, char *s)
 	return (begin);
 }
 
+
 List 	back_list(List li, List begin)
 {
 	ListElement *temp;
@@ -71,13 +72,11 @@ List	print_and_free_only_file(List li)
 	ListElement *li_next;
 	ListElement *begin;
 
-	DIR *dir;
-
 	begin = li;
 	while (li != NULL)
 	{
 		li_next = li->next;
-		if((dir = opendir(li->name)) == NULL)
+		if(S_ISREG(li->fileinfo.st_mode))
 		{
 			if (g_bit & OPTION_l)
 				main_l(li, begin);

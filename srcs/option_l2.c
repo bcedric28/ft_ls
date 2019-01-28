@@ -25,8 +25,8 @@ void	main_l(List li, List begin)
 {
 		affichage_file_perm(li);
 		count_file_link(li, begin);
-		login_name(li, begin);
-		group_name(li, begin);
+		affichage_file_login(li);
+		affichage_file_group(li);
 		if (!(S_ISBLK(li->fileinfo.st_mode)) &&
 			(!(S_ISCHR(li->fileinfo.st_mode))))
 			file_size(li, begin);
@@ -52,23 +52,29 @@ void	affichage_minor(List li, int min)
 
 void	affichage_major(List li, int max)
 {
-	int j;
 	int i;
 
-	i = number_of_digit(major(li->fileinfo.st_rdev));
-	j = 2;
-	while (j > 0)
+	if (!(major(li->fileinfo.st_rdev)))
 	{
-		ft_putstr(" ");
-		j--;
+		i = 0;
+		while (i < max + 3)
+		{
+			ft_putstr(" ");
+			i++;
+		}
+		return ;
 	}
-	while (i < max)
+	else
 	{
-		ft_putstr(" ");
-		i++;
+		i = number_of_digit(major(li->fileinfo.st_rdev));
+		while (i < max + 2)
+		{
+			ft_putstr(" ");
+			i++;
+		}
+		ft_putstr(ft_itoa(major(li->fileinfo.st_rdev)));
+		ft_putstr(",");
 	}
-	ft_putstr(ft_itoa(major(li->fileinfo.st_rdev)));
-	ft_putstr(",");
 }
 
 void file_minor_and_major(List li, List begin)
@@ -86,7 +92,6 @@ void file_minor_and_major(List li, List begin)
 			max = number_of_digit(major(begin->fileinfo.st_rdev));
 		begin = begin->next;
 	}
-	affichage_major(li, max);
 	begin = temp;
 	while (begin != NULL)
 	{
@@ -94,6 +99,7 @@ void file_minor_and_major(List li, List begin)
 			min = number_of_digit(minor(begin->fileinfo.st_rdev));
 		begin = begin->next;
 	}
+	affichage_major(li, max);
 	affichage_minor(li, min);
 }
 
@@ -125,13 +131,13 @@ void 	file_size(List li, List begin)
 	affichage_file_size(max, li);
 }
 
-void	affichage_file_group(int max, List li)
+void	affichage_file_group(List li)
 {
 	int i;
 
 	i = ft_strlen(li->group);
 	ft_putstr(li->group);
-	while(i < max)
+	while(i < li->max_group)
 	{
 		ft_putstr(" ");
 		i++;
@@ -139,30 +145,3 @@ void	affichage_file_group(int max, List li)
 	//ft_putstr(li->group); //Double group !
 }
 
-void	group_name(List li, List begin)
-{
-	struct group *gid;
-	ListElement *temp;
-	int max;
-	int i;
-
-	max = 0;
-	temp = begin;
-	while (begin != NULL) // optimiser
-	{
-		if((gid = getgrgid(begin->fileinfo.st_gid)))
-			begin->group = gid->gr_name;
-		else
-			begin->group_u = begin->fileinfo.st_gid;
-		begin = begin->next;
-	}
-	begin = temp;
-	while (begin != NULL)
-	{
-		i = ft_strlen(begin->group);
-		if (i > max)
-			max = i;
-		begin = begin->next;
-	}
-	affichage_file_group(max, li);
-}

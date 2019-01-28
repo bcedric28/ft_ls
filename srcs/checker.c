@@ -47,7 +47,7 @@ List	check_directory(int i, int argc, char **argv, List li)
 	while (i < argc) //Tant qu'il y a des arguments
 	{
 		if (!(dirtrue(argv[i], &file))) //on recup les infos de chaque argument
-		 ft_error2(argv[i]);
+		 ft_error2(argv[i], 0);
 		else
 			li = put_in_list(argv[i], li, file); //On les met dans la liste
 		i++; //argument suivant

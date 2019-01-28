@@ -36,54 +36,52 @@ int	number_of_digit(int max)
 	return (i);
 }
 
-void	affichage_file_login(int max, List li)
+void	affichage_file_login(List li)
 {
 	int i;
 
 	i = 0;
 	ft_putstr(" ");
-	if (li->login_u == 0)
-	{
-		i = ft_strlen(li->login);
-		ft_putstr(li->login);
-	}
-	else
-		ft_putstr(ft_itoa(li->login_u));
-	while (i < max + 2)
+	i = ft_strlen(li->login);
+	ft_putstr(li->login);
+	while (i < li->max_login + 2)
 	{
 		ft_putstr(" ");
 		i++;
 	}
 }
 
-void	login_name(List li, List begin)
+List	login_name(List begin)
 {
-	struct passwd *pw;
 	ListElement *temp;
-	int max;
+	int max_login;
+	int max_group;
 	int i;
+	int j;
 
-	max = 0;
+	max_login = 0;
+	max_group = 0;
 	temp = begin;
 	while (begin != NULL)  // Optimiser
 	{
-		if((pw = getpwuid(begin->fileinfo.st_uid)))
-			begin->login = pw->pw_name;
-		else
-			begin->login_u = begin->fileinfo.st_uid;
+		j = ft_strlen(begin->group);
+		i = ft_strlen(begin->login);
+		if (i > max_login)
+			max_login = i;
+		if (j > max_group)
+			max_group = j;
 		begin = begin->next;
 	}
 	begin = temp;
 	while (begin != NULL)
 	{
-		i = ft_strlen(begin->login);
-		if (i > max)
-			max = i;
+		begin->max_login = max_login;
+		begin->max_group = max_group;
 		begin = begin->next;
 	}
-	affichage_file_login(max, li);
+	begin = temp;
+	return (begin);
 }
-
 
 void	affichage_file_link(int max, List li)
 {

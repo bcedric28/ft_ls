@@ -125,6 +125,8 @@ List check_sort_list_ascci(List li)
 {
 	char *temp[2];
 	struct stat file;
+	char *temp_log;
+	char *temp_group;
 	ListElement *begin;
 	ListElement *temp_next;
 
@@ -142,14 +144,20 @@ List check_sort_list_ascci(List li)
 			if (ft_strcmp(li->name, li->next->name) > 0)
 			{
 				temp[0] = li->name;
+				temp_log = li->login;
+				temp_group = li->group;
 				file = li->fileinfo;
 				temp[1] = li->full_path;
+				li->group = li->next->group;
+				li->login = li->next->login;
 				li->name = li->next->name;
 				li->fileinfo = li->next->fileinfo;
 				li->full_path = li->next->full_path;
 				li->next->name = temp[0];
 				li->next->fileinfo = file;
 				li->next->full_path = temp[1];
+				li->next->group = temp_group;
+				li->next->login = temp_log;
 				li = begin;
 			}
 			else

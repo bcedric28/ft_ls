@@ -21,18 +21,31 @@
 **	ou fichier n'existe pas.
 */
 
-void 	ft_error2(char *s)
+void 	ft_error2(char *s, int j)
 {
 	int i;
 
 	i = 0;
-	ft_putstr_fd("ls: ", 2);
-	while(s[i])
+	if (j == 0)
 	{
-		ft_putchar_fd(s[i], 2);
-		i++;
+		ft_putstr_fd("ls: ", 2);
+		while(s[i])
+		{
+			ft_putchar_fd(s[i], 2);
+			i++;
+		}
+		ft_putendl_fd(": No such file or directory", 2);
 	}
-	ft_putendl_fd(": No such file or directory", 2);
+	if (j == 1)
+	{
+		ft_putstr_fd("ls: ", 2);
+		while(s[i])
+		{
+			ft_putchar_fd(s[i], 2);
+			i++;
+		}
+		ft_putendl_fd(": Permission denied", 2);
+	}
 }
 
 void	ft_error(char c, int i)

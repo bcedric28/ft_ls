@@ -29,24 +29,26 @@ List push_back(List li, char *s, char *full_path, struct stat file)
 {
 	ListElement *element;
 	ListElement	*temp;
-	//struct passwd *pw;
-	//struct group *gid;
+	struct passwd *pw;
+	struct group *gid;
 
+	//printf("MAILLON %s\n", s);
+	//sleep(10);
 	if (!(element = malloc(sizeof(*element))))
 	{
 		exit(EXIT_FAILURE);
 	}
-	element->name = s;
+	element->name = ft_strjoin("",s);
 	element->fileinfo = file;
 	element->full_path = full_path;
-	/*if((pw = getpwuid(element->fileinfo.st_uid)))
-		element->login = pw->pw_name;
+	gid = getgrgid(element->fileinfo.st_gid);
+			element->group = gid->gr_name;
+	if(!(pw = getpwuid(element->fileinfo.st_uid)))
+		element->login = ft_itoa(element->fileinfo.st_uid);
 	else
-		element->login_u = element->fileinfo.st_uid;
-	if ((gid = getgrgid(element->fileinfo.st_gid)))
-		element->group = gid->gr_name;
-	else
-		element->group_u = element->fileinfo.st_gid;*/
+	{
+		element->login = ft_strjoin("",pw->pw_name);
+	}
 	element->next = NULL;
 	if(!(is_empty(li)))
 		return (element);
