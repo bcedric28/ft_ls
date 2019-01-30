@@ -39,13 +39,14 @@ List push_back(List li, char *s, char *full_path, struct stat file)
 	element->name = ft_strjoin("",s);
 	element->fileinfo = file;
 	element->full_path = full_path;
-	gid = getgrgid(element->fileinfo.st_gid);
-			element->group = gid->gr_name;
-	if(!(pw = getpwuid(element->fileinfo.st_uid)))
-		element->login = ft_itoa(element->fileinfo.st_uid);
-	else
+	if (g_bit & OPTION_l)
 	{
-		element->login = ft_strjoin("",pw->pw_name);
+		gid = getgrgid(element->fileinfo.st_gid);
+				element->group = gid->gr_name;
+		if(!(pw = getpwuid(element->fileinfo.st_uid)))
+			element->login = ft_itoa(element->fileinfo.st_uid);
+		else
+			element->login = ft_strjoin("",pw->pw_name);
 	}
 	element->next = NULL;
 	if(!(is_empty(li)))
@@ -71,13 +72,14 @@ List push_front(List li, char *s, char *full_path, struct stat file)
 	element->name = s;
 	element->fileinfo = file;
 	element->full_path = full_path;
-	gid = getgrgid(element->fileinfo.st_gid);
-			element->group = gid->gr_name;
-	if(!(pw = getpwuid(element->fileinfo.st_uid)))
-		element->login = ft_itoa(element->fileinfo.st_uid);
-	else
+	if (g_bit & OPTION_l)
 	{
-		element->login = ft_strjoin("",pw->pw_name);
+		gid = getgrgid(element->fileinfo.st_gid);
+				element->group = gid->gr_name;
+		if(!(pw = getpwuid(element->fileinfo.st_uid)))
+			element->login = ft_itoa(element->fileinfo.st_uid);
+		else
+			element->login = ft_strjoin("",pw->pw_name);
 	}
 	if(!(is_empty(li)))
 		element->next = NULL;
