@@ -62,7 +62,7 @@ void	ft_error(char c, int i)
 		ft_putstr_fd("ls: illegal option -- ", 2);
 		ft_putchar_fd(c, 2);
 		ft_putendl_fd("", 2);
-		ft_putstr_fd("usage: ls [-alrRt] [file ...]", 2);
+		ft_putstr_fd("usage: ls [-alrRt] [file ...]\n", 2);
 		exit(EXIT_FAILURE);
 	}
 }
