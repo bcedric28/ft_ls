@@ -61,7 +61,7 @@ List 	back_list(List li, List begin)
 		begin = begin->next;
 	membef = begin;
 	memaft = li->next;
-	free(li);
+	free_li_one(li);
 	li = NULL;
 	membef->next = memaft;
 	return (temp);

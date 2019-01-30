@@ -124,7 +124,7 @@ List back_front(List li)
 		return (li);
 
 	element = li->next;
-	free(li);
+	free_li_one(li);
 	li = NULL;
 	return (element);
 }

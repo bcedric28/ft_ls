@@ -16,7 +16,7 @@ FLAG = -Wall -Wextra
 
 SOURCE = ft_ls.c error.c checker.c list.c list2.c list3.c sort_list.c \
 		checker_option.c option_a.c option_l.c option_l2.c file_perm.c \
-		option_l3.c
+		option_l3.c free.c
 LIBFT_DIR = Libft/
 
 COMP_OBJ = ./obj/*.o
@@ -42,7 +42,7 @@ comp:
 	@make -C $(LIBFT_DIR)
 
 $(NAME): $(OBJ)
-	@gcc $(FLAG) $(COMP_OBJ) -I $(INCLUDE) -L $(LIBFT_DIR) -lft  -o $(NAME)
+	@gcc $(FLAG) $(COMP_OBJ) -I $(INCLUDE) -L $(LIBFT_DIR) -lft  -o $(NAME) -fsanitize=address
 	@echo "$(GGCOLORCYAN)Creation$(GGRESET) du binaire $(GGMAG)./ft_ls$(GGRESET)..."
 	@echo "$(GGCOLORGREEN)Success!$(GGRESET)"
 

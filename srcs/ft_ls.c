@@ -28,6 +28,7 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 		full_path = ft_strjoin(path, "/");
 		full_path = ft_strjoin(full_path, dent->d_name);
 		//leak
+		//lstat(full_path, &fileinfo);
 		lstat(full_path, &fileinfo);
 		child = push_back(child, dent->d_name, full_path, fileinfo);
 	}
@@ -105,6 +106,7 @@ void parent_to_childe(List parent, char *path, int i) //ajout du path pour la re
 				{
 					parent_to_childe(child, path, i); //On recusive sur les enfants et on garde le path complet
 				}
+				free_li(child);
 			}
 		}
 		path = path_backup; //On remet le path sans le nom du dossier

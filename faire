@@ -3,7 +3,6 @@ fonction pour free + Fonction strjoinfree
 list2.c fonction back (free chaque element avant de free le maillon)
 list3.c remplire les maillon
 checker si c'est un fichier ou un dossier
-"ft_ls -" => segfault
 les liens
 le total
 si on as pas la permission
@@ -32,8 +31,7 @@ bonus
 trie par size
 afficher que les directory
 
-
-
+ft_ls ../ ../ un seul maillon 
 
 
 

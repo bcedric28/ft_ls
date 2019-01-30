@@ -166,4 +166,11 @@ List 	back_list(List li, List begin);
 List 	add_list(List li, List begin, char *s);
 List	print_and_free_only_file(List li);
 
+/*
+**Fonction pour free dans le fichier free.c
+*/
+
+void	free_li(List li);
+void	free_li_one(List li);
+
 #endif

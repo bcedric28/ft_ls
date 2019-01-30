@@ -94,8 +94,9 @@ List check_sort_list_reverse(List li)
 		while(li != NULL)
 		{
 			new_ord = push_front(new_ord, li->name, li->full_path, li->fileinfo);
-			li = back_front(li);
+			li = li->next;
 		}
+		free_li(li);
 		return(new_ord);
 }
 
