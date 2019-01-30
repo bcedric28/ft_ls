@@ -32,6 +32,8 @@ int dirtrue(char *s1, struct stat *file)
 
 List  put_in_list(char *str, List li,  struct stat file)
 {
+	if (ft_strcmp(str, "..") == 0)
+		str = ft_strjoin(str, "/");
 	li = push_back(li, str, str, file);
 	return (li);
 }

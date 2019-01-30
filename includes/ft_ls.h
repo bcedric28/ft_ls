@@ -98,6 +98,7 @@ void 	file_date(List li);
 int		check_6_months(List li, time_t now);
 void	affichage_file_date(List li, int i);
 void	affichage_file_years(List li, int i);
+int 	total_block(List begin);
 
 /*
 **Fonction de gestion d'erreur dans le fichier error.c

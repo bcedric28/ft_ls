@@ -32,8 +32,6 @@ List push_back(List li, char *s, char *full_path, struct stat file)
 	struct passwd *pw;
 	struct group *gid;
 
-	//printf("MAILLON %s\n", s);
-	//sleep(10);
 	if (!(element = malloc(sizeof(*element))))
 	{
 		exit(EXIT_FAILURE);
@@ -63,6 +61,8 @@ List push_back(List li, char *s, char *full_path, struct stat file)
 List push_front(List li, char *s, char *full_path, struct stat file)
 {
 	ListElement *element;
+	struct passwd *pw;
+	struct group *gid;
 
 	if (!(element = malloc(sizeof(*element))))
 	{
@@ -71,7 +71,14 @@ List push_front(List li, char *s, char *full_path, struct stat file)
 	element->name = s;
 	element->fileinfo = file;
 	element->full_path = full_path;
-
+	gid = getgrgid(element->fileinfo.st_gid);
+			element->group = gid->gr_name;
+	if(!(pw = getpwuid(element->fileinfo.st_uid)))
+		element->login = ft_itoa(element->fileinfo.st_uid);
+	else
+	{
+		element->login = ft_strjoin("",pw->pw_name);
+	}
 	if(!(is_empty(li)))
 		element->next = NULL;
 	else

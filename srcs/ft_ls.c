@@ -41,12 +41,16 @@ void affichage(List li, char *path, int i)
 	ListElement *begin;
 	begin = li;
 	int k = 0;
+	int total;
 
 	if (g_bit & OPTION_l)
 	{
 		if (i != 0 /*|| g_bit & OPTION_R*/)
 			printf("\n%s:\n", path);
-		printf("total %s\n", "xx");
+		total = total_block(begin);
+		ft_putstr("total ");
+		ft_putstr(ft_itoa(total));
+		ft_putendl("");
 	}
 	while (li != NULL)
 	{
@@ -173,7 +177,12 @@ int main (int argc, char **argv)
 	mylist = check_sort_list_ascci(mylist); //On trie la liste dans l'ordre ASCI//
 	if (i != argc)
 	{
+		print_list(mylist);
+		printf("--------------------------\n");
 		mylist = print_and_free_only_file(mylist);
+		printf("--------------------------\n");
+		print_list(mylist);
+		printf("--------------------------\n");
 		parent_to_childe(mylist, NULL, (list_size(mylist) - 1));
 	}
 	else 

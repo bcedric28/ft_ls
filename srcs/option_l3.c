@@ -19,6 +19,22 @@
 **	affiche le reste de la date avec le bon format.
 */
 
+int 	total_block(List begin)
+{
+	int block;
+	int temp;
+
+	block = 0;
+	temp = 0;
+	while (begin != NULL)
+	{
+		temp = block;
+		block = begin->fileinfo.st_blocks + temp;
+		begin = begin->next;
+	}
+	return(block);
+}
+
 void	affichage_file_years(List li, int i)
 {
 	while (i < 19)
