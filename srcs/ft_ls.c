@@ -179,15 +179,10 @@ int main (int argc, char **argv)
 	mylist = check_sort_list_ascci(mylist); //On trie la liste dans l'ordre ASCI//
 	if (i != argc)
 	{
-		print_list(mylist);
-		printf("--------------------------\n");
 		mylist = print_and_free_only_file(mylist);
-		printf("--------------------------\n");
-		print_list(mylist);
-		printf("--------------------------\n");
 		parent_to_childe(mylist, NULL, (list_size(mylist) - 1));
 	}
-	else 
+	else
 	{
 		if (g_bit & OPTION_R)
 		{
