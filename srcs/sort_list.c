@@ -133,7 +133,7 @@ List check_sort_list_ascci(List li)
 
 	begin = li;
 	while (li->next != NULL)
-	{
+ 	{
 		if (is_hide(li) && (!(g_bit & OPTION_a))) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
 		{
 			temp_next = li->next;
@@ -165,6 +165,14 @@ List check_sort_list_ascci(List li)
 				li = li->next;
 		}
 	}
+
+	if (is_hide(li) && (!(g_bit & OPTION_a))) //on regarde si le dernier fichier commence par un "."
+	{
+		//free_li_one(li);
+		begin = back_list(li, begin);
+		li = begin;
+	}
+
 	li = check_option_sort(li, begin);
 	return (li);
 }
