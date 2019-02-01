@@ -23,15 +23,22 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 	char *full_path;
 
 	dir = opendir(path); //On ouvre le path et non le name
+	if (dir == NULL)
+	{
+		printf("FUCK4\n\n");
+		// return NULL;
+		// exit(EXIT_FAILURE);
+	}
 	while((dent = readdir(dir)) != NULL)
 	{
 		full_path = ft_strjoin(path, "/");
 		full_path = ft_strjoin(full_path, dent->d_name);
 		//leak
-		//lstat(full_path, &fileinfo);
-		lstat(full_path, &fileinfo);
+		if (lstat(full_path, &fileinfo) != 0)
+	   		exit(EXIT_FAILURE);
 		child = push_back(child, dent->d_name, full_path, fileinfo);
 	}
+	closedir(dir);
 	// free(dent);
 	//free(fileinfo);
 	return(child);
@@ -93,20 +100,21 @@ void parent_to_childe(List parent, char *path, int i) //ajout du path pour la re
 			else
 				path = parent->name;
 			dir = opendir(path);
-			/*if (dir == NULL)
-			{
-				ft_error2(parent->name, 1);
-			}*/
 			if (dir != NULL)
 			{
 				child = create_child_list(path); //On cree la structure avec tous les enfants du path
-				child = check_sort_list_ascci(child);
-				affichage(child, path, i++);
-				if (g_bit & OPTION_R)
+				if(child) //si il a bien été créé
 				{
-					parent_to_childe(child, path, i); //On recusive sur les enfants et on garde le path complet
+					child = check_sort_list_ascci(child);
+					affichage(child, path, i++);
+					if (g_bit & OPTION_R)
+					{
+						parent_to_childe(child, path, i); //On recusive sur les enfants et on garde le path complet
+					}
+					closedir(dir);
+
+					// free_li(child);
 				}
-				free_li(child);
 			}
 		}
 		path = path_backup; //On remet le path sans le nom du dossier
