@@ -39,6 +39,8 @@
 **ou de ma nouvelle liste.
 */
 
+double debug = 0;
+
 void sort_argv(int i, int argc, char **tab)
 {
 	char *temp;
@@ -122,47 +124,69 @@ List check_option_sort(List li, List j)
 	return (li);
 }
 
+List invert_two_links(List li, List previous, List begin) //a vérifier
+{
+	ListElement *suivant;
+	ListElement *actuel;
+	ListElement *debut;
+
+	if (li->next == begin->next) // 0->1->2->3->4 (li = 0)
+	{
+		suivant = li->next->next; //2
+		debut = begin;
+		actuel = li->next;
+		actuel->next = debut;
+		debut->next = suivant;
+		return (actuel); //1->0->2->3->4
+	}
+	else //inverser 2 maillons quelconque
+	{  // 0->1->2->3->4 (li = 2)
+		suivant = li->next; //On défini le maillon suivant (3)
+		previous->next = suivant; //le précedent pointe sur le suivant (1->3)
+		li->next = suivant->next; //l'actuel pointe sur le suivant du suivant (2->4)
+		suivant->next = li; //le suivant pointe sur l'actuel (3->2)
+		//0->1->3->2->4
+		return (begin);
+	}
+}
+
 List check_sort_list_ascci(List li)
 {
-	char *temp[2];
-	struct stat file;
-	char *temp_log;
-	char *temp_group;
+	ListElement *previous;
 	ListElement *begin;
 	ListElement *temp_next;
 
 	begin = li;
+	previous = li;
 	while (li->next != NULL)
  	{
+		//dossier avec + de 10 000 fichiers pour test les améliorations
+		// ./ft_ls -lRa "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man/"
+		if (debug > 30)
+			exit(1);
+
 		if (is_hide(li) && (!(g_bit & OPTION_a))) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
 		{
+
 			temp_next = li->next;
 			begin = back_list(li, begin);
+			previous = begin;
 			li = temp_next;
 		}
 		else
 		{
 			if (ft_strcmp(li->name, li->next->name) > 0)
 			{
-				temp[0] = li->name;
-				temp_log = li->login;
-				temp_group = li->group;
-				file = li->fileinfo;
-				temp[1] = li->full_path;
-				li->group = li->next->group;
-				li->login = li->next->login;
-				li->name = li->next->name;
-				li->fileinfo = li->next->fileinfo;
-				li->full_path = li->next->full_path;
-				li->next->name = temp[0];
-				li->next->fileinfo = file;
-				li->next->full_path = temp[1];
-				li->next->group = temp_group;
-				li->next->login = temp_log;
+				begin = invert_two_links(li, previous, begin);
 				li = begin;
+				debug = 0;
 			}
 			else
+			{
+				previous = li;
 				li = li->next;
+				debug++;
+			}
 		}
 	}
 
@@ -174,5 +198,6 @@ List check_sort_list_ascci(List li)
 	}
 
 	li = check_option_sort(li, begin);
+
 	return (li);
 }
