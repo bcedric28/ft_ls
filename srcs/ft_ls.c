@@ -39,8 +39,6 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 		child = push_back(child, dent->d_name, full_path, fileinfo);
 	}
 	closedir(dir);
-	// free(dent);
-	//free(fileinfo);
 	return(child);
 }
 
@@ -51,10 +49,12 @@ void affichage(List li, char *path, int i)
 	int k = 0;
 	int total;
 
+	if (i != 0 /*|| g_bit & OPTION_R*/)
+		printf("\n%s:\n", path);
 	if (g_bit & OPTION_l)
 	{
-		if (i != 0 /*|| g_bit & OPTION_R*/)
-			printf("\n%s:\n", path);
+		//if (i != 0 /*|| g_bit & OPTION_R*/)
+		//	printf("\n%s:\n", path);
 		total = total_block(begin);
 		ft_putstr("total ");
 		ft_putstr(ft_itoa(total));
@@ -72,7 +72,9 @@ void affichage(List li, char *path, int i)
 			main_l(li, begin);
 		}
 		else
+		{
 			ft_putendl(li->name);
+		}
 		li = li->next;
 	}
 }
@@ -106,14 +108,23 @@ void parent_to_childe(List parent, char *path, int i) //ajout du path pour la re
 				if(child) //si il a bien été créé
 				{
 					child = check_sort_list_ascci(child);
+					//printf("----------------------\n");
+					//print_list(child);
+					//sleep(5);
 					affichage(child, path, i++);
 					if (g_bit & OPTION_R)
 					{
+						/*nouvel fonction qui se rajoute sue la stack
+						**donc on ne fri pas apre l'avoir afficher
+						**quand la stack casse je suppose que 
+						**du coup on recupere l'ancienne liste et il la reaffiche
+						**j'ai pu le constater donc ../../../ ou on refais le man 4fois
+						**au lieu de 2 (ls le fais deux fois seulement). 
+						*/
 						parent_to_childe(child, path, i); //On recusive sur les enfants et on garde le path complet
 					}
 					closedir(dir);
-
-					// free_li(child);
+					free_li(child);
 				}
 			}
 		}
@@ -121,56 +132,6 @@ void parent_to_childe(List parent, char *path, int i) //ajout du path pour la re
 		parent = parent->next;
 	}
 }
-
-// void	display_l(List li)
-// {
-// 	ListElement *begin;
-//
-// 	begin = li;
-// 	while (li != NULL)
-// 	{
-// 		main_l(li, begin);
-// 		li = li->next;
-// 	}
-//
-// }
-//
-// void	display(List li, int i)
-// {
-// 	if (i == 0)
-// 	{
-// 		if (g_bit & OPTION_l)
-// 			display_l(li);
-// 		else
-// 			print_list(li);
-// 	}
-// 	else if (i == 1)
-// 	{
-// 		printf("YOP\n"); //si il y a des dossiers en argument
-// 	}
-// }
-
-// void list_begin(List li, int i, int argc)
-// {
-// 	ListElement *child;
-// 	int j;
-//
-// 	j = 0;
-// 	if (list_size(li) == 1) //si 1 element dans ta chaine
-// 	{
-// 		if (i == argc || (i - 1) == argc) //si il a pas d'arguments
-// 			j = 0;
-// 		else
-// 			j = 1;
-// 		child = create_child_list(li->name);
-// 		child = option_a(child);
-// 		child = check_sort_list_ascci(child);
-// 		//print_list(child);
-// 		//sleep(30);
-// 		display(child, j);
-// 	}
-//
-// }
 
 int main (int argc, char **argv)
 {
@@ -200,24 +161,5 @@ int main (int argc, char **argv)
 		else
 			affichage(mylist, "", 0);
 	}
-//	if (i == argc) //Si on a pas d'arguents
-//	{
-//		if (g_bit & OPTION_R)
-//		{
-//			affichage(mylist, "", 0);
-//			parent_to_childe(mylist, ".", 1); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
-//		}
-//		else
-//			affichage(mylist, "", 0);
-//	}
-//	else
-//	{
-//		mylist = print_and_free_only_file(mylist); //on affiche les fichiers et free les fichiers
-//		//while (mylist)
-//		//{
-//
-//		parent_to_childe(mylist, NULL, (list_size(mylist) - 1)); //On passe la 1ere fois un . (a voir si on passe un nom de dossier en param !)
-//		//}
-//	}
 	return (0);
 }

@@ -66,28 +66,33 @@ List check_sort_list_time(List li)
 	char *temp[2];
 	struct stat file;
 	ListElement *j;
+	int size;
 
+	size = list_size(li);
 	j = li;
-	while (li->next != NULL)
+	while (size > 0)
 	{
-		if (li->fileinfo.st_mtime < li->next->fileinfo.st_mtime)
+		li = j;
+		while (li->next != NULL)
 		{
-			temp[0] = li->name;
-			file = li->fileinfo;
-			temp[1] = li->full_path;
-			li->name = li->next->name;
-			li->fileinfo = li->next->fileinfo;
-			li->full_path = li->next->full_path;
-			li->next->name = temp[0];
-			li->next->fileinfo = file;
-			li->next->full_path = temp[1];
-			li = j;
-		}
-		else
+			if (li->fileinfo.st_mtime < li->next->fileinfo.st_mtime)
+			{
+				temp[0] = li->name;
+				file = li->fileinfo;
+				temp[1] = li->full_path;
+				li->name = li->next->name;
+				li->fileinfo = li->next->fileinfo;
+				li->full_path = li->next->full_path;
+				li->next->name = temp[0];
+				li->next->fileinfo = file;
+				li->next->full_path = temp[1];
+			}
 			li = li->next;
+		}
+		size--;
 	}
-	li = j;
-	return (li);
+		li = j;
+		return (li);
 }
 
 List check_sort_list_reverse(List li)
@@ -150,54 +155,112 @@ List invert_two_links(List li, List previous, List begin) //a vérifier
 	}
 }
 
-List check_sort_list_ascci(List li)
+/*List check_sort_list_ascci(List li)
 {
 	ListElement *previous;
 	ListElement *begin;
-	ListElement *temp_next;
+	//ListElement *temp_next;
+	//static int j = 0;
+	int i;
+	int size;
 
+	size = list_size(li);
+	i = 0;
 	begin = li;
 	previous = li;
-	while (li->next != NULL)
- 	{
-		//dossier avec + de 10 000 fichiers pour test les améliorations
-		// ./ft_ls -lRa "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man/"
-		if (debug > 30)
-			exit(1);
-
-		if (is_hide(li) && (!(g_bit & OPTION_a))) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
-		{
-
-			temp_next = li->next;
-			begin = back_list(li, begin);
-			previous = begin;
-			li = temp_next;
-		}
-		else
-		{
-			if (ft_strcmp(li->name, li->next->name) > 0)
-			{
-				begin = invert_two_links(li, previous, begin);
-				li = begin;
-				debug = 0;
-			}
-			else
-			{
-				previous = li;
-				li = li->next;
-				debug++;
-			}
-		}
-	}
-
-	if (is_hide(li) && (!(g_bit & OPTION_a))) //on regarde si le dernier fichier commence par un "."
+	while (size > 0)
 	{
-		//free_li_one(li);
-		begin = back_list(li, begin);
 		li = begin;
+		previous = begin;
+		i = 0;
+		while (li->next != NULL)
+	 	{
+			//dossier avec + de 10 000 fichiers pour test les améliorations
+			// ./ft_ls -lRa "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man/"
+
+			//if (is_hide(li) && (!(g_bit & OPTION_a)) && j == 1) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
+			//{
+//
+//				temp_next = li->next;
+//				begin = back_list(li, begin);
+//				previous = begin;
+//				li = temp_next;
+//			}
+			if (ft_strcmp(li->name, li->next->name) > 0)
+				begin = invert_two_links(li, previous, begin);
+			previous = li;
+			i++;
+			li = li->next;
+		}
+		size--;
 	}
 
+	//if (is_hide(li) && (!(g_bit & OPTION_a)) && j == 1) //on regarde si le dernier fichier commence par un "."
+	//{
+	//	//free_li_one(li);
+	//	begin = back_list(li, begin);
+	//	li = begin;
+	//}
+	//j = 1;
 	li = check_option_sort(li, begin);
 
+	return (li);
+}
+*/
+List check_sort_list_ascci(List li)
+{
+	char *temp[2];
+	struct stat file;
+	char *temp_log;
+	char *temp_group;
+	ListElement *begin;
+	int size;
+	int i;
+	//ListElement *temp_next;
+
+	i = 0;
+	size = list_size(li);
+	begin = li;
+	while (size > 0)
+	{
+		li = begin;
+		i = 0;
+		while (li->next != NULL && i < size)
+ 		{
+ 	// 	if (is_hide(li) && (!(g_bit & OPTION_a))) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
+		// {
+
+		// 	temp_next = li->next;
+		// 	begin = back_list(li, begin);
+		// 	previous = begin;
+		// 	li = temp_next;
+		// }
+	//	else
+	//	{
+			if (ft_strcmp(li->name, li->next->name) > 0)
+			{
+				temp[0] = li->name;
+				temp_log = li->login;
+				temp_group = li->group;
+				file = li->fileinfo;
+				temp[1] = li->full_path;
+				li->group = li->next->group;
+				li->login = li->next->login;
+				li->name = li->next->name;
+				li->fileinfo = li->next->fileinfo;
+				li->full_path = li->next->full_path;
+				li->next->name = temp[0];
+				li->next->fileinfo = file;
+				li->next->full_path = temp[1];
+				li->next->group = temp_group;
+				li->next->login = temp_log;
+			}
+			i++;
+			li = li->next;
+		//}
+		}
+		size--;
+	}
+	li = check_option_sort(li, begin);
 	return (li);
 }

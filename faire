@@ -33,6 +33,8 @@ afficher que les directory
 
 ft_ls ../ ../ un seul maillon 
 
+-----------------------------------------
 
-
+regler le -a. On ne peux pas le faire sur nos arguments parent. a regler
+la recursive on boucle trop de fois sur a meme chose (probleme expliquer dans ft_ls.c dans la fonction parent_to_child)
 //------------------
