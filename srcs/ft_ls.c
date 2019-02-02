@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <sys/xattr.h>
 
 char g_bit = 0;
 
@@ -22,12 +23,20 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 	DIR *dir;
 	char *full_path;
 
+	printf("PATH : %s\n", path);
 	dir = opendir(path); //On ouvre le path et non le name
 	if (dir == NULL)
 	{
 		printf("FUCK4\n\n");
 		// return NULL;
 		// exit(EXIT_FAILURE);
+	}
+	if (listxattr(path, NULL, 0, XATTR_NOFOLLOW) > -1)//j'essaie de comprendre comment nofollow fonctionne
+	{
+		if (lstat(path, &fileinfo) != 0)
+	   		exit(EXIT_FAILURE);
+		child = push_back(child, path, path, fileinfo);
+		return (child);
 	}
 	while((dent = readdir(dir)) != NULL)
 	{
@@ -37,6 +46,8 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 		if (lstat(full_path, &fileinfo) != 0)
 	   		exit(EXIT_FAILURE);
 		child = push_back(child, dent->d_name, full_path, fileinfo);
+		print_list(child);
+		sleep(5);
 	}
 	closedir(dir);
 	return(child);
@@ -102,16 +113,18 @@ void parent_to_childe(List parent, char *path, int i) //ajout du path pour la re
 			else
 				path = parent->name;
 			dir = opendir(path);
+			print_list(parent);
 			if (dir != NULL)
 			{
 				child = create_child_list(path); //On cree la structure avec tous les enfants du path
 				if(child) //si il a bien été créé
 				{
 					child = check_sort_list_ascci(child);
-					//printf("----------------------\n");
-					//print_list(child);
-					//sleep(5);
+					printf("----------------------\n");
+					print_list(child);
+					sleep(5);
 					affichage(child, path, i++);
+					printf("*********************\n");
 					if (g_bit & OPTION_R)
 					{
 						/*nouvel fonction qui se rajoute sue la stack
@@ -119,7 +132,9 @@ void parent_to_childe(List parent, char *path, int i) //ajout du path pour la re
 						**quand la stack casse je suppose que 
 						**du coup on recupere l'ancienne liste et il la reaffiche
 						**j'ai pu le constater donc ../../../ ou on refais le man 4fois
-						**au lieu de 2 (ls le fais deux fois seulement). 
+						**au lieu de 2 (ls le fais deux fois seulement).
+						**Si le dossier est un lien symbolic il ne faut pas le suivre juste l'afficher
+						**donc nous pour l'instant on boucle sur les dossier des lien symbolic.
 						*/
 						parent_to_childe(child, path, i); //On recusive sur les enfants et on garde le path complet
 					}
