@@ -17,7 +17,7 @@
 **	je cree d'abord un maillon en lui allouant le taille necessaire
 **	puis je le remplis et l'incorpore dans ma liste.
 **
-**push_back : Pareil que push_front sauf que je le mets le maillon a 
+**push_back : Pareil que push_front sauf que je le mets le maillon a
 **	l'arriere de ma liste.
 **
 **back_up : Permet de supprimer un maillon en fin de la liste
@@ -125,6 +125,7 @@ List back_front(List li)
 
 	element = li->next;
 	free_li_one(li);
+	free(li);
 	li = NULL;
 	return (element);
 }

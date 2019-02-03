@@ -42,7 +42,7 @@ void	free_li_one(List li)
 {
 	free(li->name);
 	li->name = NULL;
-	free(li->full_path);
+	// 	free(li->full_path);
 	li->full_path = NULL;
 	if (g_bit & OPTION_l)
 	{
@@ -53,6 +53,6 @@ void	free_li_one(List li)
 		}
 	}
 	li->next = NULL;
-	free(li);
+	// free(li);
 	li = NULL;
 }
