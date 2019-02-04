@@ -1,40 +1,31 @@
-recuperer le chemin de le debut.
-fonction pour free + Fonction strjoinfree
-list2.c fonction back (free chaque element avant de free le maillon)
-list3.c remplire les maillon
-checker si c'est un fichier ou un dossier
-les liens
-le total
-si on as pas la permission
-si getpuid n'accorde pas le droit juste ecrire l'id
-Gérer les cas spéciaux (/dev/,...)
-
-/*
-
-if (((g_bit & 4) && !(g_bit & 16)) ?
-		ft_strcmp(tab[i], tab[i + 1]) < 0 :
-
-*/
-
-
 Ce qui est fait
 
+Option -a
+Option -t
+Option -r
+Option -l (en general probleme dans /dev)
+Option -R (en general fonctionne partout sauf de le / et cas particulier a traiter)
 
-le checker d'arguments
-le trie de argv et la liste
-option a
-option l {sauf lien et le total}
-option r
-option t
+
+-----------------------------------------
 
 bonus
 trie par size
 afficher que les directory
 
-ft_ls ../ ../ un seul maillon 
-
 -----------------------------------------
 
-regler le -a. On ne peux pas le faire sur nos arguments parent. a regler
-la recursive on boucle trop de fois sur a meme chose (probleme expliquer dans ft_ls.c dans la fonction parent_to_child)
-//------------------
+Les derniers soucis a reglers
+{
+	affichage avec le (".") --> probleme au lieux d'afficher ./ il affiche .//
+
+	CAS PARTICULIER : 
+	a tester 
+	ls -Ral ../../../Volumes/Macintosh\ HD
+	ls -Ra ../../../Volumes/Macintosh\ HD
+	fonction pour free + Fonction strjoinfree
+	Les permissions : PERMISSION DENIED
+	L'affichage des major et minor dans /dev
+	FREE ET TOUT OPTI
+
+}

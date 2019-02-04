@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <sys/xattr.h>
-
 char g_bit = 0;
 
 List create_child_list(char *path) //On recoit juste le chemin a ouvrir
@@ -23,7 +21,6 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 	DIR *dir;
 	char *full_path;
 
-//	printf("PATH : %s\n", path);
 	dir = opendir(path); //On ouvre le path et non le name
 	if (dir == NULL)
 	{
@@ -31,14 +28,13 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 		// return NULL;
 		// exit(EXIT_FAILURE);
 	}
-	// if (listxattr(path, NULL, 0, XATTR_NOFOLLOW) > -1)//j'essaie de comprendre comment nofollow fonctionne
-	// {
-	// 	if (lstat(path, &fileinfo) != 0)
-	//    		exit(EXIT_FAILURE);
-	// 	child = push_back(child, path, path, fileinfo);
-	// 	return (child);
-	// }
-
+	if (lstat(path, &fileinfo) != 0)
+	   		exit(EXIT_FAILURE);
+	if (S_ISLNK(fileinfo.st_mode))
+	{
+		closedir(dir);
+		return (child);
+	}
 	while((dent = readdir(dir)) != NULL)
 	{
 		full_path = ft_strjoin(path, "/");
@@ -47,9 +43,7 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 		if (lstat(full_path, &fileinfo) != 0)
 	   		exit(EXIT_FAILURE);
 		child = push_back(child, dent->d_name, full_path, fileinfo);
-		//print_list(child);
 	}
-
 	closedir(dir);
 	return(child);
 }
@@ -63,7 +57,7 @@ void affichage(List li, char *path, int i)
 
 	if (i != 0 /*|| g_bit & OPTION_R*/)
 		printf("\n%s:\n", path);
-	if (g_bit & OPTION_l)
+	if (g_bit & OPTION_l && (is_empty(li) == 1))
 	{
 		// if (i != 0 /*|| g_bit & OPTION_R*/)
 		// 	printf("\n%s:\n", path);
@@ -113,15 +107,12 @@ void parent_to_childe(List parent, char *path, int i) //ajout du path pour la re
 			else
 				path = parent->name;
 			dir = opendir(path);
-			//print_list(parent);
 			if (dir != NULL)
 			{
 				child = create_child_list(path); //On cree la structure avec tous les enfants du path
 				if(child) //si il a bien été créé
 				{
 					child = check_sort_list_ascci(child);
-					//print_list(child);
-					//sleep(5);
 					affichage(child, path, i++);
 					if (g_bit & OPTION_R)
 					{
