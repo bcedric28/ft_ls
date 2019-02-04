@@ -25,7 +25,7 @@
 **back_front : Permet de supprimer un maillon en tete de la liste
 */
 
-List push_back(List li, char *s, char *full_path, struct stat file)
+List push_back(List li, char *s, char *full_path, struct stat file, int parent)
 {
 	ListElement *element;
 	ListElement	*temp;
@@ -39,6 +39,7 @@ List push_back(List li, char *s, char *full_path, struct stat file)
 	element->name = ft_strjoin("",s);
 	element->fileinfo = file;
 	element->full_path = full_path;
+	element->parent = parent;
 	if (g_bit & OPTION_l)
 	{
 		gid = getgrgid(element->fileinfo.st_gid);

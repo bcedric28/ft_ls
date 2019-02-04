@@ -32,9 +32,15 @@ int dirtrue(char *s1, struct stat *file)
 
 List  put_in_list(char *str, List li,  struct stat file)
 {
+	int i;
+
+	i = 0;
 	if (ft_strcmp(str, "..") == 0 || ft_strcmp(str, ".") == 0)
+	{
 		str = ft_strjoin(str, "/");
-	li = push_back(li, str, str, file);
+		i = 1;
+	}
+	li = push_back(li, str, str, file, i);
 	return (li);
 }
 
@@ -44,6 +50,7 @@ List	check_directory(int i, int argc, char **argv, List li)
 	if (i == argc) //si pas d'arguments
 	{
 		li = create_child_list("."); //on crée la liste avec les dossiers/fichiers
+		li = check_sort_list_ascci(li);
 		return (li);
 	}
 	while (i < argc) //Tant qu'il y a des arguments

@@ -42,7 +42,7 @@ List create_child_list(char *path) //On recoit juste le chemin a ouvrir
 		//leak
 		if (lstat(full_path, &fileinfo) != 0)
 	   		exit(EXIT_FAILURE);
-		child = push_back(child, dent->d_name, full_path, fileinfo);
+		child = push_back(child, dent->d_name, full_path, fileinfo, 0);
 	}
 	closedir(dir);
 	return(child);
@@ -91,10 +91,11 @@ void parent_to_childe(List parent, char *path, int i) //ajout du path pour la re
 	List child = new_list();
 	char *path_backup; //correspond au path avant d'avoir ajouté le num du dossier qu'on ouvre (il doit y avoir moyen de faire autrement mais bon...)
 
+	//printf("path %s\n", path);
 	if(path != NULL)
 		path_backup = ft_strdup(path); //On sauve le path dedans
 	else
-	path_backup = NULL; //On sauve le path dedans
+		path_backup = NULL; //On sauve le path dedans
 	while(parent != NULL /*&& (g_bit & OPTION_R)*/)
 	{
 		if(ft_strcmp(parent->name, ".") != 0 && ft_strcmp(parent->name, "..") != 0)
@@ -105,7 +106,17 @@ void parent_to_childe(List parent, char *path, int i) //ajout du path pour la re
 				path = ft_strjoin(path, parent->name); //puis le nom du fichier
 			}
 			else
-				path = parent->name;
+			{
+				if (ft_strcmp(parent->name, "./") == 0 && (parent->parent == 1))
+					path = ".";
+				else if (ft_strcmp(parent->name, "../") == 0 && (parent->parent == 1))
+				{
+					printf("coucou\n");
+					path = "..";
+				}
+				else
+					path = parent->name;
+			}
 			dir = opendir(path);
 			if (dir != NULL)
 			{

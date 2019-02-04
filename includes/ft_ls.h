@@ -49,6 +49,7 @@ typedef struct ListElement
 	char *date;
 	int max_login;
 	int max_group;
+	int parent;
 }ListElement, *List;
 
 List create_child_list(char *path); //On recoit juste le chemin a ouvrir
@@ -153,7 +154,7 @@ void	print_name_list(List li);
 	**---------------------list2.c-------------------------
 	*/
 
-List 	push_back(List li, char *full_path, char *s, struct stat file);
+List 	push_back(List li, char *full_path, char *s, struct stat file, int parent);
 List 	push_front(List li, char *s, char *full_path, struct stat file);
 List 	back_up(List li);
 List 	back_front(List li);

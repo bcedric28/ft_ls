@@ -20,12 +20,26 @@ Les derniers soucis a reglers
 	affichage avec le (".") --> probleme au lieux d'afficher ./ il affiche .//
 
 	CAS PARTICULIER : 
-	a tester 
-	ls -Ral ../../../Volumes/Macintosh\ HD
-	ls -Ra ../../../Volumes/Macintosh\ HD
+	{
+		a tester 
+		ls -Ral ../../../Volumes/Macintosh\ HD
+		ls -Ra ../../../Volumes/Macintosh\ HD
+	}
 	fonction pour free + Fonction strjoinfree
 	Les permissions : PERMISSION DENIED
 	L'affichage des major et minor dans /dev
 	FREE ET TOUT OPTI
 
+}
+
+A faire dans l'ordre
+{
+	affichage avec le (".") NOUVEAU affichage avec (".."); (REGLER)
+	la recursive dans le root;
+	le cas particulier
+	les permission
+	l'affichage major minor /dev
+	FREE
+	norme
+	opti
 }

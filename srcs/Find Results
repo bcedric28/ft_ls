@@ -1,0 +1,40 @@
+Searching 100 files for "push_back"
+
+/Users/bcedric/ft_ls/ft_ls:
+    <binary>
+
+/Users/bcedric/ft_ls/includes/ft_ls.h:
+  155  	*/
+  156  
+  157: List 	push_back(List li, char *full_path, char *s, struct stat file);
+  158  List 	push_front(List li, char *s, char *full_path, struct stat file);
+  159  List 	back_up(List li);
+
+/Users/bcedric/ft_ls/srcs/checker.c:
+   41  		i = 1;
+   42  	}
+   43: 	li = push_back(li, str, str, file, i);
+   44  	return (li);
+   45  }
+
+/Users/bcedric/ft_ls/srcs/ft_ls.c:
+   43  		if (lstat(full_path, &fileinfo) != 0)
+   44  	   		exit(EXIT_FAILURE);
+   45: 		child = push_back(child, dent->d_name, full_path, fileinfo);
+   46  	}
+   47  	closedir(dir);
+
+/Users/bcedric/ft_ls/srcs/list2.c:
+   18  **	puis je le remplis et l'incorpore dans ma liste.
+   19  **
+   20: **push_back : Pareil que push_front sauf que je le mets le maillon a
+   21  **	l'arriere de ma liste.
+   22  **
+   ..
+   26  */
+   27  
+   28: List push_back(List li, char *s, char *full_path, struct stat file, int parent)
+   29  {
+   30  	ListElement *element;
+
+6 matches across 5 files
