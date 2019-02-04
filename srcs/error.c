@@ -21,7 +21,7 @@
 **	ou fichier n'existe pas.
 */
 
-void 	ft_error2(char *s, int j)
+void 	ft_error2(char *s, int j, int end)
 {
 	int i;
 
@@ -38,13 +38,24 @@ void 	ft_error2(char *s, int j)
 	}
 	if (j == 1)
 	{
+		while(s[i])
+		{
+			ft_putchar_fd(s[i], 2);
+			i++;
+		}
+		ft_putendl_fd(":", 2);
 		ft_putstr_fd("ls: ", 2);
+		while (s[i] != '/')
+			i--;
+		i++;
 		while(s[i])
 		{
 			ft_putchar_fd(s[i], 2);
 			i++;
 		}
 		ft_putendl_fd(": Permission denied", 2);
+		if (end == 1)
+			ft_putendl_fd("", 2);
 	}
 }
 

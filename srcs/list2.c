@@ -25,10 +25,10 @@
 **back_front : Permet de supprimer un maillon en tete de la liste
 */
 
-List push_back(List li, char *s, char *full_path, struct stat file, int parent)
+List push_back(List li, char *name, char *full_path, struct stat file, int parent)
 {
 	ListElement *element;
-	ListElement	*temp;
+	ListElement	*begin;
 	struct passwd *pw;
 	struct group *gid;
 
@@ -36,10 +36,11 @@ List push_back(List li, char *s, char *full_path, struct stat file, int parent)
 	{
 		exit(EXIT_FAILURE);
 	}
-	element->name = ft_strjoin("",s);
+	element->name = ft_strjoin_free("", name, 4);
 	element->fileinfo = file;
 	element->full_path = full_path;
 	element->parent = parent;
+	element->size = file.st_size;
 	if (g_bit & OPTION_l)
 	{
 		gid = getgrgid(element->fileinfo.st_gid);
@@ -47,17 +48,19 @@ List push_back(List li, char *s, char *full_path, struct stat file, int parent)
 		if(!(pw = getpwuid(element->fileinfo.st_uid)))
 			element->login = ft_itoa(element->fileinfo.st_uid);
 		else
-			element->login = ft_strjoin("",pw->pw_name);
+			element->login = ft_strjoin_free("",pw->pw_name, 4);
 	}
 	element->next = NULL;
 	if(!(is_empty(li)))
 		return (element);
-	temp = li;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = element;
-	return li;
+
+	begin = li;
+	while (li->next != NULL)
+		li = li->next;
+	li->next = element;
+	return (begin);
 }
+
 
 
 List push_front(List li, char *s, char *full_path, struct stat file)
@@ -80,7 +83,7 @@ List push_front(List li, char *s, char *full_path, struct stat file)
 		if(!(pw = getpwuid(element->fileinfo.st_uid)))
 			element->login = ft_itoa(element->fileinfo.st_uid);
 		else
-			element->login = ft_strjoin("",pw->pw_name);
+			element->login = ft_strjoin_free("",pw->pw_name, 4);
 	}
 	if(!(is_empty(li)))
 		element->next = NULL;
@@ -126,7 +129,7 @@ List back_front(List li)
 
 	element = li->next;
 	free_li_one(li);
-	free(li);
+	// free(li);
 	li = NULL;
 	return (element);
 }

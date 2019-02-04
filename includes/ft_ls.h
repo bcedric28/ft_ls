@@ -49,15 +49,18 @@ typedef struct ListElement
 	char *date;
 	int max_login;
 	int max_group;
+	int size;
+	int size_max;
 	int parent;
 }ListElement, *List;
 
-List create_child_list(char *path); //On recoit juste le chemin a ouvrir
-
+List create_child_list(char *path, int parent); //On recoit juste le chemin a ouvrir
+int 	check_perm(char *path);
 /*
 **Fonction pour le -a dans le fichier option_a.c
 */
 int 	is_hide(List li);
+int 	is_hide_path(char *path);
 
 /*
 **Fonction pour le -l dans le fichier option_l(2 & 3).c et file_perm.c
@@ -86,8 +89,7 @@ void	affichage_file_login(List li);
 	*/
 
 void	affichage_file_group(List li);
-void 	file_size(List li, List begin);
-void	affichage_file_size(int max, List li);
+void	affichage_file_size(List li);
 void 	file_minor_and_major(List li, List begin);
 void	main_l(List li, List begin);
 
@@ -106,7 +108,7 @@ int 	total_block(List begin);
 */
 
 void	ft_error(char c, int i);
-void 	ft_error2(char *s, int j);
+void 	ft_error2(char *s, int j, int end);
 
 /*
 **Fonction de check d'arguments dans checker.c et dans checker_option.c
@@ -154,7 +156,7 @@ void	print_name_list(List li);
 	**---------------------list2.c-------------------------
 	*/
 
-List 	push_back(List li, char *full_path, char *s, struct stat file, int parent);
+List 	push_back(List li, char *full_path, char *name, struct stat file, int parent);
 List 	push_front(List li, char *s, char *full_path, struct stat file);
 List 	back_up(List li);
 List 	back_front(List li);

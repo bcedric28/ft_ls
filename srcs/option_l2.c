@@ -29,7 +29,7 @@ void	main_l(List li, List begin)
 		affichage_file_group(li);
 		if (!(S_ISBLK(li->fileinfo.st_mode)) &&
 			(!(S_ISCHR(li->fileinfo.st_mode))))
-			file_size(li, begin);
+			affichage_file_size(li);
 		else
 			file_minor_and_major(li, begin);
 		file_date(li);
@@ -39,6 +39,7 @@ void	main_l(List li, List begin)
 void	affichage_minor(List li, int min)
 {
 	int i;
+	char *result;
 
 	i = number_of_digit(minor(li->fileinfo.st_rdev));
 	ft_putstr(" ");
@@ -47,21 +48,25 @@ void	affichage_minor(List li, int min)
 		ft_putstr(" ");
 		i++;
 	}
-	ft_putstr(ft_itoa(minor(li->fileinfo.st_rdev)));
+	result = ft_itoa(minor(li->fileinfo.st_rdev));
+	ft_putstr(result);
+	free(result);
 }
 
 void	affichage_major(List li, int max)
 {
 	int i;
+	char *result;
 
 	if (!(major(li->fileinfo.st_rdev)))
 	{
 		i = 0;
-		while (i < max + 3)
+		while (i < max + 1)
 		{
 			ft_putstr(" ");
 			i++;
 		}
+		ft_putstr("0,");
 		return ;
 	}
 	else
@@ -72,8 +77,10 @@ void	affichage_major(List li, int max)
 			ft_putstr(" ");
 			i++;
 		}
-		ft_putstr(ft_itoa(major(li->fileinfo.st_rdev)));
+		result = ft_itoa(major(li->fileinfo.st_rdev));
+		ft_putstr(result);
 		ft_putstr(",");
+		free(result);
 	}
 }
 
@@ -103,33 +110,22 @@ void file_minor_and_major(List li, List begin)
 	affichage_minor(li, min);
 }
 
-void	affichage_file_size(int max, List li)
+void	affichage_file_size(List li)
 {
 	int i;
+	char *result;
 
 	i = number_of_digit(li->fileinfo.st_size);
-	while (i < max + 2)
+	while (i < li->size_max + 2)
 	{
 		ft_putstr(" ");
 		i++;
 	}
-	ft_putstr(ft_itoa(li->fileinfo.st_size));
+	result = ft_itoa(li->fileinfo.st_size);
+	ft_putstr(result);
+	free(result);
 }
 
-void 	file_size(List li, List begin)
-{
-	int max;
-
-	max = 0;
-	while(begin != NULL)
-	{
-		if (begin->fileinfo.st_size > max)
-			max = begin->fileinfo.st_size;
-		begin = begin->next;
-	}
-	max = number_of_digit(max);
-	affichage_file_size(max, li);
-}
 
 void	affichage_file_group(List li)
 {

@@ -1,10 +1,10 @@
 Ce qui est fait
 
-Option -a
-Option -t
-Option -r
-Option -l (en general probleme dans /dev)
-Option -R (en general fonctionne partout sauf de le / et cas particulier a traiter)
+✔Option -a
+✔Option -t
+✔Option -r
+~Option -l (en general probleme dans /dev)
+~Option -R (en general fonctionne partout sauf de le / et cas particulier a traiter)
 
 
 -----------------------------------------
@@ -17,29 +17,30 @@ afficher que les directory
 
 Les derniers soucis a reglers
 {
-	affichage avec le (".") --> probleme au lieux d'afficher ./ il affiche .//
-
-	CAS PARTICULIER : 
+	༚CAS PARTICULIER : 
 	{
 		a tester 
 		ls -Ral ../../../Volumes/Macintosh\ HD
 		ls -Ra ../../../Volumes/Macintosh\ HD
 	}
-	fonction pour free + Fonction strjoinfree
-	Les permissions : PERMISSION DENIED
-	L'affichage des major et minor dans /dev
-	FREE ET TOUT OPTI
+	༚fonction pour free + Fonction strjoinfree
+	༚L'affichage des major et minor dans /dev
+	༚FREE ET TOUT OPTI
 
 }
 
 A faire dans l'ordre
 {
-	affichage avec le (".") NOUVEAU affichage avec (".."); (REGLER)
-	la recursive dans le root;
-	le cas particulier
-	les permission
-	l'affichage major minor /dev
-	FREE
-	norme
-	opti
+	✔affichage avec le (".") NOUVEAU affichage avec (".."); (REGLER)
+	✔les permission (Porbleme double \n a chaque nouveau "maillon parent" --> trouver \n dans 		affichage)
+	༚la recursive dans le root;
+	✔le cas particulier
+	༚l'affichage major minor /dev
+	༚FREE
+	༚norme
+	༚opti
+	༚Pointeur sur la liste
 }
+
+
+is_hide_path

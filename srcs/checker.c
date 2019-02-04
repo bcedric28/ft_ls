@@ -32,15 +32,31 @@ int dirtrue(char *s1, struct stat *file)
 
 List  put_in_list(char *str, List li,  struct stat file)
 {
-	int i;
+	int i;					
+	char buf[NAME_MAX];
+	// char *
 
-	i = 0;
-	if (ft_strcmp(str, "..") == 0 || ft_strcmp(str, ".") == 0)
+	//buf = malloc((NAME_MAX + 1) * sizeof(char *));
+	i = 1;
+	if ((S_ISLNK(file.st_mode) && (g_bit & OPTION_l)) || !(S_ISLNK(file.st_mode)))
 	{
-		str = ft_strjoin(str, "/");
-		i = 1;
+		if (ft_strcmp(str, "..") == 0 || ft_strcmp(str, ".") == 0)
+		{
+			str = ft_strjoin_free(str, "/", 4);
+			li = push_back(li, str, str, file, i);
+			if(str)
+				ft_strdel(&str);
+			return (li);
+		}
+		li = push_back(li, str, str, file, i);
 	}
-	li = push_back(li, str, str, file, i);
+	else
+	{
+		ft_bzero(buf, NAME_MAX + 1);
+		readlink(str, buf, NAME_MAX);
+		// buf = ft_strdup(buf);
+		li = push_back(li, buf, buf, file, i);
+	}
 	return (li);
 }
 
@@ -49,14 +65,14 @@ List	check_directory(int i, int argc, char **argv, List li)
 	struct stat file;
 	if (i == argc) //si pas d'arguments
 	{
-		li = create_child_list("."); //on crée la liste avec les dossiers/fichiers
+		li = create_child_list(".", 0); //on crée la liste avec les dossiers/fichiers
 		li = check_sort_list_ascci(li);
 		return (li);
 	}
 	while (i < argc) //Tant qu'il y a des arguments
 	{
 		if (!(dirtrue(argv[i], &file))) //on recup les infos de chaque argument
-		 ft_error2(argv[i], 0);
+		 ft_error2(argv[i], 0, 0);
 		else
 			li = put_in_list(argv[i], li, file); //On les met dans la liste
 		i++; //argument suivant

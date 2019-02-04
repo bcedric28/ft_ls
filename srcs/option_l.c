@@ -56,20 +56,27 @@ List	login_name(List begin)
 	ListElement *temp;
 	int max_login;
 	int max_group;
+	int size_max;
 	int i;
 	int j;
+	int k;
+
 
 	max_login = 0;
 	max_group = 0;
+	size_max = 0;
 	temp = begin;
 	while (begin != NULL)  // Optimiser
 	{
 		j = ft_strlen(begin->group);
 		i = ft_strlen(begin->login);
+		k = number_of_digit(begin->size);
 		if (i > max_login)
 			max_login = i;
 		if (j > max_group)
 			max_group = j;
+		if (k > size_max)
+			size_max = k;
 		begin = begin->next;
 	}
 	begin = temp;
@@ -77,6 +84,7 @@ List	login_name(List begin)
 	{
 		begin->max_login = max_login;
 		begin->max_group = max_group;
+		begin->size_max = size_max;
 		begin = begin->next;
 	}
 	begin = temp;
@@ -87,6 +95,7 @@ void	affichage_file_link(int max, List li)
 {
 	int i;
 	int j;
+	char *result;
 
 	j = 2;
 	i = number_of_digit(li->fileinfo.st_nlink);
@@ -100,7 +109,9 @@ void	affichage_file_link(int max, List li)
 		ft_putstr(" ");
 		i++;
 	}
-	ft_putstr(ft_itoa(li->fileinfo.st_nlink));
+	result = ft_itoa(li->fileinfo.st_nlink);
+	ft_putstr(result);
+	free(result);
 }
 
 void 	count_file_link(List li, List begin)

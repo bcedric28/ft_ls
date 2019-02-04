@@ -42,7 +42,7 @@ comp:
 	@make -C $(LIBFT_DIR)
 
 $(NAME): $(OBJ)
-	@gcc $(FLAG) $(COMP_OBJ) -I $(INCLUDE) -L $(LIBFT_DIR) -lft  -o $(NAME) -fsanitize=address
+	@gcc $(FLAG) $(COMP_OBJ) -I $(INCLUDE) -L $(LIBFT_DIR) -lft  -o $(NAME) 
 	@echo "$(GGCOLORCYAN)Creation$(GGRESET) du binaire $(GGMAG)./ft_ls$(GGRESET)..."
 	@echo "$(GGCOLORGREEN)Success!$(GGRESET)"
 

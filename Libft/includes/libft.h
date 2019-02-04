@@ -82,6 +82,8 @@ size_t				ft_strcspn(const char *s1, const char *s2);
 char				*ft_strpbrk(const char *s1, const char *s2);
 void				ft_2dtabdel(void **tab);
 size_t				ft_strclen(const char *str, int c);
+char				*ft_strjoin_free(char *s1, char *s2, int i);
+
 
 typedef struct		s_list
 {

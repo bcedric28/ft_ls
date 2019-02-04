@@ -28,6 +28,7 @@ SOURCE = ft_atoi.c ft_bzero.c ft_is_lower.c ft_is_upper.c ft_isalnum.c \
 		ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c \
 		ft_tolower.c ft_toupper.c get_next_line.c ft_swap.c ft_sqrt.c \
 		ft_sqrt_next.c ft_strcspn.c ft_strpbrk.c ft_2dtabdel.c ft_strclen.c \
+		ft_strjoin_free.c
 
 OBJ_DIR = ./obj
 SRC_DIR = ./src

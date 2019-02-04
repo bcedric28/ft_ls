@@ -21,6 +21,19 @@
 **	"affichage_type" et "file_perm1". Puis j'affiche ma string
 */
 
+int 	check_perm(char *path)
+{
+	struct stat fileinfo;
+
+	lstat(path, &fileinfo);
+	if (S_ISREG(fileinfo.st_mode))
+		return (1);
+	if (!(fileinfo.st_mode & S_IRGRP) && !(fileinfo.st_mode & S_IROTH))
+		return (0);
+	else 
+		return (1);
+}
+
 char	file_perm2(int i, List li)
 {
 	if (i == 0)
@@ -97,4 +110,5 @@ void	affichage_file_perm(List li)
 		ft_putchar(str[i]);
 		i++;
 	}
+	free(str);
 }

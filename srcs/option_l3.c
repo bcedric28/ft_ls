@@ -37,8 +37,7 @@ int 	total_block(List begin)
 
 void	affichage_file_years(List li, int i)
 {
-	while (i < 19)
-		i++;
+	i = 19;
 	while (i < 24)
 	{
 		ft_putchar(li->date[i]);
@@ -49,7 +48,7 @@ void	affichage_file_years(List li, int i)
 
 void	affichage_file_date(List li, int i)
 {
-	while (i < 16 )
+	while (i < 16)
 	{
 		ft_putchar(li->date[i]);
 		i++;
