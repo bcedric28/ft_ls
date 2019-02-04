@@ -46,8 +46,8 @@ void	free_li_one(List li)
 {
 	free(li->name);
 	li->name = NULL;
-	free(li->full_path);
-	li->full_path = NULL;
+	if (li->full_path && (li->parent == 0))
+		free(li->full_path);
 	if (g_bit & OPTION_l)
 	{
 		if (li->login)

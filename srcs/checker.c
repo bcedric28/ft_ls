@@ -42,6 +42,7 @@ List  put_in_list(char *str, List li,  struct stat file)
 	{
 		if (ft_strcmp(str, "..") == 0 || ft_strcmp(str, ".") == 0)
 		{
+			i = 2;
 			str = ft_strjoin_free(str, "/", 4);
 			li = push_back(li, str, str, file, i);
 			if(str)
@@ -54,7 +55,6 @@ List  put_in_list(char *str, List li,  struct stat file)
 	{
 		ft_bzero(buf, NAME_MAX + 1);
 		readlink(str, buf, NAME_MAX);
-		// buf = ft_strdup(buf);
 		li = push_back(li, buf, buf, file, i);
 	}
 	return (li);

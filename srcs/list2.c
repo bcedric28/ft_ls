@@ -36,7 +36,7 @@ List push_back(List li, char *name, char *full_path, struct stat file, int paren
 	{
 		exit(EXIT_FAILURE);
 	}
-	element->name = ft_strjoin_free("", name, 4);
+	element->name = ft_strdup(name);
 	element->fileinfo = file;
 	element->full_path = full_path;
 	element->parent = parent;
@@ -48,7 +48,7 @@ List push_back(List li, char *name, char *full_path, struct stat file, int paren
 		if(!(pw = getpwuid(element->fileinfo.st_uid)))
 			element->login = ft_itoa(element->fileinfo.st_uid);
 		else
-			element->login = ft_strjoin_free("",pw->pw_name, 4);
+			element->login = ft_strdup(pw->pw_name);
 	}
 	element->next = NULL;
 	if(!(is_empty(li)))
@@ -83,7 +83,7 @@ List push_front(List li, char *s, char *full_path, struct stat file)
 		if(!(pw = getpwuid(element->fileinfo.st_uid)))
 			element->login = ft_itoa(element->fileinfo.st_uid);
 		else
-			element->login = ft_strjoin_free("",pw->pw_name, 4);
+			element->login = ft_strdup(pw->pw_name);
 	}
 	if(!(is_empty(li)))
 		element->next = NULL;

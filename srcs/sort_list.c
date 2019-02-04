@@ -227,7 +227,7 @@ List check_sort_list_ascci(List li)
 		i = 0;
 		while (li->next != NULL)
  		{
-	 		if ((ft_strstr(li->name, "../") == 0) && (ft_strstr(li->name, "./") == 0) && is_hide(li) && (!(g_bit & OPTION_a))) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
+	 		if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_a))) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
 			{
 				temp_next = li->next;
 				begin = back_list(li, begin);
@@ -258,7 +258,7 @@ List check_sort_list_ascci(List li)
 		}
 		size--;
 	}
-	if ((ft_strstr(li->name, "../") == 0) && (ft_strstr(li->name, "./") == 0) && is_hide(li) && (!(g_bit & OPTION_a))) //on regarde si le dernier fichier commence par un "."
+	if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_a))) //on regarde si le dernier fichier commence par un "."
 	{
 		//free_li_one(li);
 		begin = back_list(li, begin);

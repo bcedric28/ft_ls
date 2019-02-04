@@ -17,16 +17,12 @@ afficher que les directory
 
 Les derniers soucis a reglers
 {
-	༚CAS PARTICULIER : 
-	{
-		a tester 
-		ls -Ral ../../../Volumes/Macintosh\ HD
-		ls -Ra ../../../Volumes/Macintosh\ HD
-	}
-	༚fonction pour free + Fonction strjoinfree
 	༚L'affichage des major et minor dans /dev
-	༚FREE ET TOUT OPTI
-
+	༚A regler le free_li_one
+	༚Probleme avec les arguments (un seul fichier ou dossier cacher, plusieur dossier, ...)
+	༚Probleme avec "/" --> affiche deux au lieu de un.
+	༚Probleme dans le root
+	༚TOUT OPTI
 }
 
 A faire dans l'ordre
@@ -36,7 +32,7 @@ A faire dans l'ordre
 	༚la recursive dans le root;
 	✔le cas particulier
 	༚l'affichage major minor /dev
-	༚FREE
+	✔FREE
 	༚norme
 	༚opti
 	༚Pointeur sur la liste

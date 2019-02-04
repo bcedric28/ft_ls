@@ -82,7 +82,7 @@ List	print_and_free_only_file(List li)
 				main_l(li, begin);
 			else
 				ft_putendl(li->name);
-			begin = back_list(li, begin);
+			free_li_one(li);
 		}
 		li = li_next;
 	}

@@ -87,17 +87,23 @@
 		}
 	}
 
-	void parent_to_childe(List parent, char *path, int i) //ajout du path pour la recursive
+	void parent_to_childe(List parent, char *path2, int i) //ajout du path pour la recursive
 	{
 		DIR *dir;
 		List child = new_list();
+		char *path;
 		char *path_backup; //correspond au path avant d'avoir ajouté le num du dossier qu'on ouvre (il doit y avoir moyen de faire autrement mais bon...)
-
 		//printf("path %s\n", path);
-		if(path != NULL)
-			path_backup = ft_strdup(path); //On sauve le path dedans
+		if(path2 != NULL)
+		{
+			path = ft_strdup(path2);
+			path_backup = ft_strdup(path2); //On sauve le path dedans
+		}
 		else
+		{
+			path = NULL;
 			path_backup = NULL; //On sauve le path dedans
+		}
 		while(parent != NULL /*&& (g_bit & OPTION_R)*/)
 		{
 			if(ft_strcmp(parent->name, ".") != 0 && ft_strcmp(parent->name, "..") != 0)
@@ -109,9 +115,9 @@
 				}
 				else
 				{
-					if (ft_strcmp(parent->name, "./") == 0 && (parent->parent == 1))
+					if (ft_strcmp(parent->name, "./") == 0 && (parent->parent == 2))
 						path = ft_strdup(".");
-					else if (ft_strcmp(parent->name, "../") == 0 && (parent->parent == 1))
+					else if (ft_strcmp(parent->name, "../") == 0 && (parent->parent == 2))
 						path = ft_strdup("..");
 					else
 						path = ft_strdup(parent->name);
@@ -124,23 +130,24 @@
 					{
 						child = check_sort_list_ascci(child);
 						affichage(child, path, i++);
+
 						if (g_bit & OPTION_R)
-							parent_to_childe(child, path, i); //On recusive sur les enfants et on garde le path complet					
-						closedir(dir);
+							parent_to_childe(child, path, i); //On recusive sur les enfants et on garde le path complet	
+
 						free_li(child);
 					}
-					else if(parent->parent == 1)
+					else if(parent->parent == 1 || parent->parent == 2)
 						affichage(parent, path, i++);
+					closedir(dir);
 				}
 				else if (check_perm(path) == 0 && is_hide_path(path) == 0)
 					(parent->next == NULL) ? ft_error2(path, 1, 0) : ft_error2(path, 1, 1);
 			}
-			if(path_backup)
+			if (path)
+			 		free(path);
+			if(path_backup && parent->next)
 				path = ft_strdup(path_backup); //On remet le path sans le nom du dossier
-			
 			parent = parent->next;
-
-
 		}
 		if (path_backup)
 			free(path_backup);
@@ -150,6 +157,7 @@
 	int main (int argc, char **argv)
 	{
 		int i;
+		char *temp;
 
 		List mylist = new_list();
 		i = 1;
@@ -170,7 +178,9 @@
 			if (g_bit & OPTION_R)
 			{
 				affichage(mylist, "", 0);
-				parent_to_childe(mylist, ft_strdup("."), 1);
+				temp = ft_strdup(".");
+				parent_to_childe(mylist, temp, 1);
+				ft_strdel(&temp);
 			}
 			else
 				affichage(mylist, "", 0);
