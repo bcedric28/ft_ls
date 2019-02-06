@@ -28,10 +28,7 @@ int 	check_perm(char *path)
 	lstat(path, &fileinfo);
 	if (S_ISREG(fileinfo.st_mode) || S_ISCHR(fileinfo.st_mode))
 		return (1);
-	if (!(fileinfo.st_mode & S_IRGRP) && !(fileinfo.st_mode & S_IROTH))
-		return (0);
-	else 
-		return (1);
+	return (0);
 }
 
 char	file_perm2(int i, List li)

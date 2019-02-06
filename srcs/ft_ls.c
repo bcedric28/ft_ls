@@ -152,7 +152,7 @@
 						affichage(parent, path, i++);
 					closedir(dir);
 				}
-				else if (check_perm(path) == 0 && is_hide_path(path) == 0)
+				else if (check_perm(path) == 0)
 					(parent->next == NULL) ? ft_error3(path, 0, i, parent) : ft_error3(path, 1, i, parent);
 			}
 			if (alloc)
