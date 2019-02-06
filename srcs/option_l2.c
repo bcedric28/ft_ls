@@ -21,7 +21,7 @@
 **Certaines fonction vont remplir ma liste chainer des elements manquant.
 */
 
-void	main_l(List li, List begin)
+void	main_l(List li, List begin, int *total)
 {
 		affichage_file_perm(li);
 		count_file_link(li, begin);
@@ -29,9 +29,12 @@ void	main_l(List li, List begin)
 		affichage_file_group(li);
 		if (!(S_ISBLK(li->fileinfo.st_mode)) &&
 			(!(S_ISCHR(li->fileinfo.st_mode))))
-			affichage_file_size(li);
+			affichage_file_size(li, total);
 		else
-			file_minor_and_major(li, begin);
+		{
+			affichage_major(li, total[0]);
+			affichage_minor(li, total[1]);
+		}
 		file_date(li);
 		print_name_list(li);
 }
@@ -84,46 +87,64 @@ void	affichage_major(List li, int max)
 	}
 }
 
-void file_minor_and_major(List li, List begin)
+void file_minor_and_major(List begin, int *total)
 {
 	int max;
 	int min;
-	ListElement *temp;
 
-	min = 0;
-	max = 0;
-	temp = begin;
+	min = -1;
+	max = -1;
 	while (begin != NULL)
 	{
-		if (number_of_digit(major(begin->fileinfo.st_rdev)) > max)
-			max = number_of_digit(major(begin->fileinfo.st_rdev));
+		if ((S_ISBLK(begin->fileinfo.st_mode)) ||
+			((S_ISCHR(begin->fileinfo.st_mode))))
+		{
+			if (number_of_digit(major(begin->fileinfo.st_rdev)) > max)
+				max = number_of_digit(major(begin->fileinfo.st_rdev));
+			if (number_of_digit(minor(begin->fileinfo.st_rdev)) > min)
+				min = number_of_digit(minor(begin->fileinfo.st_rdev));
+		}
 		begin = begin->next;
 	}
-	begin = temp;
-	while (begin != NULL)
-	{
-		if (number_of_digit(minor(begin->fileinfo.st_rdev)) > min)
-			min = number_of_digit(minor(begin->fileinfo.st_rdev));
-		begin = begin->next;
-	}
-	affichage_major(li, max);
-	affichage_minor(li, min);
+	total[0] = max;
+	total[1] = min;
 }
 
-void	affichage_file_size(List li)
+void	affichage_file_size(List li, int *total)
 {
 	int i;
 	char *result;
 
-	i = number_of_digit(li->fileinfo.st_size);
-	while (i < li->size_max + 2)
+	if (total[1] == -1)
 	{
-		ft_putstr(" ");
-		i++;
+		i = number_of_digit(li->fileinfo.st_size);
+		while (i < li->size_max + 2)
+		{
+			ft_putstr(" ");
+			i++;
+		}
+		result = ft_itoa(li->fileinfo.st_size);
+		ft_putstr(result);
+		free(result);
 	}
-	result = ft_itoa(li->fileinfo.st_size);
-	ft_putstr(result);
-	free(result);
+	else
+	{
+		i = number_of_digit(major(li->fileinfo.st_rdev));
+		while (i < total[0] + 4)
+		{
+			ft_putstr(" ");
+			i++;
+		}
+		i = number_of_digit(li->fileinfo.st_size);
+		while(i < (li->size_max > total[1] ? li->size_max : total[1] + 1))
+		{
+			ft_putstr(" ");
+			i++;
+		}
+		result = ft_itoa(li->fileinfo.st_size);
+		ft_putstr(result);
+		free(result);
+	}
 }
 
 

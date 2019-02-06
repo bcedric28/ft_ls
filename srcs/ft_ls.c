@@ -24,12 +24,16 @@
 		dir = opendir(path); //On ouvre le path et non le name
 		if (dir == NULL)
 		{
-			printf("FUCK4\n\n");
+			printf ("error annormale at %s (%d)\n", __FILE__, __LINE__);
 			// return NULL;
-			// exit(EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 		if (lstat(path, &fileinfo) != 0)
-		   		exit(EXIT_FAILURE);
+		{
+			printf ("error annormale at %s (%d)\n", __FILE__, __LINE__);
+
+	   		exit(EXIT_FAILURE);
+		}
 		if (S_ISLNK(fileinfo.st_mode) && parent == 0)
 		{
 			closedir(dir);
@@ -37,11 +41,12 @@
 		}
 		while((dent = readdir(dir)) != NULL)
 		{
+
 			full_path = ft_strjoin_free(path, "/", 4);
 			full_path = ft_strjoin_free(full_path, dent->d_name, 0);
-			if (lstat(full_path, &fileinfo) != 0)
-		   		exit(EXIT_FAILURE);
-			child = push_back(child, dent->d_name, full_path, fileinfo, 0);
+			if (lstat(full_path, &fileinfo) == 0)
+				child = push_back(child, dent->d_name, full_path, fileinfo, 0);
+			
 		}
 		closedir(dir);
 		return(child);
@@ -52,22 +57,23 @@
 		ListElement *begin;
 		begin = li;
 		int k = 0;
-		int total;
+		int total[2];
 		char *result;
 
 		if (i != 0 /*|| g_bit & OPTION_R*/)
 			printf("\n%s:\n", path);
-		if (g_bit & OPTION_l && (is_empty(li) == 1))
+		if (g_bit & OPTION_l && (is_empty(li) == 1) && li->parent == 0)
 		{
 			// if (i != 0 /*|| g_bit & OPTION_R*/)
 			// 	printf("\n%s:\n", path);
-			total = total_block(begin);
+			total[0] = total_block(begin);
 			ft_putstr("total ");
-			result = ft_itoa(total);
+			result = ft_itoa(total[0]);
 			ft_putstr(result);
 			free(result);
 			ft_putendl("");
 		}
+		file_minor_and_major(begin, total);
 		while (li != NULL)
 		{
 			if (g_bit & OPTION_l)
@@ -77,7 +83,7 @@
 					begin = login_name(begin);
 					k = 1; // ne pas reboucler.
 				}
-				main_l(li, begin);
+				main_l(li, begin, total);
 			}
 			else
 			{
@@ -91,6 +97,7 @@
 	{
 		DIR *dir;
 		List child = new_list();
+		int alloc = 0;
 		char *path;
 		char *path_backup; //correspond au path avant d'avoir ajouté le num du dossier qu'on ouvre (il doit y avoir moyen de faire autrement mais bon...)
 		//printf("path %s\n", path);
@@ -98,19 +105,23 @@
 		{
 			path = ft_strdup(path2);
 			path_backup = ft_strdup(path2); //On sauve le path dedans
+			alloc = 1;
 		}
 		else
 		{
 			path = NULL;
 			path_backup = NULL; //On sauve le path dedans
+			alloc = 0;
 		}
 		while(parent != NULL /*&& (g_bit & OPTION_R)*/)
 		{
 			if(ft_strcmp(parent->name, ".") != 0 && ft_strcmp(parent->name, "..") != 0)
 			{	//On config le path avant de faire quoi que ce soit
+				alloc = 1;
 				if(path != NULL)
 				{
-					path = ft_strjoin_free(path, "/", 0); //On ajoute un / car c'est un dossier
+					if (ft_strcmp(path, "/") != 0)
+						path = ft_strjoin_free(path, "/", 0); //On ajoute un / car c'est un dossier
 					path = ft_strjoin_free(path, parent->name, 0); //puis le nom du fichier
 				}
 				else
@@ -118,11 +129,12 @@
 					if (ft_strcmp(parent->name, "./") == 0 && (parent->parent == 2))
 						path = ft_strdup(".");
 					else if (ft_strcmp(parent->name, "../") == 0 && (parent->parent == 2))
-						path = ft_strdup("..");
+						path = ft_strdup("..");					
 					else
 						path = ft_strdup(parent->name);
 				}
 				dir = opendir(path);
+
 				if (dir != NULL)
 				{
 					child = create_child_list(path, 0); //On cree la structure avec tous les enfants du path
@@ -141,17 +153,18 @@
 					closedir(dir);
 				}
 				else if (check_perm(path) == 0 && is_hide_path(path) == 0)
-					(parent->next == NULL) ? ft_error2(path, 1, 0) : ft_error2(path, 1, 1);
+					(parent->next == NULL) ? ft_error3(path, 0, i, parent) : ft_error3(path, 1, i, parent);
 			}
-			if (path)
-			 		free(path);
+			if (alloc)
+			 		ft_strdel(&path);
+			//path = NULL;
 			if(path_backup && parent->next)
 				path = ft_strdup(path_backup); //On remet le path sans le nom du dossier
 			parent = parent->next;
 		}
 		if (path_backup)
 			free(path_backup);
-		free_li(parent);		
+		free_li(parent);
 	}
 
 	int main (int argc, char **argv)
@@ -171,7 +184,8 @@
 		if (i != argc)
 		{
 			mylist = print_and_free_only_file(mylist);
-			parent_to_childe(mylist, NULL, (list_size(mylist) - 1));
+			if(list_size(mylist) != 0)
+				parent_to_childe(mylist, NULL, (list_size(mylist) ));
 		}
 		else
 		{

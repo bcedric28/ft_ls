@@ -34,9 +34,7 @@ List  put_in_list(char *str, List li,  struct stat file)
 {
 	int i;					
 	char buf[NAME_MAX];
-	// char *
 
-	//buf = malloc((NAME_MAX + 1) * sizeof(char *));
 	i = 1;
 	if ((S_ISLNK(file.st_mode) && (g_bit & OPTION_l)) || !(S_ISLNK(file.st_mode)))
 	{
@@ -72,7 +70,7 @@ List	check_directory(int i, int argc, char **argv, List li)
 	while (i < argc) //Tant qu'il y a des arguments
 	{
 		if (!(dirtrue(argv[i], &file))) //on recup les infos de chaque argument
-		 ft_error2(argv[i], 0, 0);
+		 ft_error2(argv[i], 0);
 		else
 			li = put_in_list(argv[i], li, file); //On les met dans la liste
 		i++; //argument suivant

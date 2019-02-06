@@ -26,7 +26,7 @@ int 	check_perm(char *path)
 	struct stat fileinfo;
 
 	lstat(path, &fileinfo);
-	if (S_ISREG(fileinfo.st_mode))
+	if (S_ISREG(fileinfo.st_mode) || S_ISCHR(fileinfo.st_mode))
 		return (1);
 	if (!(fileinfo.st_mode & S_IRGRP) && !(fileinfo.st_mode & S_IROTH))
 		return (0);

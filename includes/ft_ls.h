@@ -89,9 +89,11 @@ void	affichage_file_login(List li);
 	*/
 
 void	affichage_file_group(List li);
-void	affichage_file_size(List li);
-void 	file_minor_and_major(List li, List begin);
-void	main_l(List li, List begin);
+void	affichage_file_size(List li, int *total);
+void 	file_minor_and_major(List begin, int *total);
+void	affichage_minor(List li, int min);
+void	affichage_major(List li, int max);
+void	main_l(List li, List begin, int *total);
 
 	/*
 	**---------------------option3_l-------------------------
@@ -108,7 +110,8 @@ int 	total_block(List begin);
 */
 
 void	ft_error(char c, int i);
-void 	ft_error2(char *s, int j, int end);
+void 	ft_error2(char *s, int j);
+void 	ft_error3(char *s, int end, int j, List parent);
 
 /*
 **Fonction de check d'arguments dans checker.c et dans checker_option.c

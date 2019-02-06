@@ -17,22 +17,15 @@ afficher que les directory
 
 Les derniers soucis a reglers
 {
-	༚L'affichage des major et minor dans /dev
-	༚A regler le free_li_one
-	༚Probleme avec les arguments (un seul fichier ou dossier cacher, plusieur dossier, ...)
-	༚Probleme avec "/" --> affiche deux au lieu de un.
-	༚Probleme dans le root
+	+ @
 	༚TOUT OPTI
 }
 
 A faire dans l'ordre
 {
-	✔affichage avec le (".") NOUVEAU affichage avec (".."); (REGLER)
 	✔les permission (Porbleme double \n a chaque nouveau "maillon parent" --> trouver \n dans 		affichage)
-	༚la recursive dans le root;
-	✔le cas particulier
 	༚l'affichage major minor /dev
-	✔FREE
+	countfile_link
 	༚norme
 	༚opti
 	༚Pointeur sur la liste

@@ -79,10 +79,16 @@ List	print_and_free_only_file(List li)
 		if(S_ISREG(li->fileinfo.st_mode))
 		{
 			if (g_bit & OPTION_l)
-				main_l(li, begin);
+			{
+				li->next = NULL;
+				affichage(li, "", 0);
+				li->next = li_next;
+
+			}
+
 			else
 				ft_putendl(li->name);
-			free_li_one(li);
+			begin = back_list(li, begin);
 		}
 		li = li_next;
 	}
