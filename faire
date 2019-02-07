@@ -5,4 +5,5 @@ A faire dans l'ordre
 	ls -lrta /dev
 	༚norme (sort_list + OPTI)
 	a tester plusieur argument et le ../../../Volume/Mac
+	changer nom de fonction list.h
 }
