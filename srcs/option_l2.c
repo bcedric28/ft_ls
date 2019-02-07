@@ -53,8 +53,7 @@ void affichage_xattr_acl(List li, int *total)
 	}
 	else
 	{
-		acl = acl_get_file(li->full_path, ACL_TYPE_EXTENDED);
-		if (acl != NULL)
+		if ((acl = acl_get_file(li->full_path, ACL_TYPE_EXTENDED)) != NULL)
 		{
 			total[2] = 1;
 			ft_putstr("+");
@@ -86,23 +85,17 @@ void	affichage_major(List li, int max)
 
 	if (!(major(li->fileinfo.st_rdev)))
 	{
-		i = 0;
-		while (i < max + 1)
-		{
+		i = -1;
+		while (++i < max + 1)
 			ft_putstr(" ");
-			i++;
-		}
 		ft_putstr("0,");
 		return ;
 	}
 	else
 	{
-		i = number_of_digit(major(li->fileinfo.st_rdev));
-		while (i < max + 2)
-		{
+		i = (number_of_digit(major(li->fileinfo.st_rdev))) - 1;
+		while (++i < max + 2)
 			ft_putstr(" ");
-			i++;
-		}
 		result = ft_itoa(major(li->fileinfo.st_rdev));
 		ft_putstr(result);
 		ft_putstr(",");
@@ -136,34 +129,25 @@ void file_minor_and_major(List begin, int *total)
 void	affichage_file_size(List li, int *total)
 {
 	int i;
+	int digit;
 	char *result;
 
+	digit = (number_of_digit(li->fileinfo.st_size) - 1);
 	if (total[1] == -1)
 	{
-		i = number_of_digit(li->fileinfo.st_size);
-		while (i < li->size_max + 2)
-		{
+		while (++digit < li->size_max + 2)
 			ft_putstr(" ");
-			i++;
-		}
 		result = ft_itoa(li->fileinfo.st_size);
 		ft_putstr(result);
 		free(result);
 	}
 	else
 	{
-		i = number_of_digit(major(li->fileinfo.st_rdev));
-		while (i < total[0] + 4)
-		{
+		i = (number_of_digit(major(li->fileinfo.st_rdev))) - 1;
+		while (++i < total[0] + 4)
 			ft_putstr(" ");
-			i++;
-		}
-		i = number_of_digit(li->fileinfo.st_size);
-		while(i < (li->size_max > total[1] ? li->size_max : total[1] + 1))
-		{
+		while(++digit < (li->size_max > total[1] ? li->size_max : total[1] + 1))
 			ft_putstr(" ");
-			i++;
-		}
 		result = ft_itoa(li->fileinfo.st_size);
 		ft_putstr(result);
 		free(result);
@@ -182,6 +166,5 @@ void	affichage_file_group(List li)
 		ft_putstr(" ");
 		i++;
 	}
-	//ft_putstr(li->group); //Double group !
 }
 

@@ -16,16 +16,13 @@ void	free_li(List li)
 {
 	ListElement *begin;
 
-	// print_list(li);
 	while (li != NULL)
 	{
-		//printf("%s\n", "FREEEEEEEEEEEEEEEEE");
 		begin = li->next;
 		free(li->name);
 		li->name = NULL;
 		if (li->full_path && (li->parent == 0))
 			free(li->full_path);
-		// li->full_path = NULL;
 		if (g_bit & OPTION_l)
 		 {
 			if (li->login)

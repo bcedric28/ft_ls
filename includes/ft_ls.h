@@ -64,7 +64,6 @@ void affichage_xattr_acl(List li, int *total);
 **Fonction pour le -a dans le fichier option_a.c
 */
 int 	is_hide(List li);
-int 	is_hide_path(char *path);
 
 /*
 **Fonction pour le -l dans le fichier option_l(2 & 3).c et file_perm.c

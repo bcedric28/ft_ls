@@ -28,26 +28,3 @@ int 	is_hide(List li)
 	}
 	return (0);
 }
-
-
-int is_hide_path(char *path)
-{
-	int i;
-
-	i = 0;
-	while(path[i])
-	{
-		i++;
-	}
-	i--;
-	//printf("I %d\n", i);
-	while(path[i] != '/')
-	{
-		//printf("PATH[%d] %c\n", i, path[i]);
-		if (path[i] == '.' && path[i - 1] == '/')
-			return (1);
-		i--;
-	}
-	return (0);
-}
-

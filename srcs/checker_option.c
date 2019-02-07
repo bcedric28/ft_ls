@@ -22,6 +22,26 @@
 **	un dossier j'appelle donc checker.
 */
 
+int		turn_on_option(char option)
+{
+	if (option == 'a')
+		g_bit |= OPTION_a;
+	else if (option == 'l')
+		g_bit |= OPTION_l;
+	else if (option == 'r')
+		g_bit |= OPTION_r;
+	else if (option == 'R')
+		g_bit |= OPTION_R;
+	else if(option == 't')
+		g_bit |= OPTION_t;
+	else
+	{
+		ft_error(option, 3);
+		return (0);
+	}
+	return (1);
+}
+
 void	option(char *s1)
 {
 	s1++;
@@ -37,21 +57,8 @@ void	option(char *s1)
 	}
 	while(*s1)
 	{
-		if (*s1 == 'a')
-			g_bit |= OPTION_a;
-		else if (*s1 == 'l')
-			g_bit |= OPTION_l;
-		else if (*s1 == 'r')
-			g_bit |= OPTION_r;
-		else if (*s1 == 'R')
-			g_bit |= OPTION_R;
-		else if(*s1 == 't')
-			g_bit |= OPTION_t;
-		else
-		{
-			ft_error(*s1, 3);
+		if (!(turn_on_option(*s1)))
 			break ;
-		}
 		s1++;
 	}
 }

@@ -129,7 +129,7 @@ List check_option_sort(List li, List j)
 	return (li);
 }
 
-List invert_two_links(List li, List previous, List begin) //a vérifier
+/*List invert_two_links(List li, List previous, List begin) //a vérifier
 {
 	ListElement *suivant;
 	ListElement *actuel;
@@ -153,60 +153,8 @@ List invert_two_links(List li, List previous, List begin) //a vérifier
 		//0->1->3->2->4
 		return (begin);
 	}
-}
+}*/
 
-/*List check_sort_list_ascci(List li)
-{
-	ListElement *previous;
-	ListElement *begin;
-	//ListElement *temp_next;
-	//static int j = 0;
-	int i;
-	int size;
-
-	size = list_size(li);
-	i = 0;
-	begin = li;
-	previous = li;
-	while (size > 0)
-	{
-		li = begin;
-		previous = begin;
-		i = 0;
-		while (li->next != NULL)
-	 	{
-			//dossier avec + de 10 000 fichiers pour test les améliorations
-			// ./ft_ls -lRa "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man/"
-
-			//if (is_hide(li) && (!(g_bit & OPTION_a)) && j == 1) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
-			//{
-//
-//				temp_next = li->next;
-//				begin = back_list(li, begin);
-//				previous = begin;
-//				li = temp_next;
-//			}
-			if (ft_strcmp(li->name, li->next->name) > 0)
-				begin = invert_two_links(li, previous, begin);
-			previous = li;
-			i++;
-			li = li->next;
-		}
-		size--;
-	}
-
-	//if (is_hide(li) && (!(g_bit & OPTION_a)) && j == 1) //on regarde si le dernier fichier commence par un "."
-	//{
-	//	//free_li_one(li);
-	//	begin = back_list(li, begin);
-	//	li = begin;
-	//}
-	//j = 1;
-	li = check_option_sort(li, begin);
-
-	return (li);
-}
-*/
 List check_sort_list_ascci(List li)
 {
 	char *temp[2];

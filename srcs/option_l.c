@@ -51,40 +51,43 @@ void	affichage_file_login(List li)
 	}
 }
 
+void 	fill_noodle(List begin, int *tab)
+{
+	int login;
+	int group;
+	int size;
+
+	while (begin != NULL)  // Optimiser
+	{
+		group = ft_strlen(begin->group);
+		login = ft_strlen(begin->login);
+		size = number_of_digit(begin->size);
+		if (login > tab[0])
+			tab[0] = login;
+		if (group > tab[1])
+			tab[1] = group;
+		if (size > tab[2])
+			tab[2] = size;
+		begin = begin->next;
+	}
+}
+
 List	login_name(List begin)
 {
 	ListElement *temp;
-	int max_login;
-	int max_group;
-	int size_max;
-	int i;
-	int j;
-	int k;
+	int tab[3];
 
 
-	max_login = 0;
-	max_group = 0;
-	size_max = 0;
+	tab[0] = 0;
+	tab[1] = 0;
+	tab[2] = 0;
 	temp = begin;
-	while (begin != NULL)  // Optimiser
-	{
-		j = ft_strlen(begin->group);
-		i = ft_strlen(begin->login);
-		k = number_of_digit(begin->size);
-		if (i > max_login)
-			max_login = i;
-		if (j > max_group)
-			max_group = j;
-		if (k > size_max)
-			size_max = k;
-		begin = begin->next;
-	}
-	begin = temp;
+	fill_noodle(begin, tab);
 	while (begin != NULL)
 	{
-		begin->max_login = max_login;
-		begin->max_group = max_group;
-		begin->size_max = size_max;
+		begin->max_login = tab[0];
+		begin->max_group = tab[1];
+		begin->size_max = tab[2];
 		begin = begin->next;
 	}
 	begin = temp;
@@ -98,20 +101,14 @@ void	affichage_file_link(int max, List li, int *total)
 	char *result;
 
 	if (total[2] == 0)
-		j = 2;
+		j = 3;
 	else
-		j = 1;
-	i = number_of_digit(li->fileinfo.st_nlink);
-	while (j > 0)
-	{
+		j = 2;
+	i = (number_of_digit(li->fileinfo.st_nlink)) - 1;
+	while (--j > 0)
 		ft_putstr(" ");
-		j--;
-	}
-	while (i < max)
-	{
+	while (++i < max)
 		ft_putstr(" ");
-		i++;
-	}
 	result = ft_itoa(li->fileinfo.st_nlink);
 	ft_putstr(result);
 	free(result);
