@@ -6,7 +6,7 @@
 /*   By: bcedric <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 07:03:21 by bcedric           #+#    #+#             */
-/*   Updated: 2019/02/07 16:52:48 by bcedric          ###   ########.fr       */
+/*   Updated: 2019/02/07 19:13:37 by bcedric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 **le max de login de group et de size.
 */
 
-int		total_block(t_list_element *begin)
+int				total_block(t_list_element *begin)
 {
 	int block;
 	int temp;
@@ -37,7 +37,7 @@ int		total_block(t_list_element *begin)
 	return (block);
 }
 
-int		number_of_digit(int max)
+int				number_of_digit(int max)
 {
 	int i;
 
@@ -52,7 +52,7 @@ int		number_of_digit(int max)
 	return (i);
 }
 
-void	fill_noodle_data(t_list_element *begin, int *tab)
+void			fill_noodle_data(t_list_element *begin, int *tab)
 {
 	int login;
 	int group;
@@ -73,10 +73,10 @@ void	fill_noodle_data(t_list_element *begin, int *tab)
 	}
 }
 
-t_list_element *data_noodle(t_list_element *begin)
+t_list_element	*data_noodle(t_list_element *begin)
 {
 	t_list_element	*temp;
-	int			tab[3];
+	int				tab[3];
 
 	tab[0] = 0;
 	tab[1] = 0;
@@ -94,7 +94,7 @@ t_list_element *data_noodle(t_list_element *begin)
 	return (begin);
 }
 
-void	main_l(t_list_element *li, t_list_element *begin, int *total)
+void			main_l(t_list_element *li, t_list_element *begin, int *total)
 {
 	kernel_of_file_perm(li);
 	affichage_xattr_acl(li, total);

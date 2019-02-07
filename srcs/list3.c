@@ -6,7 +6,7 @@
 /*   By: bcedric <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 07:26:01 by bcedric           #+#    #+#             */
-/*   Updated: 2019/02/07 16:55:48 by bcedric          ###   ########.fr       */
+/*   Updated: 2019/02/07 19:15:07 by bcedric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 **les fichers et de les supprimer
 */
 
-t_list_element *back_list(t_list_element *li, t_list_element *begin)
+t_list_element	*back_list(t_list_element *li, t_list_element *begin)
 {
 	t_list_element *temp;
 	t_list_element *membef;
@@ -42,7 +42,7 @@ t_list_element *back_list(t_list_element *li, t_list_element *begin)
 	return (temp);
 }
 
-t_list_element *print_and_free_only_file(t_list_element *li)
+t_list_element	*print_and_free_only_file(t_list_element *li)
 {
 	t_list_element *li_next;
 	t_list_element *begin;
