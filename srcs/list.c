@@ -6,7 +6,7 @@
 /*   By: bcedric <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 07:45:37 by bcedric           #+#    #+#             */
-/*   Updated: 2019/02/07 19:14:42 by bcedric          ###   ########.fr       */
+/*   Updated: 2019/02/07 21:05:56 by bcedric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@
 **print_name_list: print le nom du maillon qu'il recoit
 */
 
-t_list_element	*new_list(void)
+t_element	*new_list(void)
 {
 	return (NULL);
 }
 
-int				is_empty(t_list_element *li)
+int			is_empty(t_element *li)
 {
 	if (li == NULL)
 		return (0);
 	return (1);
 }
 
-int				list_size(t_list_element *li)
+int			list_size(t_element *li)
 {
 	int size;
 
@@ -51,7 +51,7 @@ int				list_size(t_list_element *li)
 	return (size);
 }
 
-void			print_list(t_list_element *li)
+void		print_list(t_element *li)
 {
 	int i;
 
@@ -73,7 +73,7 @@ void			print_list(t_list_element *li)
 	}
 }
 
-void			print_name_list(t_list_element *li)
+void		print_name_list(t_element *li)
 {
 	char	buf[NAME_MAX + 1];
 

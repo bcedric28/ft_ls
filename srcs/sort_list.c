@@ -59,11 +59,11 @@ void sort_argv(int i, int argc, char **tab)
 	}
 }
 
-t_list_element *check_sort_list_time(t_list_element *li)
+t_element *check_sort_list_time(t_element *li)
 {
 	char *temp[2];
 	struct stat file;
-	t_list_element *j;
+	t_element *j;
 	int size;
 
 	size = list_size(li);
@@ -93,9 +93,9 @@ t_list_element *check_sort_list_time(t_list_element *li)
 		return (li);
 }
 
-t_list_element *check_sort_list_reverse(t_list_element *li)
+t_element *check_sort_list_reverse(t_element *li)
 {
-		t_list_element *new_ord = new_list();
+		t_element *new_ord = new_list();
 		while(li != NULL)
 		{
 			new_ord = push_front(new_ord, li->name, li->full_path, li->fileinfo);
@@ -105,7 +105,7 @@ t_list_element *check_sort_list_reverse(t_list_element *li)
 		return(new_ord);
 }
 
-t_list_element *check_option_sort(t_list_element *li, t_list_element *j)
+t_element *check_option_sort(t_element *li, t_element *j)
 {
 	int i;
 	int k;
@@ -127,11 +127,11 @@ t_list_element *check_option_sort(t_list_element *li, t_list_element *j)
 	return (li);
 }
 
-/*t_list_element *invert_two_links(t_list_element *li, t_list_element *previous, t_list_element *begin) //a vérifier
+/*t_element *invert_two_links(t_element *li, t_element *previous, t_element *begin) //a vérifier
 {
-	t_list_element *suivant;
-	t_list_element *actuel;
-	t_list_element *debut;
+	t_element *suivant;
+	t_element *actuel;
+	t_element *debut;
 
 	if (li->next == begin->next) // 0->1->2->3->4 (li = 0)
 	{
@@ -153,16 +153,16 @@ t_list_element *check_option_sort(t_list_element *li, t_list_element *j)
 	}
 }*/
 
-t_list_element *check_sort_list_ascci(t_list_element *li)
+t_element *check_sort_list_ascci(t_element *li)
 {
 	char *temp[2];
 	struct stat file;
 	char *temp_log;
 	char *temp_group;
-	t_list_element *begin;
+	t_element *begin;
 	int size;
 	int i;
-	t_list_element *temp_next;
+	t_element *temp_next;
 
 	i = 0;
 	size = list_size(li);

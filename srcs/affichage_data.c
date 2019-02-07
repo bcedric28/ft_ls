@@ -18,7 +18,7 @@
 **fichier par fichier.
 */
 
-void	affichage_file_size(t_list_element *li, int *total)
+void	affichage_file_size(t_element *li, int *total)
 {
 	int		i;
 	int		digit;
@@ -47,7 +47,7 @@ void	affichage_file_size(t_list_element *li, int *total)
 	}
 }
 
-void	affichage_file_group(t_list_element *li)
+void	affichage_file_group(t_element *li)
 {
 	int	i;
 
@@ -60,7 +60,7 @@ void	affichage_file_group(t_list_element *li)
 	}
 }
 
-void	affichage_file_login(t_list_element *li)
+void	affichage_file_login(t_element *li)
 {
 	int	i;
 
@@ -75,7 +75,7 @@ void	affichage_file_login(t_list_element *li)
 	}
 }
 
-void	affichage_file_link(int max, t_list_element *li, int *total)
+void	affichage_file_link(int max, t_element *li, int *total)
 {
 	int		i;
 	int		j;
@@ -95,7 +95,7 @@ void	affichage_file_link(int max, t_list_element *li, int *total)
 	free(result);
 }
 
-void	count_file_link(t_list_element *li, t_list_element *begin, int *total)
+void	count_file_link(t_element *li, t_element *begin, int *total)
 {
 	int	max;
 

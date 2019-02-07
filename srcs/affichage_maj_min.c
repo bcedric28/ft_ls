@@ -23,7 +23,7 @@
 **pour idententer tout mes fichier en colone.
 */
 
-void	affichage_minor(t_list_element *li, int min)
+void	affichage_minor(t_element *li, int min)
 {
 	int		i;
 	char	*result;
@@ -40,7 +40,7 @@ void	affichage_minor(t_list_element *li, int min)
 	free(result);
 }
 
-void	affichage_major(t_list_element *li, int max)
+void	affichage_major(t_element *li, int max)
 {
 	int		i;
 	char	*result;
@@ -65,7 +65,7 @@ void	affichage_major(t_list_element *li, int max)
 	}
 }
 
-void	file_minor_and_major(t_list_element *begin, int *total)
+void	file_minor_and_major(t_element *begin, int *total)
 {
 	int max;
 	int min;

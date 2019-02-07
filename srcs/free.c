@@ -18,9 +18,9 @@
 **free_li_one ne free que un seul maillon de la liste
 */
 
-void	free_li(t_list_element *li)
+void	free_li(t_element *li)
 {
-	t_list_element *begin;
+	t_element *begin;
 
 	while (li != NULL)
 	{
@@ -44,7 +44,7 @@ void	free_li(t_list_element *li)
 	}
 }
 
-void	free_li_one(t_list_element *li)
+void	free_li_one(t_element *li)
 {
 	free(li->name);
 	li->name = NULL;

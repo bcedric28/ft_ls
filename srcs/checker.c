@@ -6,7 +6,7 @@
 /*   By: bcedric <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 07:36:45 by bcedric           #+#    #+#             */
-/*   Updated: 2019/02/07 19:11:51 by bcedric          ###   ########.fr       */
+/*   Updated: 2019/02/07 21:03:11 by bcedric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 **lien. Si c'est le cas je cree un maillon avec le lien vers ou il pointe.
 */
 
-int				dirtrue(char *s1, struct stat *file)
+int			dirtrue(char *s1, struct stat *file)
 {
 	if (lstat(s1, file) == 0)
 		return (1);
@@ -34,8 +34,8 @@ int				dirtrue(char *s1, struct stat *file)
 		return (0);
 }
 
-t_list_element	*put_in_list(char *str, t_list_element *li, struct stat file)
-
+t_element	*put_in_list(char *str, t_element *li, struct stat file)
+{
 	int		i;
 	char	buf[NAME_MAX];
 
@@ -63,7 +63,7 @@ t_list_element	*put_in_list(char *str, t_list_element *li, struct stat file)
 	return (li);
 }
 
-t_list_element	*check_directory(int i, int argc, char **argv, t_list_element *li)
+t_element	*check_directory(int i, int argc, char **argv, t_element *li)
 {
 	struct stat file;
 
@@ -84,7 +84,7 @@ t_list_element	*check_directory(int i, int argc, char **argv, t_list_element *li
 	return (li);
 }
 
-void	check_arguments_b0(char **s1, int argc)
+void		check_arguments_b0(char **s1, int argc)
 {
 	int i;
 
