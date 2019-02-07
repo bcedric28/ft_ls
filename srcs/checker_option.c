@@ -6,7 +6,7 @@
 /*   By: bcedric <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 11:56:08 by bcedric           #+#    #+#             */
-/*   Updated: 2019/01/25 11:56:10 by bcedric          ###   ########.fr       */
+/*   Updated: 2019/02/07 16:46:00 by bcedric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@
 int		turn_on_option(char option)
 {
 	if (option == 'a')
-		g_bit |= OPTION_a;
+		g_bit |= OPTION_A;
 	else if (option == 'l')
-		g_bit |= OPTION_l;
+		g_bit |= OPTION_L;
 	else if (option == 'r')
-		g_bit |= OPTION_r;
+		g_bit |= OPTION_RR;
 	else if (option == 'R')
 		g_bit |= OPTION_R;
-	else if(option == 't')
-		g_bit |= OPTION_t;
+	else if (option == 't')
+		g_bit |= OPTION_T;
 	else
 	{
 		ft_error(option, 3);
@@ -55,7 +55,7 @@ void	option(char *s1)
 		g_bit |= OPTION_END;
 		return ;
 	}
-	while(*s1)
+	while (*s1)
 	{
 		if (!(turn_on_option(*s1)))
 			break ;
@@ -70,10 +70,10 @@ int		check_option(char **s1, int argc)
 	i = 1;
 	while (i < argc && !(g_bit & OPTION_STOP) && !(g_bit & OPTION_END))
 	{
-			if (s1[i][0] == '-')
-				option(s1[i]);
-			else
-				break ;
+		if (s1[i][0] == '-')
+			option(s1[i]);
+		else
+			break ;
 		i++;
 	}
 	if (g_bit & OPTION_END)

@@ -6,7 +6,7 @@
 /*   By: bcedric <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 10:00:06 by bcedric           #+#    #+#             */
-/*   Updated: 2019/01/26 10:00:07 by bcedric          ###   ########.fr       */
+/*   Updated: 2019/02/07 16:34:39 by bcedric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,6 @@
 **	posterieur a += 6 mois grace a la fonction file_date_years. Ensuite on
 **	affiche le reste de la date avec le bon format.
 */
-
-int 	total_block(List begin)
-{
-	int block;
-	int temp;
-
-	block = 0;
-	temp = 0;
-	while (begin != NULL)
-	{
-		temp = block;
-		block = begin->fileinfo.st_blocks + temp;
-		begin = begin->next;
-	}
-	return(block);
-}
 
 void	affichage_file_years(List li, int i)
 {
@@ -65,9 +49,9 @@ int		check_6_months(List li, time_t now)
 	return (0);
 }
 
-void 	file_date(List li)
+void	file_date(List li)
 {
-	int 	i;
+	int		i;
 	time_t	now;
 
 	i = 0;
@@ -78,7 +62,7 @@ void 	file_date(List li)
 		if (li->date[i] != '\t' && li->date[i] != ' ')
 			i++;
 		else
-			break;
+			break ;
 	}
 	while (li->date[i] && i <= 10)
 	{

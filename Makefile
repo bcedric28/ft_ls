@@ -14,9 +14,10 @@ NAME = ft_ls
 
 FLAG = -Wall -Wextra
 
-SOURCE = ft_ls.c error.c checker.c list.c list2.c list3.c sort_list.c \
-		checker_option.c option_a.c option_l.c option_l2.c file_perm.c \
-		option_l3.c free.c
+SOURCE = ft_ls.c affichage_data.c affichage_date.c affichage_maj_min.c \
+		affichage_permission.c kernel_option_l.c suite_affichage_permission.c \
+		check_hide.c checker.c checker_option.c error.c free.c list.c \
+		list2.c list3.c sort_list.c
 LIBFT_DIR = Libft/
 
 COMP_OBJ = ./obj/*.o

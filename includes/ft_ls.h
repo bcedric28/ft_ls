@@ -13,26 +13,26 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
-# define  OPTION_a 1
-# define  OPTION_l 2
-# define  OPTION_r 4
-# define  OPTION_R 8
-# define  OPTION_t 16
-# define  OPTION_STOP 32
-# define  OPTION_END 64
+# define OPTION_A 1
+# define OPTION_L 2
+# define OPTION_RR 4
+# define OPTION_R 8
+# define OPTION_T 16
+# define OPTION_STOP 32
+# define OPTION_END 64
 
-#include "../Libft/includes/libft.h"
-#include <stdio.h>
-#include <dirent.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <pwd.h>
-#include <stdlib.h>
-#include <grp.h>
-#include <sys/xattr.h>
-#include <sys/acl.h>
+# include "../Libft/includes/libft.h"
+# include <stdio.h>
+# include <dirent.h>
+# include <time.h>
+# include <unistd.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <pwd.h>
+# include <stdlib.h>
+# include <grp.h>
+# include <sys/xattr.h>
+# include <sys/acl.h>
 
 extern char g_bit;
 
@@ -60,6 +60,9 @@ List create_child_list(char *path, int parent); //On recoit juste le chemin a ou
 int 	check_perm(char *path);
 void affichage(List li, char *path, int i);
 void affichage_xattr_acl(List li, int *total);
+int 	total_block(List begin);
+void 	fill_noodle_data(List begin, int *tab);
+List	data_noodle(List begin);
 /*
 **Fonction pour le -a dans le fichier option_a.c
 */
@@ -73,9 +76,12 @@ int 	is_hide(List li);
 	**--------------------file_perm.c-----------------------
 	*/
 
-void	affichage_file_perm(List li);
-void 	affichage_type_of_f(List li);
-char	file_perm2(int i, List li);
+void	kernel_of_file_perm(List li);
+void 	affichage_type(List li);
+char	affichage_perm(int i, List li);
+char	affichage_perm_usr(int i, List li);
+char	affichage_perm_group(int i, List li);
+char	affichage_perm_other(int i, List li);
 
 	/*
 	**---------------------option_l-------------------------
@@ -134,6 +140,7 @@ int 	dirtrue(char *s1, struct stat *file);
 
 int		check_option(char **s1, int argc);
 void	option(char *s1);
+int		turn_on_option(char option);
 
 /*
 **Fonction de trie de argv et la liste selon les option demander dans le fichier sort_list.c

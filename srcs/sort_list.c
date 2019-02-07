@@ -39,8 +39,6 @@
 **ou de ma nouvelle liste.
 */
 
-//double debug = 0;
-
 void sort_argv(int i, int argc, char **tab)
 {
 	char *temp;
@@ -114,12 +112,12 @@ List check_option_sort(List li, List j)
 
 	i = 0;
 	k = 0;
-	if(g_bit & OPTION_t)
+	if(g_bit & OPTION_T)
 	{
 		k = 1;
 		li = check_sort_list_time(j);
 	}
-	if (g_bit & OPTION_r)
+	if (g_bit & OPTION_RR)
 	{
 		i = 1;
 		li = check_sort_list_reverse(j);
@@ -175,7 +173,7 @@ List check_sort_list_ascci(List li)
 		i = 0;
 		while (li->next != NULL)
  		{
-	 		if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_a))) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
+	 		if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_A))) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
 			{
 				temp_next = li->next;
 				begin = back_list(li, begin);
@@ -206,7 +204,7 @@ List check_sort_list_ascci(List li)
 		}
 		size--;
 	}
-	if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_a))) //on regarde si le dernier fichier commence par un "."
+	if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_A))) //on regarde si le dernier fichier commence par un "."
 	{
 		//free_li_one(li);
 		begin = back_list(li, begin);

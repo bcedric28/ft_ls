@@ -6,7 +6,7 @@
 /*   By: bcedric <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 07:45:37 by bcedric           #+#    #+#             */
-/*   Updated: 2019/01/18 07:45:38 by bcedric          ###   ########.fr       */
+/*   Updated: 2019/02/07 16:54:05 by bcedric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,23 @@
 **print_name_list: print le nom du maillon qu'il recoit
 */
 
-List new_list(void)
+List	new_list(void)
 {
 	return (NULL);
 }
 
-int is_empty(List li)
+int		is_empty(List li)
 {
 	if (li == NULL)
 		return (0);
 	return (1);
 }
 
-int list_size(List li)
+int		list_size(List li)
 {
 	int size;
 
 	size = 0;
-
 	if (!(is_empty(li)))
 		return (size);
 	while (li != NULL)
@@ -52,7 +51,7 @@ int list_size(List li)
 	return (size);
 }
 
-void print_list(List li)
+void	print_list(List li)
 {
 	int i;
 
@@ -64,7 +63,7 @@ void print_list(List li)
 	while (li != NULL)
 	{
 		i = 0;
-		while(li->name[i] != '\0')
+		while (li->name[i] != '\0')
 		{
 			ft_putchar(li->name[i]);
 			i++;
@@ -76,7 +75,7 @@ void print_list(List li)
 
 void	print_name_list(List li)
 {
-	char buf[NAME_MAX + 1];
+	char	buf[NAME_MAX + 1];
 
 	ft_putstr(li->name);
 	if (S_ISLNK(li->fileinfo.st_mode))

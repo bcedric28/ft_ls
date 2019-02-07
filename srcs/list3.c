@@ -6,22 +6,22 @@
 /*   By: bcedric <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 07:26:01 by bcedric           #+#    #+#             */
-/*   Updated: 2019/01/26 07:26:03 by bcedric          ###   ########.fr       */
+/*   Updated: 2019/02/07 16:55:48 by bcedric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 /*
-**
 **back_list: enleve un maillon apres un maillon particulier. De cette facons
-**	je peux enlever un maillon n'importe ou dans dans ma liste.
-**	je sauvegarde le next, je free, et refait pointer le maillon d'avant sur
-**	le prochain. Je retourne un pointeur sur le debut de ma liste.
+**je peux enlever un maillon n'importe ou dans dans ma liste.
+**je sauvegarde le next, je free, et refait pointer le maillon d'avant sur
+**le prochain. Je retourne un pointeur sur le debut de ma liste.
+**printf_and_free_only_file permet comme sont nom l'indic d'afficher
+**les fichers et de les supprimer
 */
 
-
-List 	back_list(List li, List begin)
+List	back_list(List li, List begin)
 {
 	ListElement *temp;
 	ListElement *membef;
@@ -51,9 +51,9 @@ List	print_and_free_only_file(List li)
 	while (li != NULL)
 	{
 		li_next = li->next;
-		if(S_ISREG(li->fileinfo.st_mode))
+		if (S_ISREG(li->fileinfo.st_mode))
 		{
-			if (g_bit & OPTION_l)
+			if (g_bit & OPTION_L)
 			{
 				li->next = NULL;
 				affichage(li, "", 0);
@@ -65,5 +65,5 @@ List	print_and_free_only_file(List li)
 		}
 		li = li_next;
 	}
-	return begin;
+	return (begin);
 }

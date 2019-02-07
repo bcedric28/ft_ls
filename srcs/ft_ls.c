@@ -13,6 +13,16 @@
 	#include "ft_ls.h"
 	char g_bit = 0;
 
+
+int 	check_perm(char *path)
+{
+	struct stat fileinfo;
+
+	lstat(path, &fileinfo);
+	if (!S_ISDIR(fileinfo.st_mode))
+		return (1);
+	return (0);
+}
 	List create_child_list(char *path, int parent) //On recoit juste le chemin a ouvrir
 	{
 		struct dirent *dent;
@@ -62,7 +72,7 @@
 
 		if (i != 0 /*|| g_bit & OPTION_R*/)
 			printf("\n%s:\n", path);
-		if (g_bit & OPTION_l && (is_empty(li) == 1) && li->parent == 0)
+		if (g_bit & OPTION_L && (is_empty(li) == 1) && li->parent == 0)
 		{
 			// if (i != 0 /*|| g_bit & OPTION_R*/)
 			// 	printf("\n%s:\n", path);
@@ -76,11 +86,11 @@
 		file_minor_and_major(begin, total);
 		while (li != NULL)
 		{
-			if (g_bit & OPTION_l)
+			if (g_bit & OPTION_L)
 			{
 				if (k == 0)
 				{
-					begin = login_name(begin);
+					begin = data_noodle(begin);
 					k = 1; // ne pas reboucler.
 				}
 				main_l(li, begin, total);

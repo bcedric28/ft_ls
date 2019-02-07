@@ -6,7 +6,7 @@
 /*   By: bcedric <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 07:25:57 by bcedric           #+#    #+#             */
-/*   Updated: 2019/01/26 07:25:58 by bcedric          ###   ########.fr       */
+/*   Updated: 2019/02/07 16:54:35 by bcedric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ List push_back(List li, char *name, char *full_path, struct stat file, int paren
 	element->full_path = full_path;
 	element->parent = parent;
 	element->size = file.st_size;
-	if (g_bit & OPTION_l)
+	if (g_bit & OPTION_L)
 	{
 		gid = getgrgid(element->fileinfo.st_gid);
 				element->group = gid->gr_name;
@@ -76,7 +76,7 @@ List push_front(List li, char *s, char *full_path, struct stat file)
 	element->name = s;
 	element->fileinfo = file;
 	element->full_path = full_path;
-	if (g_bit & OPTION_l)
+	if (g_bit & OPTION_L)
 	{
 		gid = getgrgid(element->fileinfo.st_gid);
 				element->group = gid->gr_name;
@@ -129,7 +129,6 @@ List back_front(List li)
 
 	element = li->next;
 	free_li_one(li);
-	// free(li);
 	li = NULL;
 	return (element);
 }

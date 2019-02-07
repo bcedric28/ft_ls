@@ -6,7 +6,7 @@
 /*   By: bcedric <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 07:34:01 by bcedric           #+#    #+#             */
-/*   Updated: 2019/01/18 07:34:02 by bcedric          ###   ########.fr       */
+/*   Updated: 2019/02/07 16:46:53 by bcedric          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,24 @@
 **
 **ft_error2: Fonction qui permet d'afficher une erreur quand le dossier
 **	ou fichier n'existe pas.
+**
+**ft_error3: Fonction qui gere les Permission denied.
 */
 
-void 	ft_error3(char *s, int end, int j, List parent)
+void	ft_error3(char *s, int end, int j, List parent)
 {
 	int i;
 
 	i = -1;
 	if (j != 0)
 	{
-		while(s[++i])
+		while (s[++i])
 			ft_putchar_fd(s[i], 0);
 		ft_putendl_fd(":", 0);
 		ft_putstr_fd("ls: ", 2);
 		while (s[i] != '/' && i >= 0)
 			i--;
-		while(s[++i])
+		while (s[++i])
 			ft_putchar_fd(s[i], 2);
 		ft_putendl_fd(": Permission denied", 2);
 		if (end == 1)
@@ -48,7 +50,7 @@ void 	ft_error3(char *s, int end, int j, List parent)
 	}
 }
 
-void 	ft_error2(char *s, int j)
+void	ft_error2(char *s, int j)
 {
 	int i;
 
@@ -56,7 +58,7 @@ void 	ft_error2(char *s, int j)
 	if (j == 0)
 	{
 		ft_putstr_fd("ls: ", 2);
-		while(s[i])
+		while (s[i])
 		{
 			ft_putchar_fd(s[i], 2);
 			i++;
