@@ -24,7 +24,8 @@
 void	main_l(List li, List begin, int *total)
 {
 		affichage_file_perm(li);
-		count_file_link(li, begin);
+		affichage_xattr_acl(li, total);
+		count_file_link(li, begin, total);
 		affichage_file_login(li);
 		affichage_file_group(li);
 		if (!(S_ISBLK(li->fileinfo.st_mode)) &&
@@ -37,6 +38,28 @@ void	main_l(List li, List begin, int *total)
 		}
 		file_date(li);
 		print_name_list(li);
+}
+
+void affichage_xattr_acl(List li, int *total)
+{
+	char 	buf[101];
+	acl_t 	acl;
+
+	total[2] = 0;
+	if (listxattr(li->full_path, buf, 101, XATTR_NOFOLLOW) > 0)
+	{
+		total[2] = 1;
+		ft_putstr("@");
+	}
+	else
+	{
+		acl = acl_get_file(li->full_path, ACL_TYPE_EXTENDED);
+		if (acl != NULL)
+		{
+			total[2] = 1;
+			ft_putstr("+");
+		}
+	}
 }
 
 void	affichage_minor(List li, int min)

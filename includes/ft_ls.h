@@ -31,6 +31,8 @@
 #include <pwd.h>
 #include <stdlib.h>
 #include <grp.h>
+#include <sys/xattr.h>
+#include <sys/acl.h>
 
 extern char g_bit;
 
@@ -56,6 +58,8 @@ typedef struct ListElement
 
 List create_child_list(char *path, int parent); //On recoit juste le chemin a ouvrir
 int 	check_perm(char *path);
+void affichage(List li, char *path, int i);
+void affichage_xattr_acl(List li, int *total);
 /*
 **Fonction pour le -a dans le fichier option_a.c
 */
@@ -79,8 +83,8 @@ char	file_perm2(int i, List li);
 	*/
 
 int		number_of_digit(int max);
-void 	count_file_link(List li, List begin);
-void	affichage_file_link(int max, List li);
+void 	count_file_link(List li, List begin, int *total);
+void	affichage_file_link(int max, List li, int *total);
 List	login_name(List begin);
 void	affichage_file_login(List li);
 

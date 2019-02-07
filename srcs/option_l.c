@@ -91,13 +91,16 @@ List	login_name(List begin)
 	return (begin);
 }
 
-void	affichage_file_link(int max, List li)
+void	affichage_file_link(int max, List li, int *total)
 {
 	int i;
 	int j;
 	char *result;
 
-	j = 2;
+	if (total[2] == 0)
+		j = 2;
+	else
+		j = 1;
 	i = number_of_digit(li->fileinfo.st_nlink);
 	while (j > 0)
 	{
@@ -114,7 +117,7 @@ void	affichage_file_link(int max, List li)
 	free(result);
 }
 
-void 	count_file_link(List li, List begin)
+void 	count_file_link(List li, List begin, int *total)
 {
 	int max;
 
@@ -126,5 +129,5 @@ void 	count_file_link(List li, List begin)
 		begin = begin->next;
 	}
 	max = number_of_digit(max);
-	affichage_file_link(max, li);
+	affichage_file_link(max, li, total);
 }

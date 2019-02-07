@@ -1,18 +1,7 @@
-Les derniers soucis a reglers
-{
-	+ @
-	les permission (Probleme affichage + nombre d'erreur)
-	༚TOUT OPTI
-}
-
 A faire dans l'ordre
 {
-	✔les permission (Probleme affichage + nombre d'erreur)
-	countfile_link
-	༚norme
-	༚opti
+	.countfile_link (OPTI)
+	༚norme (sort_list + OPTI)
 	༚Pointeur sur la liste
+	a tester plusieur argument et le ../../../Volume/Mac
 }
-
-
-is_hide_path

@@ -57,7 +57,7 @@
 		ListElement *begin;
 		begin = li;
 		int k = 0;
-		int total[2];
+		int total[3];
 		char *result;
 
 		if (i != 0 /*|| g_bit & OPTION_R*/)
@@ -100,7 +100,7 @@
 		int alloc = 0;
 		char *path;
 		char *path_backup; //correspond au path avant d'avoir ajouté le num du dossier qu'on ouvre (il doit y avoir moyen de faire autrement mais bon...)
-		//printf("path %s\n", path);
+
 		if(path2 != NULL)
 		{
 			path = ft_strdup(path2);
@@ -134,7 +134,6 @@
 						path = ft_strdup(parent->name);
 				}
 				dir = opendir(path);
-
 				if (dir != NULL)
 				{
 					child = create_child_list(path, 0); //On cree la structure avec tous les enfants du path
@@ -152,12 +151,11 @@
 						affichage(parent, path, i++);
 					closedir(dir);
 				}
-				else if (check_perm(path) == 0)
+				else if (check_perm(path) == 0 && dir == NULL)
 					(parent->next == NULL) ? ft_error3(path, 0, i, parent) : ft_error3(path, 1, i, parent);
 			}
 			if (alloc)
 			 		ft_strdel(&path);
-			//path = NULL;
 			if(path_backup && parent->next)
 				path = ft_strdup(path_backup); //On remet le path sans le nom du dossier
 			parent = parent->next;
