@@ -24,19 +24,19 @@
 **print_name_list: print le nom du maillon qu'il recoit
 */
 
-List	new_list(void)
+t_list_element *new_list(void)
 {
 	return (NULL);
 }
 
-int		is_empty(List li)
+int		is_empty(t_list_element *li)
 {
 	if (li == NULL)
 		return (0);
 	return (1);
 }
 
-int		list_size(List li)
+int		list_size(t_list_element *li)
 {
 	int size;
 
@@ -51,7 +51,7 @@ int		list_size(List li)
 	return (size);
 }
 
-void	print_list(List li)
+void	print_list(t_list_element *li)
 {
 	int i;
 
@@ -73,7 +73,7 @@ void	print_list(List li)
 	}
 }
 
-void	print_name_list(List li)
+void	print_name_list(t_list_element *li)
 {
 	char	buf[NAME_MAX + 1];
 

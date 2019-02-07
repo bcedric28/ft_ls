@@ -34,7 +34,7 @@ int		dirtrue(char *s1, struct stat *file)
 		return (0);
 }
 
-List	put_in_list(char *str, List li, struct stat file)
+t_list_element *put_in_list(char *str, t_list_element *li, struct stat file)
 {
 	int		i;
 	char	buf[NAME_MAX];
@@ -63,7 +63,7 @@ List	put_in_list(char *str, List li, struct stat file)
 	return (li);
 }
 
-List	check_directory(int i, int argc, char **argv, List li)
+t_list_element *check_directory(int i, int argc, char **argv, t_list_element *li)
 {
 	struct stat file;
 

@@ -17,7 +17,7 @@
 **cacher
 */
 
-int		is_hide(List li)
+int		is_hide(t_list_element *li)
 {
 	if (ft_strncmp(li->name, ".", 1) == 0)
 	{

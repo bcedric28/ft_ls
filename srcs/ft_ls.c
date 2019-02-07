@@ -23,11 +23,11 @@ int 	check_perm(char *path)
 		return (1);
 	return (0);
 }
-	List create_child_list(char *path, int parent) //On recoit juste le chemin a ouvrir
+	t_list_element *create_child_list(char *path, int parent) //On recoit juste le chemin a ouvrir
 	{
 		struct dirent *dent;
 		struct stat fileinfo;
-		List child = new_list();
+		t_list_element *child = new_list();
 		DIR *dir;
 		char *full_path;
 
@@ -62,9 +62,9 @@ int 	check_perm(char *path)
 		return(child);
 	}
 
-	void affichage(List li, char *path, int i)
+	void affichage(t_list_element *li, char *path, int i)
 	{
-		ListElement *begin;
+		t_list_element *begin;
 		begin = li;
 		int k = 0;
 		int total[3];
@@ -103,10 +103,10 @@ int 	check_perm(char *path)
 		}
 	}
 
-	void parent_to_childe(List parent, char *path2, int i) //ajout du path pour la recursive
+	void parent_to_childe(t_list_element *parent, char *path2, int i) //ajout du path pour la recursive
 	{
 		DIR *dir;
-		List child = new_list();
+		t_list_element *child = new_list();
 		int alloc = 0;
 		char *path;
 		char *path_backup; //correspond au path avant d'avoir ajouté le num du dossier qu'on ouvre (il doit y avoir moyen de faire autrement mais bon...)
@@ -180,7 +180,7 @@ int 	check_perm(char *path)
 		int i;
 		char *temp;
 
-		List mylist = new_list();
+		t_list_element *mylist = new_list();
 		i = 1;
 		check_arguments_b0(argv, argc);
 		i = check_option(argv, argc);

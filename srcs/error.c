@@ -23,7 +23,7 @@
 **ft_error3: Fonction qui gere les Permission denied.
 */
 
-void	ft_error3(char *s, int end, int j, List parent)
+void	ft_error3(char *s, int end, int j, t_list_element *parent)
 {
 	int i;
 

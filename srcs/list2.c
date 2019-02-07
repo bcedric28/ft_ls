@@ -25,10 +25,10 @@
 **back_front : Permet de supprimer un maillon en tete de la liste
 */
 
-List push_back(List li, char *name, char *full_path, struct stat file, int parent)
+t_list_element *push_back(t_list_element *li, char *name, char *full_path, struct stat file, int parent)
 {
-	ListElement *element;
-	ListElement	*begin;
+	t_list_element *element;
+	t_list_element	*begin;
 	struct passwd *pw;
 	struct group *gid;
 
@@ -63,9 +63,9 @@ List push_back(List li, char *name, char *full_path, struct stat file, int paren
 
 
 
-List push_front(List li, char *s, char *full_path, struct stat file)
+t_list_element *push_front(t_list_element *li, char *s, char *full_path, struct stat file)
 {
-	ListElement *element;
+	t_list_element *element;
 	struct passwd *pw;
 	struct group *gid;
 
@@ -93,10 +93,10 @@ List push_front(List li, char *s, char *full_path, struct stat file)
 }
 
 
-List back_up(List li)
+t_list_element *back_up(t_list_element *li)
 {
-	ListElement *temp;
-	ListElement *before;
+	t_list_element *temp;
+	t_list_element *before;
 
 	before = li;
 	temp = li;
@@ -120,9 +120,9 @@ List back_up(List li)
 }
 
 
-List back_front(List li)
+t_list_element *back_front(t_list_element *li)
 {
-	ListElement *element;
+	t_list_element *element;
 
 	if (!(is_empty(li)))
 		return (li);

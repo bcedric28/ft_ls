@@ -59,11 +59,11 @@ void sort_argv(int i, int argc, char **tab)
 	}
 }
 
-List check_sort_list_time(List li)
+t_list_element *check_sort_list_time(t_list_element *li)
 {
 	char *temp[2];
 	struct stat file;
-	ListElement *j;
+	t_list_element *j;
 	int size;
 
 	size = list_size(li);
@@ -93,9 +93,9 @@ List check_sort_list_time(List li)
 		return (li);
 }
 
-List check_sort_list_reverse(List li)
+t_list_element *check_sort_list_reverse(t_list_element *li)
 {
-		List new_ord = new_list();
+		t_list_element *new_ord = new_list();
 		while(li != NULL)
 		{
 			new_ord = push_front(new_ord, li->name, li->full_path, li->fileinfo);
@@ -105,7 +105,7 @@ List check_sort_list_reverse(List li)
 		return(new_ord);
 }
 
-List check_option_sort(List li, List j)
+t_list_element *check_option_sort(t_list_element *li, t_list_element *j)
 {
 	int i;
 	int k;
@@ -127,11 +127,11 @@ List check_option_sort(List li, List j)
 	return (li);
 }
 
-/*List invert_two_links(List li, List previous, List begin) //a vérifier
+/*t_list_element *invert_two_links(t_list_element *li, t_list_element *previous, t_list_element *begin) //a vérifier
 {
-	ListElement *suivant;
-	ListElement *actuel;
-	ListElement *debut;
+	t_list_element *suivant;
+	t_list_element *actuel;
+	t_list_element *debut;
 
 	if (li->next == begin->next) // 0->1->2->3->4 (li = 0)
 	{
@@ -153,16 +153,16 @@ List check_option_sort(List li, List j)
 	}
 }*/
 
-List check_sort_list_ascci(List li)
+t_list_element *check_sort_list_ascci(t_list_element *li)
 {
 	char *temp[2];
 	struct stat file;
 	char *temp_log;
 	char *temp_group;
-	ListElement *begin;
+	t_list_element *begin;
 	int size;
 	int i;
-	ListElement *temp_next;
+	t_list_element *temp_next;
 
 	i = 0;
 	size = list_size(li);

@@ -21,7 +21,7 @@
 **le max de login de group et de size.
 */
 
-int		total_block(List begin)
+int		total_block(t_list_element *begin)
 {
 	int block;
 	int temp;
@@ -52,7 +52,7 @@ int		number_of_digit(int max)
 	return (i);
 }
 
-void	fill_noodle_data(List begin, int *tab)
+void	fill_noodle_data(t_list_element *begin, int *tab)
 {
 	int login;
 	int group;
@@ -73,9 +73,9 @@ void	fill_noodle_data(List begin, int *tab)
 	}
 }
 
-List	data_noodle(List begin)
+t_list_element *data_noodle(t_list_element *begin)
 {
-	ListElement	*temp;
+	t_list_element	*temp;
 	int			tab[3];
 
 	tab[0] = 0;
@@ -94,7 +94,7 @@ List	data_noodle(List begin)
 	return (begin);
 }
 
-void	main_l(List li, List begin, int *total)
+void	main_l(t_list_element *li, t_list_element *begin, int *total)
 {
 	kernel_of_file_perm(li);
 	affichage_xattr_acl(li, total);

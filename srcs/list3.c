@@ -21,11 +21,11 @@
 **les fichers et de les supprimer
 */
 
-List	back_list(List li, List begin)
+t_list_element *back_list(t_list_element *li, t_list_element *begin)
 {
-	ListElement *temp;
-	ListElement *membef;
-	ListElement *memaft;
+	t_list_element *temp;
+	t_list_element *membef;
+	t_list_element *memaft;
 
 	temp = begin;
 	if (begin->name == li->name)
@@ -42,10 +42,10 @@ List	back_list(List li, List begin)
 	return (temp);
 }
 
-List	print_and_free_only_file(List li)
+t_list_element *print_and_free_only_file(t_list_element *li)
 {
-	ListElement *li_next;
-	ListElement *begin;
+	t_list_element *li_next;
+	t_list_element *begin;
 
 	begin = li;
 	while (li != NULL)

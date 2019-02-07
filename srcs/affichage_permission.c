@@ -22,7 +22,7 @@
 **si oui ou non je devrais afficher plus d'espace pour identer
 */
 
-void	affichage_type(List li)
+void	affichage_type(t_list_element *li)
 {
 	if (S_ISREG(li->fileinfo.st_mode))
 		ft_putchar('-');
@@ -40,7 +40,7 @@ void	affichage_type(List li)
 		ft_putchar('s');
 }
 
-void	affichage_xattr_acl(List li, int *total)
+void	affichage_xattr_acl(t_list_element *li, int *total)
 {
 	char	buf[101];
 	acl_t	acl;
@@ -61,7 +61,7 @@ void	affichage_xattr_acl(List li, int *total)
 	}
 }
 
-void	kernel_of_file_perm(List li)
+void	kernel_of_file_perm(t_list_element *li)
 {
 	char	*str;
 	int		i;

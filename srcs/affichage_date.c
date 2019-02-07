@@ -19,7 +19,7 @@
 **	affiche le reste de la date avec le bon format.
 */
 
-void	affichage_file_years(List li, int i)
+void	affichage_file_years(t_list_element *li, int i)
 {
 	i = 19;
 	while (i < 24)
@@ -30,7 +30,7 @@ void	affichage_file_years(List li, int i)
 	ft_putstr(" ");
 }
 
-void	affichage_file_date(List li, int i)
+void	affichage_file_date(t_list_element *li, int i)
 {
 	while (i < 16)
 	{
@@ -40,7 +40,7 @@ void	affichage_file_date(List li, int i)
 	ft_putstr(" ");
 }
 
-int		check_6_months(List li, time_t now)
+int		check_6_months(t_list_element *li, time_t now)
 {
 	if (now - li->fileinfo.st_mtime >= 15778800)
 		return (1);
@@ -49,7 +49,7 @@ int		check_6_months(List li, time_t now)
 	return (0);
 }
 
-void	file_date(List li)
+void	file_date(t_list_element *li)
 {
 	int		i;
 	time_t	now;
