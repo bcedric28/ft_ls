@@ -17,28 +17,19 @@ char	*ft_strjoin_free(char *s1, char *s2, int i)
 	char	*new;
 	int		k;
 	int		l;
-	char *s1_bis;
-	char *s2_bis;
+	char	*s1_bis;
+	char	*s2_bis;
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	new = NULL;
-	new = ft_strnew(ft_strlen(s1) + ft_strlen(s2));
-	if (new == NULL)
+	if (!(new = ft_strnew(ft_strlen(s1) + ft_strlen(s2))))
 		return (NULL);
-	k = 0;
-	while (s1[k])
-	{
+	k = -1;
+	while (s1[++k])
 		new[k] = s1[k];
-		k++;
-	}
 	l = 0;
 	while (s2[l])
-	{
-		new[k] = s2[l];
-		l++;
-		k++;
-	}
+		new[k++] = s2[l++];
 	s1_bis = s1;
 	s2_bis = s2;
 	if (i == 0)

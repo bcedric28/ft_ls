@@ -26,7 +26,6 @@ static int		ft_comp(const char *s1, const char *s2)
 		i++;
 	}
 	return (1);
-
 }
 
 size_t			ft_strcspn(const char *s1, const char *s2)
@@ -36,10 +35,10 @@ size_t			ft_strcspn(const char *s1, const char *s2)
 
 	i = 0;
 	j = 0;
-	while(s1[i])
+	while (s1[i])
 	{
-		if(!(ft_comp(&s1[i], s2)))
-			return 0;
+		if (!(ft_comp(&s1[i], s2)))
+			return (0);
 		j++;
 		i++;
 	}

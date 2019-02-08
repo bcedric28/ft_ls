@@ -84,7 +84,6 @@ void				ft_2dtabdel(void **tab);
 size_t				ft_strclen(const char *str, int c);
 char				*ft_strjoin_free(char *s1, char *s2, int i);
 
-
 typedef struct		s_list
 {
 	void			*content;

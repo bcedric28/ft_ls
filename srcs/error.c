@@ -33,7 +33,7 @@ void	ft_error3(char *s, int end, int j, t_element *parent)
 		while (s[++i])
 			ft_putchar_fd(s[i], 0);
 		ft_putendl_fd(":", 0);
-		ft_putstr_fd("ls: ", 2);
+		ft_putstr_fd("ft_ls: ", 2);
 		while (s[i] != '/' && i >= 0)
 			i--;
 		while (s[++i])
@@ -44,7 +44,7 @@ void	ft_error3(char *s, int end, int j, t_element *parent)
 	}
 	else
 	{
-		ft_putstr_fd("ls: ", 2);
+		ft_putstr_fd("ft_ls: ", 2);
 		ft_putstr_fd(parent->name, 2);
 		ft_putendl_fd(": Permission denied", 2);
 	}
@@ -57,7 +57,7 @@ void	ft_error2(char *s, int j)
 	i = 0;
 	if (j == 0)
 	{
-		ft_putstr_fd("ls: ", 2);
+		ft_putstr_fd("ft_ls: ", 2);
 		while (s[i])
 		{
 			ft_putchar_fd(s[i], 2);
@@ -70,15 +70,15 @@ void	ft_error2(char *s, int j)
 void	ft_error(char c, int i)
 {
 	if (i == 0)
-		ft_putendl_fd("ls: -: No such file or directory", 2);
+		ft_putendl_fd("ft_ls: -: No such file or directory", 2);
 	else if (i == 1)
 	{
-		ft_putendl_fd("ls: fts_open: No such file or directory", 2);
+		ft_putendl_fd("ft_ls: fts_open: No such file or directory", 2);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		ft_putstr_fd("ls: illegal option -- ", 2);
+		ft_putstr_fd("ft_ls: illegal option -- ", 2);
 		ft_putchar_fd(c, 2);
 		ft_putendl_fd("", 2);
 		ft_putstr_fd("usage: ls [-alrRt] [file ...]\n", 2);
