@@ -58,20 +58,19 @@ void		affichage(t_element *li, char *path, int i)
 	int			total[3];
 	char		*result;
 
-	begin = li;
 	if (i != 0)
 		printf("\n%s:\n", path); //printf !!
 	if (g_bit & OPTION_L && (is_empty(li) == 1) && li->parent == 0)
 	{
-		total[0] = total_block(begin);
+		total[0] = total_block(li);
 		ft_putstr("total ");
 		result = ft_itoa(total[0]);
 		ft_putstr(result);
 		free(result);
 		ft_putendl("");
 	}
-	file_minor_and_major(begin, total);
-	begin = data_noodle(begin);
+	file_minor_and_major(li, total);
+	begin = data_noodle(li);
 	while (li != NULL)
 	{
 		if (g_bit & OPTION_L)
@@ -86,7 +85,7 @@ void		parent_to_childe(t_element *parent, char *path2, int i)
 {
 	DIR			*dir;
 	t_element	*child;
-	int			alloc = 0;
+	int			alloc;
 	char		*path;
 	char		*path_backup;
 
@@ -105,7 +104,7 @@ void		parent_to_childe(t_element *parent, char *path2, int i)
 	}
 	while (parent != NULL)
 	{
-		if (ft_strcmp(parent->name, ".") != 0 && ft_strcmp(parent->name, "..") != 0)
+		if (ft_strcmp(parent->name, ".") && ft_strcmp(parent->name, ".."))
 		{
 			alloc = 1;
 			if (path != NULL)
@@ -143,7 +142,7 @@ void		parent_to_childe(t_element *parent, char *path2, int i)
 				(parent->next == NULL) ? ft_error3(path, 0, i, parent) : ft_error3(path, 1, i, parent);
 		}
 		if (alloc)
-		 	ft_strdel(&path);
+			ft_strdel(&path);
 		if (path_backup && parent->next)
 			path = ft_strdup(path_backup);
 		parent = parent->next;
@@ -153,7 +152,7 @@ void		parent_to_childe(t_element *parent, char *path2, int i)
 	free_li(parent);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	int			i;
 	char		*temp;
