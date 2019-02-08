@@ -16,7 +16,7 @@
 **Fichier qui est la suite d'affichage_permission
 */
 
-char	affichage_perm_other(int i, t_element *li)
+char	affichage_perm_other(int i, t_elem *li)
 {
 	if (i == 6)
 		return ((li->fileinfo.st_mode & S_IROTH) ? 'r' : '-');
@@ -32,7 +32,7 @@ char	affichage_perm_other(int i, t_element *li)
 	return ('-');
 }
 
-char	affichage_perm_group(int i, t_element *li)
+char	affichage_perm_group(int i, t_elem *li)
 {
 	if (i == 3)
 		return ((li->fileinfo.st_mode & S_IRGRP) ? 'r' : '-');
@@ -48,7 +48,7 @@ char	affichage_perm_group(int i, t_element *li)
 	return ('-');
 }
 
-char	affichage_perm_usr(int i, t_element *li)
+char	affichage_perm_usr(int i, t_elem *li)
 {
 	if (i == 0)
 		return ((li->fileinfo.st_mode & S_IRUSR) ? 'r' : '-');
@@ -64,7 +64,7 @@ char	affichage_perm_usr(int i, t_element *li)
 	return ('-');
 }
 
-char	affichage_perm(int i, t_element *li)
+char	affichage_perm(int i, t_elem *li)
 {
 	if (i == 0 || i == 1 || i == 2)
 		return (affichage_perm_usr(i, li));

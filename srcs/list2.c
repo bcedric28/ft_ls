@@ -25,9 +25,9 @@
 **back_front : Permet de supprimer un maillon en tete de la liste
 */
 
-t_element	*new_elem(char *name, char *full_path, struct stat file, int parent)
+t_elem	*new_elem(char *name, char *full_path, struct stat file, int parent)
 {
-	t_element		*element;
+	t_elem		*element;
 
 	if (!(element = malloc(sizeof(*element))))
 		exit(EXIT_FAILURE);
@@ -39,9 +39,9 @@ t_element	*new_elem(char *name, char *full_path, struct stat file, int parent)
 	return (element);
 }
 
-t_element	*push_back(t_element *li, t_element *new_element)
+t_elem	*push_back(t_elem *li, t_elem *new_element)
 {
-	t_element		*begin;
+	t_elem		*begin;
 	struct passwd	*pw;
 	struct group	*gid;
 
@@ -64,9 +64,9 @@ t_element	*push_back(t_element *li, t_element *new_element)
 	return (begin);
 }
 
-t_element	*push_front(t_element *li, char *name, char *path, struct stat file)
+t_elem	*push_front(t_elem *li, char *name, char *path, struct stat file)
 {
-	t_element		*element;
+	t_elem		*element;
 	struct passwd	*pw;
 	struct group	*gid;
 
@@ -92,10 +92,10 @@ t_element	*push_front(t_element *li, char *name, char *path, struct stat file)
 	return (element);
 }
 
-t_element	*back_up(t_element *li)
+t_elem	*back_up(t_elem *li)
 {
-	t_element *temp;
-	t_element *before;
+	t_elem *temp;
+	t_elem *before;
 
 	before = li;
 	temp = li;
@@ -118,9 +118,9 @@ t_element	*back_up(t_element *li)
 	return (li);
 }
 
-t_element	*back_front(t_element *li)
+t_elem	*back_front(t_elem *li)
 {
-	t_element *element;
+	t_elem *element;
 
 	if (!(is_empty(li)))
 		return (li);

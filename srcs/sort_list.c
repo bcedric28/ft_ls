@@ -59,11 +59,11 @@ void		sort_argv(int i, int argc, char **tab)
 	}
 }
 
-t_element	*check_sort_list_time(t_element *li)
+t_elem	*check_sort_list_time(t_elem *li)
 {
 	char		*temp[2];
 	struct stat	file;
-	t_element	*j;
+	t_elem	*j;
 	int			size;
 
 	size = list_size(li);
@@ -93,9 +93,9 @@ t_element	*check_sort_list_time(t_element *li)
 	return (li);
 }
 
-t_element	*check_sort_list_reverse(t_element *li)
+t_elem	*check_sort_list_reverse(t_elem *li)
 {
-	t_element	*new_ord;
+	t_elem	*new_ord;
 
 	new_ord = new_list();
 	while (li != NULL)
@@ -107,7 +107,7 @@ t_element	*check_sort_list_reverse(t_element *li)
 	return (new_ord);
 }
 
-t_element	*check_option_sort(t_element *li, t_element *j)
+t_elem	*check_option_sort(t_elem *li, t_elem *j)
 {
 	int i;
 	int k;
@@ -130,11 +130,11 @@ t_element	*check_option_sort(t_element *li, t_element *j)
 }
 
 /*
-**t_element *invert_two_links(t_element *li, t_element *previous, t_element *begin) //a vérifier
+**t_elem *invert_two_links(t_elem *li, t_elem *previous, t_elem *begin) //a vérifier
 **{
-**	t_element *suivant;
-**	t_element *actuel;
-**	t_element *debut;
+**	t_elem *suivant;
+**	t_elem *actuel;
+**	t_elem *debut;
 **
 **	if (li->next == begin->next) // 0->1->2->3->4 (li = 0)
 **	{
@@ -157,15 +157,15 @@ t_element	*check_option_sort(t_element *li, t_element *j)
 **}
 */
 
-t_element	*check_sort_list_ascci(t_element *li)
+t_elem	*check_sort_list_ascci(t_elem *li)
 {
 	char		*temp[2];
 	struct stat	file;
 	char		*temp_log;
 	char		*temp_group;
-	t_element	*begin;
+	t_elem	*begin;
 	int			size;
-	t_element	*temp_next;
+	t_elem	*temp_next;
 
 	size = list_size(li);
 	begin = li;
