@@ -36,29 +36,26 @@ int			dirtrue(char *s1, struct stat *file)
 
 t_element	*put_in_list(char *str, t_element *li, struct stat file)
 {
-	int		i;
 	char	buf[NAME_MAX];
 
-	i = 1;
 	if ((S_ISLNK(file.st_mode) &&
 				(g_bit & OPTION_L)) || !(S_ISLNK(file.st_mode)))
 	{
 		if (ft_strcmp(str, "..") == 0 || ft_strcmp(str, ".") == 0)
 		{
-			i = 2;
 			str = ft_strjoin_free(str, "/", 4);
-			li = push_back(li, str, str, file, i);
+			li = push_back(li, str, str, file, 2);
 			if (str)
 				ft_strdel(&str);
 			return (li);
 		}
-		li = push_back(li, str, str, file, i);
+		li = push_back(li, str, str, file, 1);
 	}
 	else
 	{
 		ft_bzero(buf, NAME_MAX + 1);
 		readlink(str, buf, NAME_MAX);
-		li = push_back(li, buf, buf, file, i);
+		li = push_back(li, buf, buf, file, 1);
 	}
 	return (li);
 }
