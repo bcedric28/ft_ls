@@ -169,8 +169,8 @@ void					print_name_list(t_element *li);
 /*
 ** ---------------------list2.c-------------------------
 */
-
-t_element				*push_back(t_element *li, char *full_path, char *name, struct stat file, int parent);
+t_element				*new_elemente(char *name, char *full_path, struct stat file, int parent);
+t_element				*push_back(t_element *li, t_element *new_element);
 t_element				*push_front(t_element *li, char *s, char *full_path, struct stat file);
 t_element				*back_up(t_element *li);
 t_element				*back_front(t_element *li);

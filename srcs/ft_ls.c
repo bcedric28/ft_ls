@@ -48,7 +48,7 @@ t_element	*create_child_list(char *path, int parent)
 		full_path = ft_strjoin_free(path, "/", 4);
 		full_path = ft_strjoin_free(full_path, dent->d_name, 0);
 		if (lstat(full_path, &fileinfo) == 0)
-			child = push_back(child, dent->d_name, full_path, fileinfo, 0);
+			child = push_back(child, new_elemente(dent->d_name, full_path, fileinfo, 0));
 	}
 	closedir(dir);
 	return (child);
@@ -128,7 +128,7 @@ void		parent_to_childe(t_element *parent, char *path2, int i) //ajout du path po
 				if (ft_strcmp(parent->name, "./") == 0 && (parent->parent == 2))
 					path = ft_strdup(".");
 				else if (ft_strcmp(parent->name, "../") == 0 && (parent->parent == 2))
-					path = ft_strdup("..");					
+					path = ft_strdup("..");
 				else
 					path = ft_strdup(parent->name);
 			}
@@ -141,7 +141,7 @@ void		parent_to_childe(t_element *parent, char *path2, int i) //ajout du path po
 					child = check_sort_list_ascci(child);
 					affichage(child, path, i++);
 					if (g_bit & OPTION_R)
-						parent_to_childe(child, path, i); //On recusive sur les enfants et on garde le path complet	
+						parent_to_childe(child, path, i); //On recusive sur les enfants et on garde le path complet
 					free_li(child);
 				}
 				else if(parent->parent == 1 || parent->parent == 2)

@@ -25,12 +25,9 @@
 **back_front : Permet de supprimer un maillon en tete de la liste
 */
 
-t_element	*push_back(t_element *li, char *name, char *full_path, struct stat file, int parent)
+t_element	*new_elemente(char *name, char *full_path, struct stat file, int parent)
 {
 	t_element		*element;
-	t_element		*begin;
-	struct passwd	*pw;
-	struct group	*gid;
 
 	if (!(element = malloc(sizeof(*element))))
 		exit(EXIT_FAILURE);
@@ -39,22 +36,31 @@ t_element	*push_back(t_element *li, char *name, char *full_path, struct stat fil
 	element->full_path = full_path;
 	element->parent = parent;
 	element->size = file.st_size;
+	return (element);
+}
+
+t_element	*push_back(t_element *li, t_element *new_element)
+{
+	t_element		*begin;
+	struct passwd	*pw;
+	struct group	*gid;
+
 	if (g_bit & OPTION_L)
 	{
-		gid = getgrgid(element->fileinfo.st_gid);
-		element->group = gid->gr_name;
-		if (!(pw = getpwuid(element->fileinfo.st_uid)))
-			element->login = ft_itoa(element->fileinfo.st_uid);
+		gid = getgrgid(new_element->fileinfo.st_gid);
+		new_element->group = gid->gr_name;
+		if (!(pw = getpwuid(new_element->fileinfo.st_uid)))
+			new_element->login = ft_itoa(new_element->fileinfo.st_uid);
 		else
-			element->login = ft_strdup(pw->pw_name);
+			new_element->login = ft_strdup(pw->pw_name);
 	}
-	element->next = NULL;
+	new_element->next = NULL;
 	if (!(is_empty(li)))
-		return (element);
+		return (new_element);
 	begin = li;
 	while (li->next != NULL)
 		li = li->next;
-	li->next = element;
+	li->next = new_element;
 	return (begin);
 }
 
@@ -70,7 +76,6 @@ t_element	*push_front(t_element *li, char *name, char *full_path, struct stat fi
 	element->fileinfo = file;
 	element->full_path = full_path;
 	element->size = file.st_size;
-
 	if (g_bit & OPTION_L)
 	{
 		gid = getgrgid(element->fileinfo.st_gid);
