@@ -25,17 +25,15 @@
 **back_front : Permet de supprimer un maillon en tete de la liste
 */
 
-t_element *push_back(t_element *li, char *name, char *full_path, struct stat file, int parent)
+t_element	*push_back(t_element *li, char *name, char *full_path, struct stat file, int parent)
 {
-	t_element *element;
-	t_element	*begin;
-	struct passwd *pw;
-	struct group *gid;
+	t_element		*element;
+	t_element		*begin;
+	struct passwd	*pw;
+	struct group	*gid;
 
 	if (!(element = malloc(sizeof(*element))))
-	{
 		exit(EXIT_FAILURE);
-	}
 	element->name = ft_strdup(name);
 	element->fileinfo = file;
 	element->full_path = full_path;
@@ -44,16 +42,15 @@ t_element *push_back(t_element *li, char *name, char *full_path, struct stat fil
 	if (g_bit & OPTION_L)
 	{
 		gid = getgrgid(element->fileinfo.st_gid);
-				element->group = gid->gr_name;
-		if(!(pw = getpwuid(element->fileinfo.st_uid)))
+		element->group = gid->gr_name;
+		if (!(pw = getpwuid(element->fileinfo.st_uid)))
 			element->login = ft_itoa(element->fileinfo.st_uid);
 		else
 			element->login = ft_strdup(pw->pw_name);
 	}
 	element->next = NULL;
-	if(!(is_empty(li)))
+	if (!(is_empty(li)))
 		return (element);
-
 	begin = li;
 	while (li->next != NULL)
 		li = li->next;
@@ -61,39 +58,36 @@ t_element *push_back(t_element *li, char *name, char *full_path, struct stat fil
 	return (begin);
 }
 
-
-
-t_element *push_front(t_element *li, char *s, char *full_path, struct stat file)
+t_element	*push_front(t_element *li, char *name, char *full_path, struct stat file)
 {
-	t_element *element;
-	struct passwd *pw;
-	struct group *gid;
+	t_element		*element;
+	struct passwd	*pw;
+	struct group	*gid;
 
 	if (!(element = malloc(sizeof(*element))))
-	{
 		exit(EXIT_FAILURE);
-	}
-	element->name = s;
+	element->name = name;
 	element->fileinfo = file;
 	element->full_path = full_path;
+	element->size = file.st_size;
+
 	if (g_bit & OPTION_L)
 	{
 		gid = getgrgid(element->fileinfo.st_gid);
-				element->group = gid->gr_name;
-		if(!(pw = getpwuid(element->fileinfo.st_uid)))
+		element->group = gid->gr_name;
+		if (!(pw = getpwuid(element->fileinfo.st_uid)))
 			element->login = ft_itoa(element->fileinfo.st_uid);
 		else
 			element->login = ft_strdup(pw->pw_name);
 	}
-	if(!(is_empty(li)))
+	if (!(is_empty(li)))
 		element->next = NULL;
 	else
 		element->next = li;
 	return (element);
 }
 
-
-t_element *back_up(t_element *li)
+t_element	*back_up(t_element *li)
 {
 	t_element *temp;
 	t_element *before;
@@ -102,13 +96,13 @@ t_element *back_up(t_element *li)
 	temp = li;
 	if (!(is_empty(li)))
 		return (new_list());
-	if (li->next ==  NULL)
+	if (li->next == NULL)
 	{
 		free(li);
 		li = NULL;
 		return (new_list());
 	}
-	while(temp->next != NULL)
+	while (temp->next != NULL)
 	{
 		before = temp;
 		temp = temp->next;
@@ -116,17 +110,15 @@ t_element *back_up(t_element *li)
 	before->next = NULL;
 	free(temp);
 	temp = NULL;
-	return li;
+	return (li);
 }
 
-
-t_element *back_front(t_element *li)
+t_element	*back_front(t_element *li)
 {
 	t_element *element;
 
 	if (!(is_empty(li)))
 		return (li);
-
 	element = li->next;
 	free_li_one(li);
 	li = NULL;
