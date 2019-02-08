@@ -24,13 +24,13 @@ int			check_perm(char *path)
 	return (0);
 }
 
-t_elem	*create_child_list(char *path, int parent)
+t_elem		*create_child_list(char *path, int parent)
 {
 	struct dirent	*dent;
 	struct stat		f_info;
 	DIR				*dir;
 	char			*f_path;
-	t_elem		*child;
+	t_elem			*child;
 
 	child = new_list();
 	dir = opendir(path);
@@ -54,7 +54,7 @@ t_elem	*create_child_list(char *path, int parent)
 
 void		affichage(t_elem *li, char *path, int i)
 {
-	t_elem	*begin;
+	t_elem		*begin;
 	int			total[3];
 	char		*result;
 
@@ -84,7 +84,7 @@ void		affichage(t_elem *li, char *path, int i)
 void		parent_to_childe(t_elem *parent, char *path2, int i)
 {
 	DIR			*dir;
-	t_elem	*child;
+	t_elem		*child;
 	int			alloc;
 	char		*path;
 	char		*path_backup;
@@ -156,7 +156,7 @@ int			main(int argc, char **argv)
 {
 	int			i;
 	char		*temp;
-	t_elem	*mylist;
+	t_elem		*mylist;
 
 	mylist = new_list();
 	check_arguments_b0(argv, argc);

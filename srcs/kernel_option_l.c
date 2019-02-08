@@ -73,9 +73,9 @@ void		fill_noodle_data(t_elem *begin, int *tab)
 	}
 }
 
-t_elem	*data_noodle(t_elem *begin)
+t_elem		*data_noodle(t_elem *begin)
 {
-	t_elem	*temp;
+	t_elem		*temp;
 	int			tab[3];
 
 	tab[0] = 0;

@@ -27,7 +27,7 @@
 
 t_elem	*new_elem(char *name, char *f_path, struct stat f, int parent)
 {
-	t_elem		*element;
+	t_elem	*element;
 
 	if (!(element = malloc(sizeof(*element))))
 		exit(EXIT_FAILURE);
@@ -41,7 +41,7 @@ t_elem	*new_elem(char *name, char *f_path, struct stat f, int parent)
 
 t_elem	*push_back(t_elem *li, t_elem *new_element)
 {
-	t_elem		*begin;
+	t_elem			*begin;
 	struct passwd	*pw;
 	struct group	*gid;
 
@@ -66,7 +66,7 @@ t_elem	*push_back(t_elem *li, t_elem *new_element)
 
 t_elem	*push_front(t_elem *li, char *name, char *f_path, struct stat f)
 {
-	t_elem		*element;
+	t_elem			*element;
 	struct passwd	*pw;
 	struct group	*gid;
 

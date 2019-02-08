@@ -24,7 +24,7 @@
 **print_name_list: print le nom du maillon qu'il recoit
 */
 
-t_elem	*new_list(void)
+t_elem		*new_list(void)
 {
 	return (NULL);
 }
