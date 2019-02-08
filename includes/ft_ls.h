@@ -40,7 +40,7 @@ extern char g_bit;
 ** Definition de la liste chainee
 */
 
-typedef struct		s_el
+typedef struct	s_el
 {
 	char		*name;
 	struct stat	fileinfo;
@@ -168,9 +168,9 @@ void			print_name_list(t_elem *li);
 /*
 ** ---------------------list2.c-------------------------
 */
-t_elem			*new_elem(char *name, char *f_path, struct stat file, int parent);
+t_elem			*new_elem(char *name, char *f_path, struct stat f, int parent);
 t_elem			*push_back(t_elem *li, t_elem *new_element);
-t_elem			*push_front(t_elem *li, char *s, char *full_path, struct stat file);
+t_elem			*push_front(t_elem *li, char *s, char *f_path, struct stat f);
 t_elem			*back_up(t_elem *li);
 t_elem			*back_front(t_elem *li);
 

@@ -25,17 +25,17 @@
 **back_front : Permet de supprimer un maillon en tete de la liste
 */
 
-t_elem	*new_elem(char *name, char *full_path, struct stat file, int parent)
+t_elem	*new_elem(char *name, char *f_path, struct stat f, int parent)
 {
 	t_elem		*element;
 
 	if (!(element = malloc(sizeof(*element))))
 		exit(EXIT_FAILURE);
 	element->name = ft_strdup(name);
-	element->fileinfo = file;
-	element->full_path = full_path;
+	element->fileinfo = f;
+	element->full_path = f_path;
 	element->parent = parent;
-	element->size = file.st_size;
+	element->size = f.st_size;
 	return (element);
 }
 
@@ -64,7 +64,7 @@ t_elem	*push_back(t_elem *li, t_elem *new_element)
 	return (begin);
 }
 
-t_elem	*push_front(t_elem *li, char *name, char *path, struct stat file)
+t_elem	*push_front(t_elem *li, char *name, char *f_path, struct stat f)
 {
 	t_elem		*element;
 	struct passwd	*pw;
@@ -73,9 +73,9 @@ t_elem	*push_front(t_elem *li, char *name, char *path, struct stat file)
 	if (!(element = malloc(sizeof(*element))))
 		exit(EXIT_FAILURE);
 	element->name = name;
-	element->fileinfo = file;
-	element->full_path = path;
-	element->size = file.st_size;
+	element->fileinfo = f;
+	element->full_path = f_path;
+	element->size = f.st_size;
 	if (g_bit & OPTION_L)
 	{
 		gid = getgrgid(element->fileinfo.st_gid);
