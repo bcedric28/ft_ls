@@ -165,7 +165,6 @@ t_elem		*check_sort_list_ascci(t_elem *li)
 	char		*temp_group;
 	t_elem		*begin;
 	int			size;
-	t_elem		*temp_next;
 
 	size = list_size(li);
 	begin = li;
@@ -176,14 +175,14 @@ t_elem		*check_sort_list_ascci(t_elem *li)
 		{
 			if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_A)))
 			{
-				temp_next = li->next;
 				begin = back_list(li, begin);
-				li = temp_next;
+				li = li->next;
 			}
 			else
 			{
 				if (ft_strcmp(li->name, li->next->name) > 0)
 				{
+//fonction invert maillons ?
 					temp[0] = li->name;
 					temp_log = li->login;
 					temp_group = li->group;
