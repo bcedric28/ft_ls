@@ -64,7 +64,7 @@ t_element	*push_back(t_element *li, t_element *new_element)
 	return (begin);
 }
 
-t_element	*push_front(t_element *li, char *name, char *full_path, struct stat file)
+t_element	*push_front(t_element *li, char *name, char *path, struct stat file)
 {
 	t_element		*element;
 	struct passwd	*pw;
@@ -74,7 +74,7 @@ t_element	*push_front(t_element *li, char *name, char *full_path, struct stat fi
 		exit(EXIT_FAILURE);
 	element->name = name;
 	element->fileinfo = file;
-	element->full_path = full_path;
+	element->full_path = path;
 	element->size = file.st_size;
 	if (g_bit & OPTION_L)
 	{
