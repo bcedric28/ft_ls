@@ -146,10 +146,10 @@ int				turn_on_option(char option);
 **Trie de argv et la liste selon les option demander dans le fichier sort_list.c
 */
 
-t_elem				*check_sort_list_ascci(t_elem *li);
-t_elem				*check_sort_list_reverse(t_elem *li);
-t_elem				*check_sort_list_time(t_elem *li);
-void				sort_argv(int i, int argc, char **tab);
+t_elem			*check_sort_list_ascci(t_elem *li);
+t_elem			*check_sort_list_reverse(t_elem *li);
+t_elem			*check_sort_list_time(t_elem *li);
+void			sort_argv(int i, int argc, char **tab);
 
 /*
 **Fonction de liste de base dans les fichiers list.c list2.c list3.c
