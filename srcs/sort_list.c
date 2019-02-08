@@ -39,10 +39,10 @@
 **ou de ma nouvelle liste.
 */
 
-void sort_argv(int i, int argc, char **tab)
+void		sort_argv(int i, int argc, char **tab)
 {
-	char *temp;
-	int j;
+	char	*temp;
+	int		j;
 
 	j = i;
 	while (i < argc && tab[i + 1] != '\0')
@@ -59,12 +59,12 @@ void sort_argv(int i, int argc, char **tab)
 	}
 }
 
-t_element *check_sort_list_time(t_element *li)
+t_element	*check_sort_list_time(t_element *li)
 {
-	char *temp[2];
-	struct stat file;
-	t_element *j;
-	int size;
+	char		*temp[2];
+	struct stat	file;
+	t_element	*j;
+	int			size;
 
 	size = list_size(li);
 	j = li;
@@ -89,30 +89,32 @@ t_element *check_sort_list_time(t_element *li)
 		}
 		size--;
 	}
-		li = j;
-		return (li);
+	li = j;
+	return (li);
 }
 
-t_element *check_sort_list_reverse(t_element *li)
+t_element	*check_sort_list_reverse(t_element *li)
 {
-		t_element *new_ord = new_list();
-		while(li != NULL)
-		{
-			new_ord = push_front(new_ord, li->name, li->full_path, li->fileinfo);
-			li = li->next;
-		}
-		free_li(li);
-		return(new_ord);
+	t_element	*new_ord;
+
+	new_ord = new_list();
+	while (li != NULL)
+	{
+		new_ord = push_front(new_ord, li->name, li->full_path, li->fileinfo);
+		li = li->next;
+	}
+	free_li(li);
+	return (new_ord);
 }
 
-t_element *check_option_sort(t_element *li, t_element *j)
+t_element	*check_option_sort(t_element *li, t_element *j)
 {
 	int i;
 	int k;
 
 	i = 0;
 	k = 0;
-	if(g_bit & OPTION_T)
+	if (g_bit & OPTION_T)
 	{
 		k = 1;
 		li = check_sort_list_time(j);
@@ -127,53 +129,52 @@ t_element *check_option_sort(t_element *li, t_element *j)
 	return (li);
 }
 
-/*t_element *invert_two_links(t_element *li, t_element *previous, t_element *begin) //a vérifier
+/*
+**t_element *invert_two_links(t_element *li, t_element *previous, t_element *begin) //a vérifier
+**{
+**	t_element *suivant;
+**	t_element *actuel;
+**	t_element *debut;
+**
+**	if (li->next == begin->next) // 0->1->2->3->4 (li = 0)
+**	{
+**		suivant = li->next->next; //2
+**		debut = begin;
+**		actuel = li->next;
+**		actuel->next = debut;
+**		debut->next = suivant;
+**		return (actuel); //1->0->2->3->4
+**	}
+**	else //inverser 2 maillons quelconque
+**	{  // 0->1->2->3->4 (li = 2)
+**		suivant = li->next; //On défini le maillon suivant (3)
+**		previous->next = suivant; //le précedent pointe sur le suivant (1->3)
+**		li->next = suivant->next; //l'actuel pointe sur le suivant du suivant (2->4)
+**		suivant->next = li; //le suivant pointe sur l'actuel (3->2)
+**		//0->1->3->2->4
+**		return (begin);
+**	}
+**}
+*/
+
+t_element	*check_sort_list_ascci(t_element *li)
 {
-	t_element *suivant;
-	t_element *actuel;
-	t_element *debut;
+	char		*temp[2];
+	struct stat	file;
+	char		*temp_log;
+	char		*temp_group;
+	t_element	*begin;
+	int			size;
+	t_element	*temp_next;
 
-	if (li->next == begin->next) // 0->1->2->3->4 (li = 0)
-	{
-		suivant = li->next->next; //2
-		debut = begin;
-		actuel = li->next;
-		actuel->next = debut;
-		debut->next = suivant;
-		return (actuel); //1->0->2->3->4
-	}
-	else //inverser 2 maillons quelconque
-	{  // 0->1->2->3->4 (li = 2)
-		suivant = li->next; //On défini le maillon suivant (3)
-		previous->next = suivant; //le précedent pointe sur le suivant (1->3)
-		li->next = suivant->next; //l'actuel pointe sur le suivant du suivant (2->4)
-		suivant->next = li; //le suivant pointe sur l'actuel (3->2)
-		//0->1->3->2->4
-		return (begin);
-	}
-}*/
-
-t_element *check_sort_list_ascci(t_element *li)
-{
-	char *temp[2];
-	struct stat file;
-	char *temp_log;
-	char *temp_group;
-	t_element *begin;
-	int size;
-	int i;
-	t_element *temp_next;
-
-	i = 0;
 	size = list_size(li);
 	begin = li;
 	while (size > 0)
 	{
 		li = begin;
-		i = 0;
 		while (li->next != NULL)
- 		{
-	 		if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_A))) //si le nom du fichier/dossier commence par un "." ET aue -a est pas activé
+		{
+			if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_A)))
 			{
 				temp_next = li->next;
 				begin = back_list(li, begin);
@@ -204,9 +205,8 @@ t_element *check_sort_list_ascci(t_element *li)
 		}
 		size--;
 	}
-	if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_A))) //on regarde si le dernier fichier commence par un "."
+	if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_A)))
 	{
-		//free_li_one(li);
 		begin = back_list(li, begin);
 		li = begin;
 	}
