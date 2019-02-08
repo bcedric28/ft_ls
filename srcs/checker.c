@@ -44,18 +44,18 @@ t_element	*put_in_list(char *str, t_element *li, struct stat file)
 		if (ft_strcmp(str, "..") == 0 || ft_strcmp(str, ".") == 0)
 		{
 			str = ft_strjoin_free(str, "/", 4);
-			li = push_back(li, new_elemente(str, str, file, 2));
+			li = push_back(li, new_elem(str, str, file, 2));
 			if (str)
 				ft_strdel(&str);
 			return (li);
 		}
-		li = push_back(li, new_elemente(str, str, file, 1));
+		li = push_back(li, new_elem(str, str, file, 1));
 	}
 	else
 	{
 		ft_bzero(buf, NAME_MAX + 1);
 		readlink(str, buf, NAME_MAX);
-		li = push_back(li, new_elemente(buf, buf, file, 2));
+		li = push_back(li, new_elem(buf, buf, file, 2));
 	}
 	return (li);
 }

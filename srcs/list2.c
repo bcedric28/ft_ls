@@ -25,7 +25,7 @@
 **back_front : Permet de supprimer un maillon en tete de la liste
 */
 
-t_element	*new_elemente(char *name, char *full_path, struct stat file, int parent)
+t_element	*new_elem(char *name, char *full_path, struct stat file, int parent)
 {
 	t_element		*element;
 

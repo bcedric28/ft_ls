@@ -48,7 +48,7 @@ t_element	*create_child_list(char *path, int parent)
 		full_path = ft_strjoin_free(path, "/", 4);
 		full_path = ft_strjoin_free(full_path, dent->d_name, 0);
 		if (lstat(full_path, &fileinfo) == 0)
-			child = push_back(child, new_elemente(dent->d_name, full_path, fileinfo, 0));
+			child = push_back(child, new_elem(dent->d_name, full_path, fileinfo, 0));
 	}
 	closedir(dir);
 	return (child);
