@@ -70,7 +70,8 @@ void		affichage(t_elem *li, char *path, int i)
 		ft_putendl("");
 	}
 	file_minor_and_major(li, total);
-	begin = data_noodle(li);
+	if (g_bit & OPTION_L && li)
+		begin = data_noodle(li);
 	while (li != NULL)
 	{
 		if (g_bit & OPTION_L)
