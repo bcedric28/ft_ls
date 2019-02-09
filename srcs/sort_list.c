@@ -179,7 +179,6 @@ t_elem		*check_sort_list_ascci(t_elem *li)
 				temp_next = li->next;
 				begin = back_list(li, begin);
 				li = temp_next;
-				li = li->next;
 			}
 			else
 			{
