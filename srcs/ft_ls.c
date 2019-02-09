@@ -59,7 +59,7 @@ void		affichage(t_elem *li, char *path, int i)
 	char		*result;
 
 	if (i != 0)
-		printf("\n%s:\n", path); //printf !!
+		printf("%s:\n", path); //printf !!
 	if (g_bit & OPTION_L && (is_empty(li) == 1) && li->parent == 0)
 	{
 		total[0] = total_block(li);
@@ -80,6 +80,7 @@ void		affichage(t_elem *li, char *path, int i)
 			ft_putendl(li->name);
 		li = li->next;
 	}
+	ft_putendl("");
 }
 
 void		parent_to_childe(t_elem *parent, char *path2, int i)
@@ -140,7 +141,7 @@ void		parent_to_childe(t_elem *parent, char *path2, int i)
 				closedir(dir);
 			}
 			else if (check_perm(path) == 0 && dir == NULL)
-				(parent->next == NULL) ? ft_error3(path, 0, i, parent) : ft_error3(path, 1, i, parent);
+				(parent->next == NULL) ? ft_error3(path, 1, i, parent) : ft_error3(path, 1, i, parent);
 		}
 		if (alloc)
 			ft_strdel(&path);
@@ -170,8 +171,10 @@ int			main(int argc, char **argv)
 	if (i != argc)
 	{
 		mylist = print_and_free_only_file(mylist);
+		if(argc - i == 1)
+			i = 0;
 		if (list_size(mylist) != 0)
-			parent_to_childe(mylist, NULL, (list_size(mylist)));
+			parent_to_childe(mylist, NULL, i); //i = 0 -> Affiche pas //i > 0 affiche
 	}
 	else
 	{
@@ -179,7 +182,7 @@ int			main(int argc, char **argv)
 		if (g_bit & OPTION_R)
 		{
 			temp = ft_strdup(".");
-			parent_to_childe(mylist, temp, 1);
+			parent_to_childe(mylist, temp, 0);
 			ft_strdel(&temp);
 		}
 	}

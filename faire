@@ -1,10 +1,6 @@
 A faire dans l'ordre
 {
 	affichage \n
-	ls -lRrt --> probleme le push_front dans list2.c je lui donne pas tout les argument
-	ls -lrta /dev
-	༚norme (sort_list + OPTI(swap de maillon))(ft_ls.c)
-	a tester plusieur argument et le ../../../Volume/Mac
-	Pointeur sur la liste
-	changer nom de fonction list.h
+	༚norme ft_ls.c
+	a tester plusieurs argument et le ../../../Volume/Mac
 }
