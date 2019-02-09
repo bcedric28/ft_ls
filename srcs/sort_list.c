@@ -164,6 +164,7 @@ t_elem		*check_sort_list_ascci(t_elem *li)
 	char		*temp_log;
 	char		*temp_group;
 	t_elem		*begin;
+	t_elem		*temp_next;
 	int			size;
 
 	size = list_size(li);
@@ -175,7 +176,9 @@ t_elem		*check_sort_list_ascci(t_elem *li)
 		{
 			if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_A)))
 			{
+				temp_next = li->next;
 				begin = back_list(li, begin);
+				li = temp_next;
 				li = li->next;
 			}
 			else

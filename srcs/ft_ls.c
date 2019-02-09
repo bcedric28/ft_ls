@@ -175,15 +175,13 @@ int			main(int argc, char **argv)
 	}
 	else
 	{
+		affichage(mylist, "", 0);
 		if (g_bit & OPTION_R)
 		{
-			affichage(mylist, "", 0);
 			temp = ft_strdup(".");
 			parent_to_childe(mylist, temp, 1);
 			ft_strdel(&temp);
 		}
-		else
-			affichage(mylist, "", 0);
 	}
 	if (mylist)
 		free_li(mylist);
