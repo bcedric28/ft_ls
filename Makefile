@@ -6,7 +6,7 @@
 #    By: bcedric <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/14 11:37:49 by bcedric           #+#    #+#              #
-#    Updated: 2019/02/06 11:27:36 by bcedric          ###   ########.fr        #
+#    Updated: 2019/02/09 15:36:15 by sstinglh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ FLAG = -Wall -Wextra
 SOURCE = ft_ls.c affichage_data.c affichage_date.c affichage_maj_min.c \
 		affichage_permission.c kernel_option_l.c suite_affichage_permission.c \
 		check_hide.c checker.c checker_option.c error.c free.c list.c \
-		list2.c list3.c sort_list.c
+		list2.c list3.c sort_list.c sort_list2.c
 LIBFT_DIR = Libft/
 
 COMP_OBJ = ./obj/*.o
@@ -43,7 +43,7 @@ comp:
 	@make -C $(LIBFT_DIR)
 
 $(NAME): $(OBJ)
-	@gcc $(FLAG) $(COMP_OBJ) -I $(INCLUDE) -L $(LIBFT_DIR) -lft  -o $(NAME) 
+	@gcc $(FLAG) $(COMP_OBJ) -I $(INCLUDE) -L $(LIBFT_DIR) -lft  -o $(NAME)
 	@echo "$(GGCOLORCYAN)Creation$(GGRESET) du binaire $(GGMAG)./ft_ls$(GGRESET)..."
 	@echo "$(GGCOLORGREEN)Success!$(GGRESET)"
 

@@ -55,7 +55,6 @@ typedef struct	s_el
 	int			size_max;
 	int			parent;
 }				t_elem;
-
 t_elem			*create_child_list(char *path, int parent);
 int				check_perm(char *path);
 void			affichage(t_elem *li, char *path, int i);
@@ -146,11 +145,16 @@ int				turn_on_option(char option);
 **Trie de argv et la liste selon les option demander dans le fichier sort_list.c
 */
 
-t_elem			*check_sort_list_ascci(t_elem *li);
-t_elem			*check_sort_list_reverse(t_elem *li);
-t_elem			*check_sort_list_time(t_elem *li);
-void			sort_argv(int i, int argc, char **tab);
 
+void			sort_argv(int i, int argc, char **tab);
+t_elem			*check_sort_list_time(t_elem *li);
+t_elem			*check_sort_list_reverse(t_elem *li);
+t_elem			*check_option_sort(t_elem *li, t_elem *j);
+void			swap_value(t_elem *li, t_elem *li_next);
+
+
+t_elem			*while_li(t_elem *li, t_elem *begin, int size, t_elem *te_next);
+t_elem			*check_sort_list_ascci(t_elem *li);
 /*
 **Fonction de liste de base dans les fichiers list.c list2.c list3.c
 */
@@ -187,5 +191,8 @@ t_elem			*print_and_free_only_file(t_elem *li);
 
 void			free_li(t_elem *li);
 void			free_li_one(t_elem *li);
+
+
+
 
 #endif
