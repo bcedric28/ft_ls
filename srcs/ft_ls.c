@@ -88,18 +88,15 @@ void		parent_to_childe(t_elem *parent, char *path2, int i)
 	DIR			*dir;
 	t_elem		*child;
 	char		*path;
-	char		*path_backup;
 
 	child = new_list();
 	if (path2 != NULL)
 	{
 		path = ft_strdup(path2);
-		path_backup = ft_strdup(path2);
 	}
 	else
 	{
 		path = NULL;
-		path_backup = NULL;
 	}
 	while (parent != NULL)
 	{
@@ -141,12 +138,10 @@ void		parent_to_childe(t_elem *parent, char *path2, int i)
 		}
 		if (path)
 			ft_strdel(&path);
-		if (path_backup && parent->next)
-			path = ft_strdup(path_backup);
+		if (path2 && parent->next)
+			path = ft_strdup(path2);
 		parent = parent->next;
 	}
-	if (path_backup)
-		free(path_backup);
 	free_li(parent);
 }
 
