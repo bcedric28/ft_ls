@@ -81,3 +81,13 @@ t_elem		*check_directory(int i, int argc, char **argv, t_elem *li)
 	}
 	return (li);
 }
+
+int			check_perm(char *path)
+{
+	struct stat fileinfo;
+
+	lstat(path, &fileinfo);
+	if (!S_ISDIR(fileinfo.st_mode))
+		return (1);
+	return (0);
+}

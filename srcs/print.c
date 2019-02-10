@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcedric <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,32 +12,37 @@
 
 #include "ft_ls.h"
 
-char g_bit = 0;
-
-int			main(int argc, char **argv)
+void		print_total(t_elem *li, int total)
 {
-	int			i;
-	t_elem		*mylist;
+	char		*result;
 
-	mylist = new_list();
-	i = check_option(argv, argc);
-	mylist = check_directory(i, argc, argv, mylist);
-	if (!is_empty(mylist))
-		return (0);
-	mylist = check_sort_list_ascci(mylist);
-	if (i != argc)
+	total = total_block(li);
+	ft_putstr("total ");
+	result = ft_itoa(total);
+	ft_putstr(result);
+	free(result);
+	ft_putendl("");
+}
+
+void		affichage(t_elem *li, char *path, int i)
+{
+	t_elem		*begin;
+	int			total[3];
+
+	if (i != 0)
+		printf("%s:\n", path); //printf !!
+	if (g_bit & OPTION_L && (is_empty(li) == 1) && li->parent == 0)
+		print_total(li, total[0]);
+	file_minor_and_major(li, total);
+	if (g_bit & OPTION_L && li)
+		begin = data_noodle(li);
+	while (li != NULL)
 	{
-		mylist = print_and_free_only_file(mylist);
-		if (argc - i == 1)
-			i = 0;
-		if (list_size(mylist) != 0)
-			parent_to_childe(mylist, NULL, i);
+		if (g_bit & OPTION_L)
+			main_l(li, begin, total);
+		else
+			ft_putendl(li->name);
+		li = li->next;
 	}
-	else
-	{
-		no_arguments(mylist);
-	}
-	if (mylist)
-		free_li(mylist);
-	return (0);
+	ft_putendl("");
 }

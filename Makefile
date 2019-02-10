@@ -17,7 +17,7 @@ FLAG = -Wall -Wextra
 SOURCE = ft_ls.c affichage_data.c affichage_date.c affichage_maj_min.c \
 		affichage_permission.c kernel_option_l.c suite_affichage_permission.c \
 		check_hide.c checker.c checker_option.c error.c free.c list.c \
-		list2.c list3.c sort_list.c sort_list2.c
+		list2.c list3.c sort_list.c sort_list2.c print.c recursive.c
 LIBFT_DIR = Libft/
 
 COMP_OBJ = ./obj/*.o

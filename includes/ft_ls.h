@@ -57,7 +57,6 @@ typedef struct	s_el
 }				t_elem;
 void			parent_to_childe(t_elem *parent, char *path2, int i);
 t_elem			*create_child_list(char *path, int parent);
-int				check_perm(char *path);
 void			affichage(t_elem *li, char *path, int i);
 void			affichage_xattr_acl(t_elem *li, int *total);
 int				total_block(t_elem *begin);
@@ -132,6 +131,7 @@ void			ft_error3(char *s, int end, int j, t_elem *parent);
 t_elem			*check_directory(int i, int argc, char **argv, t_elem *li);
 t_elem			*put_in_list(char *str, t_elem *li, struct stat file);
 int				dirtrue(char *s1, struct stat *file);
+int				check_perm(char *path);
 
 /*
 ** ---------------------checker_option.c-------------------------
@@ -145,13 +145,11 @@ int				turn_on_option(char option);
 **Trie de argv et la liste selon les option demander dans le fichier sort_list.c
 */
 
-
 void			sort_argv(int i, int argc, char **tab);
 t_elem			*check_sort_list_time(t_elem *li);
 t_elem			*check_sort_list_reverse(t_elem *li);
 t_elem			*check_option_sort(t_elem *li, t_elem *j);
 void			swap_value(t_elem *li, t_elem *li_next);
-
 
 t_elem			*while_li(t_elem *li, t_elem *begin, int size, t_elem *te_next);
 t_elem			*check_sort_list_ascci(t_elem *li);
@@ -192,7 +190,10 @@ t_elem			*print_and_free_only_file(t_elem *li);
 void			free_li(t_elem *li);
 void			free_li_one(t_elem *li);
 
+/*
+**---------------------recursive.c---------------------
+*/
 
-
+void			no_arguments(t_elem *mylist);
 
 #endif
