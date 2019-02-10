@@ -17,8 +17,6 @@ char	*ft_strjoin_free(char *s1, char *s2, int i)
 	char	*new;
 	int		k;
 	int		l;
-	char	*s1_bis;
-	char	*s2_bis;
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
@@ -30,8 +28,6 @@ char	*ft_strjoin_free(char *s1, char *s2, int i)
 	l = 0;
 	while (s2[l])
 		new[k++] = s2[l++];
-	s1_bis = s1;
-	s2_bis = s2;
 	if (i == 0)
 		ft_strdel(&s1);
 	if (i == 1)
