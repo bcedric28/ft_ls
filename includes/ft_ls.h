@@ -55,6 +55,7 @@ typedef struct	s_el
 	int			size_max;
 	int			parent;
 }				t_elem;
+void			parent_to_childe(t_elem *parent, char *path2, int i);
 t_elem			*create_child_list(char *path, int parent);
 int				check_perm(char *path);
 void			affichage(t_elem *li, char *path, int i);

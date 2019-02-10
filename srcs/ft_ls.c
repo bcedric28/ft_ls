@@ -83,9 +83,32 @@ void		affichage(t_elem *li, char *path, int i)
 	ft_putendl("");
 }
 
-void		parent_to_childe(t_elem *parent, char *path2, int i)
+void		open_and_create(char *path, t_elem *child, int i, t_elem *parent)
 {
 	DIR			*dir;
+
+	dir = opendir(path);
+	if (dir != NULL)
+	{
+		child = create_child_list(path, 0);
+		if (child)
+		{
+			child = check_sort_list_ascci(child);
+			affichage(child, path, i);
+			if (g_bit & OPTION_R)
+				parent_to_childe(child, path, i);
+			free_li(child);
+		}
+		else if (parent->parent == 1 || parent->parent == 2)
+			affichage(parent, path, i);
+		closedir(dir);
+	}
+	else if (check_perm(path) == 0 && dir == NULL)
+		(parent->next == NULL) ? ft_error3(path, 1, i, parent) : ft_error3(path, 1, i, parent);
+}
+
+void		parent_to_childe(t_elem *parent, char *path2, int i)
+{
 	t_elem		*child;
 	char		*path;
 
@@ -110,24 +133,7 @@ void		parent_to_childe(t_elem *parent, char *path2, int i)
 				else
 					path = ft_strdup(parent->name);
 			}
-			dir = opendir(path);
-			if (dir != NULL)
-			{
-				child = create_child_list(path, 0);
-				if (child)
-				{
-					child = check_sort_list_ascci(child);
-					affichage(child, path, i);
-					if (g_bit & OPTION_R)
-						parent_to_childe(child, path, i);
-					free_li(child);
-				}
-				else if (parent->parent == 1 || parent->parent == 2)
-					affichage(parent, path, i);
-				closedir(dir);
-			}
-			else if (check_perm(path) == 0 && dir == NULL)
-				(parent->next == NULL) ? ft_error3(path, 1, i, parent) : ft_error3(path, 1, i, parent);
+			open_and_create(path, child, i++, parent);
 		}
 		if (path)
 			ft_strdel(&path);
