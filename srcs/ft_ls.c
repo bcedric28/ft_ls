@@ -90,14 +90,7 @@ void		parent_to_childe(t_elem *parent, char *path2, int i)
 	char		*path;
 
 	child = new_list();
-	if (path2 != NULL)
-	{
-		path = ft_strdup(path2);
-	}
-	else
-	{
-		path = NULL;
-	}
+	path = ft_strdup(path2);
 	while (parent != NULL)
 	{
 		if (ft_strcmp(parent->name, ".") && ft_strcmp(parent->name, ".."))
