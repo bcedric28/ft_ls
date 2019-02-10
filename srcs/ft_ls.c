@@ -117,13 +117,13 @@ void		parent_to_childe(t_elem *parent, char *path2, int i)
 				if (child)
 				{
 					child = check_sort_list_ascci(child);
-					affichage(child, path, i++);
+					affichage(child, path, i);
 					if (g_bit & OPTION_R)
 						parent_to_childe(child, path, i);
 					free_li(child);
 				}
 				else if (parent->parent == 1 || parent->parent == 2)
-					affichage(parent, path, i++);
+					affichage(parent, path, i);
 				closedir(dir);
 			}
 			else if (check_perm(path) == 0 && dir == NULL)
