@@ -160,7 +160,6 @@ int			main(int argc, char **argv)
 
 	mylist = new_list();
 	i = check_option(argv, argc);
-	sort_argv(i, argc, argv);
 	mylist = check_directory(i, argc, argv, mylist);
 	if (!is_empty(mylist))
 		return (0);

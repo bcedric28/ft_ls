@@ -64,6 +64,7 @@ t_elem		*check_directory(int i, int argc, char **argv, t_elem *li)
 {
 	struct stat file;
 
+	sort_argv(i, argc, argv);
 	if (i == argc)
 	{
 		li = create_child_list(".", 0);
