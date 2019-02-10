@@ -87,7 +87,6 @@ void		parent_to_childe(t_elem *parent, char *path2, int i)
 {
 	DIR			*dir;
 	t_elem		*child;
-	int			alloc;
 	char		*path;
 	char		*path_backup;
 
@@ -96,19 +95,16 @@ void		parent_to_childe(t_elem *parent, char *path2, int i)
 	{
 		path = ft_strdup(path2);
 		path_backup = ft_strdup(path2);
-		alloc = 1;
 	}
 	else
 	{
 		path = NULL;
 		path_backup = NULL;
-		alloc = 0;
 	}
 	while (parent != NULL)
 	{
 		if (ft_strcmp(parent->name, ".") && ft_strcmp(parent->name, ".."))
 		{
-			alloc = 1;
 			if (path != NULL)
 			{
 				if (ft_strcmp(path, "/") != 0)
@@ -143,7 +139,7 @@ void		parent_to_childe(t_elem *parent, char *path2, int i)
 			else if (check_perm(path) == 0 && dir == NULL)
 				(parent->next == NULL) ? ft_error3(path, 1, i, parent) : ft_error3(path, 1, i, parent);
 		}
-		if (alloc)
+		if (path)
 			ft_strdel(&path);
 		if (path_backup && parent->next)
 			path = ft_strdup(path_backup);
@@ -171,10 +167,10 @@ int			main(int argc, char **argv)
 	if (i != argc)
 	{
 		mylist = print_and_free_only_file(mylist);
-		if(argc - i == 1)
+		if (argc - i == 1)
 			i = 0;
 		if (list_size(mylist) != 0)
-			parent_to_childe(mylist, NULL, i); //i = 0 -> Affiche pas //i > 0 affiche
+			parent_to_childe(mylist, NULL, i);
 	}
 	else
 	{
