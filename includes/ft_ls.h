@@ -129,7 +129,6 @@ void			ft_error3(char *s, int end, int j, t_elem *parent);
 ** ---------------------checker.c--------------------------------
 */
 
-void			check_arguments_b0(char **s1, int argc);
 t_elem			*check_directory(int i, int argc, char **argv, t_elem *li);
 t_elem			*put_in_list(char *str, t_elem *li, struct stat file);
 int				dirtrue(char *s1, struct stat *file);

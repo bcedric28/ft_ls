@@ -104,7 +104,29 @@ void		open_and_create(char *path, t_elem *child, int i, t_elem *parent)
 		closedir(dir);
 	}
 	else if (check_perm(path) == 0 && dir == NULL)
-		(parent->next == NULL) ? ft_error3(path, 1, i, parent) : ft_error3(path, 1, i, parent);
+		(parent->next == NULL) ? ft_error3(path, 1, i, parent)
+			: ft_error3(path, 1, i, parent);
+}
+
+char		*create_path(char *path, t_elem *parent)
+{
+	if (path != NULL)
+	{
+		if (ft_strcmp(path, "/") != 0)
+			path = ft_strjoin_free(path, "/", 0);
+		path = ft_strjoin_free(path, parent->name, 0);
+	}
+	else
+	{
+		if (ft_strcmp(parent->name, "./") == 0 && (parent->parent == 2))
+			path = ft_strdup(".");
+		else if (ft_strcmp(parent->name, "../") == 0 &&
+			(parent->parent == 2))
+			path = ft_strdup("..");
+		else
+			path = ft_strdup(parent->name);
+	}
+	return (path);
 }
 
 void		parent_to_childe(t_elem *parent, char *path2, int i)
@@ -118,21 +140,7 @@ void		parent_to_childe(t_elem *parent, char *path2, int i)
 	{
 		if (ft_strcmp(parent->name, ".") && ft_strcmp(parent->name, ".."))
 		{
-			if (path != NULL)
-			{
-				if (ft_strcmp(path, "/") != 0)
-					path = ft_strjoin_free(path, "/", 0);
-				path = ft_strjoin_free(path, parent->name, 0);
-			}
-			else
-			{
-				if (ft_strcmp(parent->name, "./") == 0 && (parent->parent == 2))
-					path = ft_strdup(".");
-				else if (ft_strcmp(parent->name, "../") == 0 && (parent->parent == 2))
-					path = ft_strdup("..");
-				else
-					path = ft_strdup(parent->name);
-			}
+			path = create_path(path, parent);
 			open_and_create(path, child, i++, parent);
 		}
 		if (path)
@@ -151,7 +159,6 @@ int			main(int argc, char **argv)
 	t_elem		*mylist;
 
 	mylist = new_list();
-	check_arguments_b0(argv, argc);
 	i = check_option(argv, argc);
 	sort_argv(i, argc, argv);
 	mylist = check_directory(i, argc, argv, mylist);

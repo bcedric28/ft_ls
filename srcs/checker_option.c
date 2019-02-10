@@ -68,6 +68,13 @@ int		check_option(char **s1, int argc)
 	int i;
 
 	i = 1;
+	while (i < argc)
+	{
+		if (s1[i][0] == '\0')
+			ft_error(s1[i][0], 1);
+		i++;
+	}
+	i = 1;
 	while (i < argc && !(g_bit & OPTION_STOP) && !(g_bit & OPTION_END))
 	{
 		if (s1[i][0] == '-')

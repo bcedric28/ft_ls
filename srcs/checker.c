@@ -80,16 +80,3 @@ t_elem		*check_directory(int i, int argc, char **argv, t_elem *li)
 	}
 	return (li);
 }
-
-void		check_arguments_b0(char **s1, int argc)
-{
-	int i;
-
-	i = 1;
-	while (i < argc)
-	{
-		if (s1[i][0] == '\0')
-			ft_error(s1[i][0], 1);
-		i++;
-	}
-}
