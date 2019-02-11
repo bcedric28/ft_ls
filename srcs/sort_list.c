@@ -41,30 +41,27 @@
 
 t_elem		*while_li(t_elem *li, t_elem *begin, int size, t_elem *te_next)
 {
+	int i;
+
 	while (--size > 0)
 	{
 		li = begin;
-		while (li->next != NULL)
+		i = size;
+		while (li->next != NULL && i--)
 		{
+			te_next = li->next;
 			if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_A)))
-			{
-				te_next = li->next;
 				begin = back_list(li, begin);
-				li = te_next;
-			}
 			else
 			{
 				if (ft_strcmp(li->name, li->next->name) > 0)
 					swap_value(li, li->next);
-				li = li->next;
 			}
+			li = te_next;
 		}
 	}
 	if ((li->parent == 0) && is_hide(li) && (!(g_bit & OPTION_A)))
-	{
 		begin = back_list(li, begin);
-		li = begin;
-	}
 	return (begin);
 }
 

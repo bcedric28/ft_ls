@@ -64,7 +64,7 @@ t_elem	*push_back(t_elem *li, t_elem *new_element)
 	return (begin);
 }
 
-t_elem	*push_front(t_elem *li, char *name, char *f_path, struct stat f)
+t_elem	*push_front(t_elem *new_elem, char *name, char *f_path, struct stat f)
 {
 	t_elem			*element;
 	struct passwd	*pw;
@@ -72,9 +72,9 @@ t_elem	*push_front(t_elem *li, char *name, char *f_path, struct stat f)
 
 	if (!(element = malloc(sizeof(*element))))
 		exit(EXIT_FAILURE);
-	element->name = name;
+	element->name = ft_strdup(name);
 	element->fileinfo = f;
-	element->full_path = f_path;
+	element->full_path = ft_strdup(f_path);
 	element->size = f.st_size;
 	if (g_bit & OPTION_L)
 	{
@@ -85,10 +85,10 @@ t_elem	*push_front(t_elem *li, char *name, char *f_path, struct stat f)
 		else
 			element->login = ft_strdup(pw->pw_name);
 	}
-	if (!(is_empty(li)))
+	if (!(is_empty(new_elem)))
 		element->next = NULL;
 	else
-		element->next = li;
+		element->next = new_elem;
 	return (element);
 }
 

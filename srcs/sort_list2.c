@@ -59,14 +59,16 @@ t_elem		*check_sort_list_time(t_elem *li)
 t_elem		*check_sort_list_reverse(t_elem *li)
 {
 	t_elem	*new_ord;
+	t_elem	*begin;
 
+	begin = li;
 	new_ord = new_list();
 	while (li != NULL)
 	{
 		new_ord = push_front(new_ord, li->name, li->full_path, li->fileinfo);
 		li = li->next;
 	}
-	free_li(li);
+	free_li(begin);
 	return (new_ord);
 }
 
