@@ -118,7 +118,7 @@ int				total_block(t_elem *begin);
 
 void			ft_error(char c, int i);
 void			ft_error2(char *s, int j);
-void			ft_error3(char *s, int end, int j, t_elem *parent);
+void			ft_error3(char *s, t_elem *parent);
 
 /*
 **Fonction de check d'arguments dans checker.c et dans checker_option.c

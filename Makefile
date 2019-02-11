@@ -12,7 +12,7 @@
 
 NAME = ft_ls
 
-FLAG = -Wall -Wextra
+FLAG = -Wall -Wextra -Werror
 
 SOURCE = ft_ls.c affichage_data.c affichage_date.c affichage_maj_min.c \
 		affichage_permission.c kernel_option_l.c suite_affichage_permission.c \

@@ -61,8 +61,7 @@ void		open_and_create(char *path, t_elem *child, int i, t_elem *parent)
 		closedir(dir);
 	}
 	else if (check_perm(path) == 0 && dir == NULL)
-		(parent->next == NULL) ? ft_error3(path, 1, i, parent)
-			: ft_error3(path, 1, i, parent);
+		ft_error3(path, parent);
 }
 
 char		*create_path(char *path, t_elem *parent)

@@ -28,11 +28,15 @@ void		affichage(t_elem *li, char *path, int i)
 {
 	t_elem		*begin;
 	int			total[3];
+	static int	j = 0;
 
 	if (i != 0)
 	{
+		if (j++ != 0)
+			ft_putendl("");
 		ft_putstr(path);
-		ft_putendl(":");
+		ft_putstr(":");
+		ft_putendl("");
 	}
 	if (g_bit & OPTION_L && (is_empty(li) == 1) && li->parent == 0)
 		print_total(li, total[0]);
@@ -47,5 +51,4 @@ void		affichage(t_elem *li, char *path, int i)
 			ft_putendl(li->name);
 		li = li->next;
 	}
-	ft_putendl("");
 }
