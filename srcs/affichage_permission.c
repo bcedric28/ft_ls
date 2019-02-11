@@ -42,11 +42,10 @@ void	affichage_type(t_elem *li)
 
 void	affichage_xattr_acl(t_elem *li, int *total)
 {
-	char	buf[101];
 	acl_t	acl;
 
 	total[2] = 0;
-	if (listxattr(li->full_path, buf, 101, XATTR_NOFOLLOW) > 0)
+	if (listxattr(li->full_path, NULL, 0, XATTR_NOFOLLOW) > 0)
 	{
 		total[2] = 1;
 		ft_putstr("@");
@@ -58,6 +57,7 @@ void	affichage_xattr_acl(t_elem *li, int *total)
 			total[2] = 1;
 			ft_putstr("+");
 		}
+		acl_free(acl);
 	}
 }
 

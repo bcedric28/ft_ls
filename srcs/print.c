@@ -30,7 +30,10 @@ void		affichage(t_elem *li, char *path, int i)
 	int			total[3];
 
 	if (i != 0)
-		ft_putendl(path);
+	{
+		ft_putstr(path);
+		ft_putendl(":");
+	}
 	if (g_bit & OPTION_L && (is_empty(li) == 1) && li->parent == 0)
 		print_total(li, total[0]);
 	file_minor_and_major(li, total);
