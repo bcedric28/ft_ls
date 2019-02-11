@@ -25,8 +25,8 @@
 
 void	ft_error3(char *s, t_elem *parent)
 {
-	int 		i;
-	static int 	j = 0;
+	int			i;
+	static int	j = 0;
 
 	i = -1;
 	if (j++ != 0)
