@@ -19,6 +19,7 @@
 char	affichage_perm_other(int i, t_elem *li)
 {
 	char c;
+
 	if (i == 6)
 		return ((li->fileinfo.st_mode & S_IROTH) ? 'r' : '-');
 	if (i == 7)
@@ -29,8 +30,8 @@ char	affichage_perm_other(int i, t_elem *li)
 		if (li->fileinfo.st_mode & S_ISVTX)
 			return ((c == '-') ? 'T' : 't');
 		else
-			return(c);
-	
+			return (c);
+	}
 	return ('-');
 }
 
