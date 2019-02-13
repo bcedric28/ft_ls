@@ -55,6 +55,7 @@ t_elem		*put_in_list(char *str, t_elem *li, struct stat file)
 	{
 		ft_bzero(buf, NAME_MAX + 1);
 		readlink(str, buf, NAME_MAX);
+		lstat(buf, &file);
 		li = push_back(li, new_elem(buf, buf, file, 2));
 	}
 	return (li);
