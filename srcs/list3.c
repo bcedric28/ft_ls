@@ -50,11 +50,11 @@ t_elem	*print_and_free_only_file(t_elem *li)
 	while (li != NULL)
 	{
 		if (S_ISREG(li->fileinfo.st_mode) || S_ISLNK(li->fileinfo.st_mode))
-			new = push_back(new, new_elem(li->name, li->name, li->fileinfo, 1));
+			new = push_back(new, new_elem(li->name, li->name, li->fileinfo, 5));
 		li = li->next;
 	}
 	affichage(new, "", 0);
-	if (list_size(begin) - list_size(new) >= 1)
-		ft_putendl("");
+	/*if (list_size(begin) - list_size(new) >= 1)
+		ft_putendl("");*/
 	return (begin);
 }

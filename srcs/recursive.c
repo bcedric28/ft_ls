@@ -116,7 +116,7 @@ void		no_arguments(t_elem *mylist)
 	if (g_bit & OPTION_R)
 	{
 		temp = ft_strdup(".");
-		parent_to_childe(mylist, temp, 0);
+		parent_to_childe(mylist, temp, 1);
 		ft_strdel(&temp);
 	}
 }

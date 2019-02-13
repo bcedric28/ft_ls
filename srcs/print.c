@@ -29,16 +29,16 @@ void		affichage(t_elem *li, char *path, int i)
 	t_elem		*begin;
 	int			total[3];
 	static int	j = 0;
-
+	//printf("i = %d\n", i);
 	if (i != 0)
 	{
-		if (j++ != 0)
+		if (j != 0)
 			ft_putendl("");
 		ft_putstr(path);
 		ft_putstr(":");
 		ft_putendl("");
 	}
-	if (g_bit & OPTION_L && (is_empty(li) == 1) && li->parent == 0)
+	if (g_bit & OPTION_L && (is_empty(li) == 1) && li->parent != 5)
 		print_total(li, total[0]);
 	file_minor_and_major(li, total);
 	if (g_bit & OPTION_L && li)
@@ -50,5 +50,6 @@ void		affichage(t_elem *li, char *path, int i)
 		else
 			ft_putendl(li->name);
 		li = li->next;
+		j++;
 	}
 }
