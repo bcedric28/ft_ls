@@ -34,8 +34,8 @@ void	ft_error3(char *s, t_elem *parent)
 	if (parent->parent == 0)
 	{
 		while (s[++i])
-			ft_putchar_fd(s[i], 0);
-		ft_putendl_fd(":", 0);
+			ft_putchar_fd(s[i], 1);
+		ft_putendl_fd(":", 1);
 		ft_putstr_fd("ft_ls: ", 2);
 		while (s[i] != '/' && i >= 0)
 			i--;
