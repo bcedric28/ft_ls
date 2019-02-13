@@ -65,5 +65,6 @@ t_elem	*print_and_free_only_file(t_elem *li)
 		}
 		li = li_next;
 	}
+	ft_putendl("");
 	return (begin);
 }
