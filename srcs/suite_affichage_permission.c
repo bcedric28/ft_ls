@@ -18,17 +18,19 @@
 
 char	affichage_perm_other(int i, t_elem *li)
 {
+	char c;
 	if (i == 6)
 		return ((li->fileinfo.st_mode & S_IROTH) ? 'r' : '-');
 	if (i == 7)
 		return ((li->fileinfo.st_mode & S_IWOTH) ? 'w' : '-');
 	if (i == 8)
 	{
+		c = ((li->fileinfo.st_mode & S_IXOTH) ? 'x' : '-');
 		if (li->fileinfo.st_mode & S_ISVTX)
-			return ((li->fileinfo.st_mode & S_IXUSR) ? 't' : 'T');
+			return ((c == '-') ? 'T' : 't');
 		else
-			return ((li->fileinfo.st_mode & S_IXOTH) ? 'x' : '-');
-	}
+			return(c);
+	
 	return ('-');
 }
 
