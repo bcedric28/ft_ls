@@ -32,7 +32,7 @@ t_elem	*back_list(t_elem *li, t_elem *begin)
 	{
 		return (back_front(li));
 	}
-	while (begin->next->name != li->name)
+	while (begin->next->name != li->name && begin->next != NULL)
 		begin = begin->next;
 	membef = begin;
 	memaft = li->next;
@@ -44,27 +44,26 @@ t_elem	*back_list(t_elem *li, t_elem *begin)
 
 t_elem	*print_and_free_only_file(t_elem *li)
 {
-	t_elem *li_next;
+	//t_elem *li_next;
 	t_elem *begin;
+	t_elem *new;
 
+	new = new_list();
 	begin = li;
 	while (li != NULL)
 	{
-		li_next = li->next;
 		if (S_ISREG(li->fileinfo.st_mode))
 		{
-			if (g_bit & OPTION_L)
-			{
-				li->next = NULL;
-				affichage(li, "", 0);
-				li->next = li_next;
-			}
-			else
-				ft_putendl(li->name);
-			begin = back_list(li, begin);
+			new = push_back(new, new_elem(li->name, li->name, li->fileinfo, 1));
+			li = back_list(li, begin);
 		}
-		li = li_next;
+		else
+			li = li->next;
 	}
-	ft_putendl("");
+	printf("-------------------\n");
+	print_list(new);
+	printf("-------------------\n");
+	if(list_size(begin) == 1)
+		ft_putendl("");
 	return (begin);
 }
