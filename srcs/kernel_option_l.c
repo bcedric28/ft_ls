@@ -31,7 +31,7 @@ int			total_block(t_elem *begin)
 	while (begin != NULL)
 	{
 		temp = block;
-		block = begin->fileinfo.st_blocks + temp;
+		block += begin->fileinfo.st_blocks;
 		begin = begin->next;
 	}
 	return (block);
