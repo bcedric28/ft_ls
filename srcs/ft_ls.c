@@ -38,6 +38,6 @@ int			main(int argc, char **argv)
 		no_arguments(mylist);
 	}
 	if (mylist)
-		free_li(mylist);
+		(g_bit & OPTION_RR) ? free_li_parent(mylist) : free_li(mylist);
 	return (0);
 }

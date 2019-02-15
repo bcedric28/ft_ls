@@ -35,11 +35,9 @@
 # include <sys/acl.h>
 
 extern char g_bit;
-
 /*
 ** Definition de la liste chainee
 */
-
 typedef struct	s_el
 {
 	char		*name;
@@ -62,6 +60,7 @@ void			affichage_xattr_acl(t_elem *li, int *total);
 int				total_block(t_elem *begin);
 void			fill_noodle_data(t_elem *begin, int *tab);
 t_elem			*data_noodle(t_elem *begin);
+void			free_li_parent(t_elem *li);
 /*
 ** Fonction pour le -a dans le fichier option_a.c
 */

@@ -33,7 +33,7 @@ t_elem	*new_elem(char *name, char *f_path, struct stat f, int parent)
 		exit(EXIT_FAILURE);
 	element->name = ft_strdup(name);
 	element->fileinfo = f;
-	element->full_path = ft_strdup(f_path);
+	element->full_path = f_path;
 	element->parent = parent;
 	element->size = f.st_size;
 	return (element);
@@ -74,7 +74,8 @@ t_elem	*push_front(t_elem *new_elem, char *name, char *f_path, struct stat f)
 		exit(EXIT_FAILURE);
 	element->name = ft_strdup(name);
 	element->fileinfo = f;
-	element->full_path = ft_strdup(f_path);
+	element->parent = 0;
+	element->full_path = ft_strjoin_free("", f_path, 4);
 	element->size = f.st_size;
 	if (g_bit & OPTION_L)
 	{

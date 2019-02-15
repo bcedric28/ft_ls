@@ -57,5 +57,6 @@ t_elem	*print_and_free_only_file(t_elem *li)
 		li = li->next;
 	}
 	affichage(new, "", 0);
+	free_li(new);
 	return (begin);
 }
